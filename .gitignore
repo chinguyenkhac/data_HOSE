@@ -1,0 +1,4 @@
+notebooks/results/cache/
+notebooks/rmt_work/
+__pycache__/
+.ipynb_checkpoints/
