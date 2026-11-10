@@ -1,0 +1,16 @@
+{
+ "python": "3.13.18",
+ "numpy": "2.5.3",
+ "pandas": "3.0.5",
+ "arch": "8.0.0",
+ "SEED": 0,
+ "N": 100,
+ "WINDOW": 250,
+ "REB": 21,
+ "COST": 0.0025,
+ "HL_EW": 60,
+ "HL_VOL": 20,
+ "MAX_ABS_RET": 0.15,
+ "ZERO_MAX": 0.2,
+ "QUICK": false
+}
