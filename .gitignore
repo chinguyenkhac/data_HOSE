@@ -4,3 +4,5 @@ __pycache__/
 .ipynb_checkpoints/
 notebooks/results_gon/
 notebooks/figs_gon/
+notebooks/results_nho/
+notebooks/figs_nho/
