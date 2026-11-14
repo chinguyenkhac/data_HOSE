@@ -2,3 +2,5 @@ notebooks/results/cache/
 notebooks/rmt_work/
 __pycache__/
 .ipynb_checkpoints/
+data_s&p500/raw/_yahoo_cache/
+data_s&p500/raw/*.pkl

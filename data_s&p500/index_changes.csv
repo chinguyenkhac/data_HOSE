@@ -1,0 +1,280 @@
+effective_date,added_ticker,added_name,removed_ticker,removed_name,reason,added_ticker_hist,removed_ticker_hist
+2026-10-30,OKTA,"Okta, Inc.",KVUE,Kenvue,S&P 500 constituent Kimberly-Clark acquired Kenvue.,OKTA,KVUE
+2026-10-06,TWLO,Twilio,WBD,Warner Bros. Discovery,Paramount Skydance acquired Warner Bros. Discovery,TWLO,WBD
+2026-10-06,,,CTVA,Corteva,Market capitalization changes.,,CTVA
+2026-10-01,VYLR,Vylor,,,Corteva completed the corporate spin-off of Vylor,VYLR,
+2026-09-21,BE,Bloom Energy,TAP,Molson Coors,Market capitalization changes.,BE,TAP
+2026-09-21,P,Everpure,TTD,The Trade Desk,Market capitalization changes.,P,TTD
+2026-09-21,ILMN,"Illumina, Inc.",BLDR,Builders FirstSource,Market capitalization changes.,ILMN,BLDR
+2026-08-18,RDDT,Reddit,AVB,AvalonBay Communities,Equity Residential (now Vivmark Residential) acquired AvalonBay Communities.,RDDT,AVB
+2026-08-05,FERG,Ferguson Enterprises,EA,Electronic Arts,"An investor consortium comprising Saudi Arabia's Public Investment Fund (PIF), Silver Lake, and Affinity Partners acquired Electronic Arts.",FERG,EA
+2026-06-30,,,CAG,Conagra Brands,Market capitalization changes.,,CAG
+2026-06-29,HONA,Honeywell Aerospace,,,Honeywell completed the corporate spin-off of Honeywell Aerospace.,HONA,
+2026-06-22,MRVL,Marvell Technology,POOL,Pool Corporation,Market capitalization changes.,MRVL,POOL
+2026-06-22,FLEX,Flex Ltd.,CPB,Campbell's,Market capitalization changes.,FLEX,CPB
+2026-06-02,,,EPAM,EPAM Systems,Market capitalization changes.,,EPAM
+2026-06-01,FDXF,FedEx Freight,,,FedEx Corp. completed the corporate spin-off of FedEx Freight Holding.,FDXF,
+2026-05-07,VEEV,Veeva Systems,CTRA,Coterra Energy,Devon Energy acquired Coterra Energy.,VEEV,CTRA
+2026-04-09,CASY,Casey's,HOLX,Hologic,Blackstone Inc. and TPG Inc. acquired Hologic.,CASY,HOLX
+2026-03-23,VRT,Vertiv,MTCH,Match Group,Market capitalization changes.,VRT,MTCH
+2026-03-23,LITE,Lumentum,MOH,Molina Healthcare,Market capitalization changes.,LITE,MOH
+2026-03-23,COHR,Coherent Corp.,LW,Lamb Weston,Market capitalization changes.,COHR,LW
+2026-03-23,ECHO,EchoStar,PAYC,Paycom,Market capitalization changes.,SATS,PAYC
+2026-02-09,CIEN,Ciena,DAY,Dayforce,Thoma Bravo L.P. acquired Dayforce.,CIEN,DAY
+2025-12-22,CRH,CRH,LKQ,LKQ Corporation,Market capitalization changes.,CRH,LKQ
+2025-12-22,CVNA,Carvana,SOLS,Solstice Advanced Materials,Market capitalization changes.,CVNA,SOLS
+2025-12-22,FIX,Comfort Systems USA,MHK,Mohawk Industries,Market capitalization changes.,FIX,MHK
+2025-12-11,ARES,Ares Management,K,Kellanova,Mars Inc. acquired Kellanova.,ARES,K
+2025-11-28,SNDK,Sandisk,IPG,Interpublic Group,Omnicom Group acquired (The) Interpublic Group.,SNDK,IPG
+2025-11-04,,,EMN,Eastman Chemical Co.,Market capitalization changes.,,EMN
+2025-11-03,Q,Qnity Electronics,,,Dupont completed the corporate spin-off of Qnity Electronics.,Q,
+2025-10-31,,,KMX,CarMax,Market capitalization changes.,,KMX
+2025-10-30,SOLS,Solstice Advanced Materials,,,Honeywell International completed the corporate spin-off of Solstice Advanced Materials.,SOLS,
+2025-09-22,EME,Emcor,ENPH,Enphase Energy,Market capitalization changes.,EME,ENPH
+2025-09-22,HOOD,Robinhood Markets,CZR,Caesars Entertainment,Market capitalization changes.,HOOD,CZR
+2025-09-22,APP,AppLovin,MKTX,MarketAxess,Market capitalization changes.,APP,MKTX
+2025-08-28,IBKR,Interactive Brokers,WBA,Walgreens Boots Alliance,Sycamore Partners acquired Walgreen Boots Alliance.,IBKR,WBA
+2025-07-23,XYZ,"Block, Inc.",HES,Hess Corporation,Chevron acquired Hess.,XYZ,HES
+2025-07-18,TTD,The Trade Desk,ANSS,Ansys,Synopsys acquired Ansys.,TTD,ANSS
+2025-07-09,DDOG,Datadog,JNPR,Juniper Networks,Hewlett Packard Enterprise acquired Juniper Networks.,DDOG,JNPR
+2025-05-19,COIN,Coinbase,DFS,Discover Financial,Capital One acquired Discover Financial.,COIN,DFS
+2025-03-24,DASH,DoorDash,BWA,BorgWarner,Market capitalization changes.,DASH,BWA
+2025-03-24,TKO,TKO Group Holdings,TFX,Teleflex,Market capitalization changes.,TKO,TFX
+2025-03-24,WSM,"Williams-Sonoma, Inc.",CE,Celanese,Market capitalization changes.,WSM,CE
+2025-03-24,EXE,Expand Energy,FMC,FMC Corporation,Market capitalization changes.,EXE,FMC
+2024-12-23,APO,Apollo Global Management,QRVO,Qorvo,Market capitalization changes.,APO,QRVO
+2024-12-23,WDAY,"Workday, Inc.",AMTM,Amentum,Market capitalization changes.,WDAY,AMTM
+2024-12-23,LII,Lennox International,CTLT,Catalent,Novo Holdings A/S acquired Catalent.,LII,CTLT
+2024-11-26,TPL,Texas Pacific Land Corporation,MRO,Marathon Oil,ConocoPhillips acquired Marathon Oil.,TPL,MRO
+2024-10-01,,,BBWI,"Bath & Body Works, Inc.",Market capitalization changes.,,BBWI
+2024-09-30,AMTM,Amentum,,,"Jacobs Solutions completed the corporate spin-off of its Critical Mission Solutions and Cyber Intelligence business, which merged with private Amentum to create newly publicly traded Amentum Holdings.",AMTM,
+2024-09-23,PLTR,Palantir Technologies,AAL,American Airlines Group,Market capitalization changes.,PLTR,AAL
+2024-09-23,DELL,Dell Technologies,ETSY,Etsy,Market capitalization changes.,DELL,ETSY
+2024-09-23,ERIE,Erie Indemnity,BIO,Bio-Rad Laboratories,Market capitalization changes.,ERIE,BIO
+2024-06-24,KKR,KKR,RHI,Robert Half,Market capitalization changes.,KKR,RHI
+2024-06-24,CRWD,CrowdStrike,CMA,Comerica,Market capitalization changes.,CRWD,CMA
+2024-06-24,GDDY,GoDaddy,ILMN,"Illumina, Inc.",Market capitalization changes.,GDDY,ILMN
+2024-05-08,VST,Vistra,PXD,Pioneer Natural Resources,ExxonMobil acquired Pioneer Natural Resources.,VST,PXD
+2024-04-03,,,XRAY,Dentsply Sirona,Market capitalization changes.,,XRAY
+2024-04-03,,,VFC,VF Corporation,Market capitalization changes.,,VFC
+2024-04-02,GEV,GE Vernova,,,General Electric completed the corporate spin-off of GE Vernova.,GEV,
+2024-04-01,SOLV,Solventum,,,3M completed the corporate spin-off of Solventum.,SOLV,
+2024-03-18,SMCI,Supermicro,WHR,Whirlpool Corporation,Market capitalization changes.,SMCI,WHR
+2024-03-18,DECK,Deckers Brands,ZION,Zions Bancorporation,Market capitalization changes.,DECK,ZION
+2024-02-01,,Dayforce,,Ceridian,Ceridian changed its ticker symbol from CDAY to DAY.,DAY,CDAY
+2023-12-18,UBER,Uber,SEE,Sealed Air,Market capitalization changes.,UBER,SEE
+2023-12-18,JBL,Jabil,ALK,Alaska Air Group,Market capitalization changes.,JBL,ALK
+2023-12-18,BLDR,Builders FirstSource,SEDG,SolarEdge,Market capitalization changes.,BLDR,SEDG
+2023-10-18,HUBB,Hubbell,OGN,Organon & Co.,Market capitalization changes.,HUBB,OGN
+2023-10-18,LULU,Lululemon Athletica,ATVI,Activision Blizzard,Acquisition of Activision Blizzard by Microsoft.,LULU,ATVI
+2023-10-03,,,DXC,DXC Technology,Market capitalization changes.,,DXC
+2023-10-02,VLTO,Veralto,,,Danaher Corporation completed the corporate spin-off of Veralto.,VLTO,
+2023-09-18,BX,Blackstone,LNC,Lincoln National Corporation,Market capitalization changes.,BX,LNC
+2023-09-18,ABNB,Airbnb,NWL,Newell Brands,Market capitalization changes.,ABNB,NWL
+2023-08-25,KVUE,Kenvue,AAP,Advance Auto Parts,Johnson & Johnson offered to exchange the shares of Kenvue held for shares of Johnson & Johnson in a split-off exchange offer.,KVUE,AAP
+2023-06-20,PANW,Palo Alto Networks,DISH,Dish Network,Market capitalization changes.,PANW,DISH
+2023-05-04,AXON,Axon Enterprise,FRC,First Republic Bank,The Federal Deposit Insurance Corporation (FDIC) placed First Republic Bank into receivership.,AXON,FRC
+2023-03-20,FICO,Fair Isaac,LUMN,Lumen Technologies,Market capitalization changes.,FICO,LUMN
+2023-03-15,BG,Bunge Global,SBNY,Signature Bank,The FDIC placed Signature Bank into FDIC Receivership.,BG,SBNY
+2023-03-15,PODD,Insulet,SIVB,SVB Financial Group,"The FDIC placed SVB's main subsidiary, Silicon Valley Bank, into receivership.",PODD,SIVB
+2023-01-05,,,VNO,Vornado Realty Trust,Market capitalization changes.,,VNO
+2023-01-04,GEHC,GE HealthCare,,,General Electric completed the corporate spin-off of GE HealthCare.,GEHC,
+2022-12-22,STLD,Steel Dynamics,ABMD,Abiomed,Johnson & Johnson acquired Abiomed.,STLD,ABMD
+2022-12-19,FSLR,First Solar,FBHS,Fortune Brands Home & Security,Market capitalization changes.,FSLR,FBHS
+2022-12-19,,,MBC,MasterBrand,Market capitalization changes.,,MBC
+2022-12-15,MBC,MasterBrand,,,Fortune Brands Home & Security completed the corporate spin-off of MasterBrand.,MBC,
+2022-11-01,ACGL,Arch Capital Group,TWTR,Twitter,Elon Musk acquired Twitter.,ACGL,TWTR
+2022-10-12,TRGP,Targa Resources,NLSN,Nielsen Holdings,Elliott Investment Management acquired Nielsen Holdings.,TRGP,NLSN
+2022-10-03,PCG,PG&E,CTXS,Citrix Systems,Vista Equity Partners acquired Citrix Systems.,PCG,CTXS
+2022-10-03,EQT,EQT Corporation,DRE,Duke Realty,Prologis acquired Duke Realty.,EQT,DRE
+2022-09-19,CSGP,CoStar Group,PVH,PVH,Market capitalization changes.,CSGP,PVH
+2022-09-19,INVH,Invitation Homes,PENN,Penn Entertainment,Market capitalization changes.,INVH,PENN
+2022-06-21,,,UA,Under Armour (Class C),Market capitalization changes.,,UA
+2022-06-21,KDP,Keurig Dr Pepper,UAA,Under Armour (Class A),Market capitalization changes.,KDP,UAA
+2022-06-21,ON,ON Semiconductor,IPGP,IPG Photonics,Market capitalization changes.,ON,IPGP
+2022-06-08,VICI,Vici Properties,CERN,Cerner,Oracle acquired Cerner.,VICI,CERN
+2022-04-11,WBD,Warner Bros. Discovery,DISCA,"Discovery, Inc.",WarnerMedia and Discovery merged to create Warner Bros. Discovery.,WBD,DISCA
+2022-04-11,,,DISCK,"Discovery, Inc.",WarnerMedia and Discovery merged to create Warner Bros. Discovery.,,DISCK
+2022-04-04,CPT,Camden Property Trust,PBCT,People's United Financial,M&T Bank acquired People's United Financial.,CPT,PBCT
+2022-03-02,MOH,Molina Healthcare,INFO,IHS Markit,S&P Global acquired IHS Markit.,MOH,INFO
+2022-02-15,NDSN,Nordson Corporation,XLNX,Xilinx,Advanced Micro Devices acquired Xilinx.,NDSN,XLNX
+2022-02-03,,,GPS,Gap,Market capitalization changes.,,GPS
+2022-02-02,CEG,Constellation Energy,,,Exelon completed the corporate spin-off of Constellation Energy.,CEG,
+2022-01-10,,Willis Towers Watson,,Willis Towers Watson,Willis Towers Watson changed its ticker symbol from WLTW to WTW.,WTW,WLTW
+2021-12-20,SBNY,Signature Bank,LEG,Leggett & Platt,Market capitalization changes.,SBNY,LEG
+2021-12-20,SEDG,SolarEdge,HBI,Hanesbrands,Market capitalization changes.,SEDG,HBI
+2021-12-20,FDS,FactSet,WU,Western Union,Market capitalization changes.,FDS,WU
+2021-12-14,EPAM,EPAM Systems,KSU,Kansas City Southern,Canadian Pacific acquired Kansas City Southern.,EPAM,KSU
+2021-09-20,MTCH,Match Group,PRGO,Perrigo,Market capitalization changes.,MTCH,PRGO
+2021-09-20,DAY,Ceridian,UNM,Unum,Market capitalization changes.,CDAY,UNM
+2021-09-20,BRO,Brown & Brown,NOV,Nov,Market capitalization changes.,BRO,NOV
+2021-08-30,TECH,Bio-Techne,MXIM,Maxim Integrated,Analog Devices acquired Maxim Integrated Products.,TECH,MXIM
+2021-07-21,MRNA,Moderna,ALXN,Alexion Pharmaceuticals,AstraZeneca acquired Alexion Pharmaceuticals.,MRNA,ALXN
+2021-06-04,,,HFC,HollyFrontier,Market capitalization changes.,,HFC
+2021-06-03,OGN,Organon & Co.,,,Merck completed the corporate spin-off of Organon.,OGN,
+2021-05-14,CRL,Charles River Laboratories,FLIR,FLIR Systems,Teledyne Technologies acquired FLIR Systems.,CRL,FLIR
+2021-04-20,PTC,PTC,VAR,Varian Medical Systems,Siemens Healthineers acquired Varian Medical Systems.,PTC,VAR
+2021-03-22,NXPI,NXP,FLS,Flowserve,Market capitalization changes.,NXPI,FLS
+2021-03-22,PENN,Penn National Gaming,SLG,SL Green Realty,Market capitalization changes.,PENN,SLG
+2021-03-22,GNRC,Generac Holdings,XRX,Xerox,Market capitalization changes.,GNRC,XRX
+2021-03-22,CZR,Caesars Entertainment,VNT,Vontier,Market capitalization changes.,CZR,VNT
+2021-02-12,MPWR,Monolithic Power Systems,FTI,TechnipFMC,Corporate spin-off of Technip Energies.,MPWR,FTI
+2021-01-21,TRMB,Trimble,CXO,Concho Resources,ConocoPhillips acquired Concho Resources.,TRMB,CXO
+2021-01-07,ENPH,Enphase Energy,TIF,Tiffany & Co,LVMH Moet Hennessy-Louis Vuitton SE acquired Tiffany & Co.,ENPH,TIF
+2020-12-21,TSLA,Tesla,AIV,Aimco,Aimco completed the corporate spin-off of Apartment Income REIT.,TSLA,AIV
+2020-10-12,,,NBL,Noble Energy,Chevron acquired Noble Energy.,,NBL
+2020-10-09,VNT,Vontier,,,Fortive completed the corporate spin-off of Vontier.,VNT,
+2020-10-07,POOL,Pool Corporation,ETFC,E-Trade,Morgan Stanley acquired E*Trade.,POOL,ETFC
+2020-09-21,ETSY,Etsy,HRB,H&R Block,Market capitalization changes.,ETSY,HRB
+2020-09-21,TER,Teradyne,COTY,Coty,Market capitalization changes.,TER,COTY
+2020-09-21,CTLT,Catalent,KSS,Kohl's,Market capitalization changes.,CTLT,KSS
+2020-06-22,BIO,Bio-Rad Laboratories,ADS,Alliance Data Systems,Market capitalization changes.,BIO,ADS
+2020-06-22,TDY,Teledyne,HOG,Harley-Davidson,Market capitalization changes.,TDY,HOG
+2020-06-22,TYL,Tyler Technologies,JWN,Nordstrom,Market capitalization changes.,TYL,JWN
+2020-05-22,WST,West Pharmaceutical Services,HP,Helmerich & Payne,Market capitalization changes.,WST,HP
+2020-05-12,DPZ,Domino's Pizza,CPRI,Capri Holdings,Market capitalization changes.,DPZ,CPRI
+2020-05-12,DXCM,Dexcom,AGN,Allergan,Allergan was acquired by AbbVie.,DXCM,AGN
+2020-04-06,,,M,Macy's,Market capitalization changes.,,M
+2020-04-06,,,RTN,Raytheon Company,United Technologies corporate spin-off of Otis and Carrier and acquired Raytheon Company.,,RTN
+2020-04-03,OTIS,Otis Worldwide,,,United Technologies corporate spin-off of Otis and Carrier and acquired Raytheon Company.,OTIS,
+2020-04-03,CARR,Carrier,,,United Technologies completed the corporate spin-off of Otis and Carrier and acquired Raytheon Company.,CARR,
+2020-04-01,HWM,Howmet Aerospace,ARNC,Arconic,Arconic separated into 2 companies - Howmet remained in the index.,HWM,ARNC
+2020-03-03,IR,Ingersoll Rand,XEC,Cimarex Energy,"Gardner Denver acquired Ingersoll Rand's industrial businesses then changed its name to the ""new"" Ingersoll Rand Inc.",IR,XEC
+2020-01-28,PAYC,Paycom,WCG,WellCare,Centene acquired Wellcare.,PAYC,WCG
+2019-12-23,LYV,Live Nation Entertainment,AMG,Affiliated Managers Group,Market capitalization changes.,LYV,AMG
+2019-12-23,ZBRA,Zebra Technologies,TRIP,TripAdvisor,Market capitalization changes.,ZBRA,TRIP
+2019-12-23,STE,Steris,MAC,Macerich,Market capitalization changes.,STE,MAC
+2019-12-09,ODFL,Old Dominion Freight Line,STI,SunTrust Banks,BB&T acquired SunTrust to form Truist Financial.,ODFL,STI
+2019-12-05,WRB,W. R. Berkley Corporation,VIAB,Viacom,CBS acquired Viacom to form ViacomCBS.,WRB,VIAB
+2019-11-21,NOW,ServiceNow,CELG,Celgene,Bristol-Myers Squibb acquired Celgene.,NOW,CELG
+2019-10-03,LVS,Las Vegas Sands,NKTR,Nektar Therapeutics,Market capitalization changes.,LVS,NKTR
+2019-09-26,NVR,NVR,JEF,Jefferies Financial Group,SPB completed the corporate spin-off of Jefferies Financial Group.,NVR,JEF
+2019-09-23,CDW,CDW,TSS,TSYS,Global Payments acquired TSS.,CDW,TSS
+2019-08-09,LDOS,Leidos,APC,Anadarko Petroleum,Occidental Petroleum acquired Anadarko Petroleum.,LDOS,APC
+2019-08-09,IEX,IDEX Corporation,FL,Foot Locker,Market capitalization changes.,IEX,FL
+2019-07-15,TMUS,T-Mobile US,RHT,Red Hat,IBM acquired Red Hat.,TMUS,RHT
+2019-07-01,MKTX,MarketAxess,LLL,L3 Technologies,L3 was acquired by Harris Corporation.,MKTX,LLL
+2019-06-11,AMCR,Amcor,BMS,Bemis,BMS changed to AMCR post merger with Amcor; subsequently renamed to Amcor.,AMCR,BMS
+2019-06-07,BMS,Bemis,MAT,Mattel,Merger of Bemis and Amcor; Bemis was the surviving entity.,BMS,MAT
+2019-06-03,,DuPont,,DuPont,DWDP changed to DD after spinning off Corteva.,DD,DWDP
+2019-06-03,CTVA,Corteva,FLR,Fluor Corporation,DowDuPont completed the corporate spin-off of Corteva.,CTVA,FLR
+2019-04-02,DOW,Dow,BHF,Brighthouse Financial,DowDuPont completed the corporate spin-off of Dow Inc.,DOW,BHF
+2019-03-20,,,FOXA.21CF,21st Century Fox,21st Century Fox's Class A shares changed ticker from FOXA to TFCFA effective March 19; the company was removed from the index on March 20.,,TFCFA
+2019-03-20,,,FOX.21CF,21st Century Fox,21st Century Fox's Class B shares changed ticker from FOX to TFCF effective March 19; the company was removed from the index on March 20.,,TFCF
+2019-03-19,FOXA,Fox Corporation,,,Fox Corporation was added following its spin-off from 21st Century Fox.,FOXA,
+2019-03-19,FOX,Fox Corporation,,,Fox Corporation was added following its spin-off from 21st Century Fox.,FOX,
+2019-02-27,WAB,Wabtec,GT,The Goodyear Tire & Rubber Company,Wabtec acquired GE transportation business,WAB,GT
+2019-02-15,ATO,Atmos Energy,NFX,Newfield Exploration,Encana acquired Newfield Exploration.,ATO,NFX
+2019-01-18,TFX,Teleflex,PCG,Pacific Gas & Electric Company,Pacific Gas & Electric Company filed for bankruptcy.,TFX,PCG
+2019-01-02,FRC,First Republic Bank,SCG,SCANA,Dominion Energy acquired SCANA.,FRC,SCG
+2018-12-24,CE,Celanese,ESRX,Express Scripts,Cigna acquired Express Scripts.,CE,ESRX
+2018-12-03,LW,Lamb Weston,COL,Rockwell Collins,UTX acquired Rockwell Collins.,LW,COL
+2018-12-03,MXIM,Maxim Integrated,AET,Aetna,CVS acquired Aetna.,MXIM,AET
+2018-12-03,FANG,Diamondback Energy,SRCL,Stericycle,Market capitalization changes.,FANG,SRCL
+2018-11-13,JKHY,Jack Henry & Associates,EQT,EQT Corporation,EQT completed the corporate spin-off of ETRN.,JKHY,EQT
+2018-11-06,KEYS,Keysight,CA,CA Technologies,CA was acquired by Broadcom.,KEYS,CA
+2018-10-11,FTNT,Fortinet,EVHC,Envision Healthcare,EVHC was acquired by KKR.,FTNT,EVHC
+2018-10-01,ROL,Rollins,ANDV,Andeavor,ANDV was acquired by Marathon Petroleum.,ROL,ANDV
+2018-09-14,WCG,WellCare,XL,XL Group,XL was acquired by Axa.,WCG,XL
+2018-08-28,ANET,Arista Networks,GGP,GGP Inc.,GGP was acquired by Brookfield Property Partners.,ANET,GGP
+2018-07-02,CPRT,Copart,DPS,Dr Pepper Snapple Group,DPS was acquired by Keurig Green Mountain.,CPRT,DPS
+2018-06-20,CPAY,FleetCor Technologies,TWX,Time Warner,AT&T acquired Time Warner.,FLT,TWX
+2018-06-18,BR,Broadridge Financial Solutions,RRC,Range Resources,Market capitalization changes.,BR,RRC
+2018-06-18,HFC,HollyFrontier,AYI,Acuity Brands,Market capitalization changes.,HFC,AYI
+2018-06-07,TWTR,Twitter,MON,Monsanto,Bayer acquired Monsanto.,TWTR,MON
+2018-06-05,EVRG,Evergy,NAVI,Navient,Westar Energy acquired Great Plains Energy and changed name to Evergy.,EVRG,NAVI
+2018-05-31,ABMD,Abiomed,WYN,Wyndham Worldwide,Wyndham Worldwide completed the corporate spin-off of Wyndham Hotels & Resorts.,ABMD,WYN
+2018-04-04,MSCI,MSCI,CSRA,CSRA,General Dynamics acquired CSRA.,MSCI,CSRA
+2018-03-19,TTWO,Take-Two Interactive,SIG,Signet Jewelers,Market capitalization changes.,TTWO,SIG
+2018-03-19,SIVB,SVB Financial Group,PDCO,Patterson Companies,Market capitalization changes.,SIVB,PDCO
+2018-03-19,NKTR,Nektar Therapeutics,CHK,Chesapeake Energy,Market capitalization changes.,NKTR,CHK
+2018-03-07,IPGP,IPG Photonics,SNI,Scripps Networks Interactive,Discovery Communications acquired Scripps Networks Interactive.,IPGP,SNI
+2018-01-03,HII,Huntington Ingalls Industries,BCR,CR Bard,Becton Dickinson acquired CR Bard.,HII,BCR
+2017-11-15,,IQVIA,,QuintilesIMS,QuintilesIMS changed its name to IQVIA and ticker symbol from Q to IQV.,IQV,Q
+2017-10-13,NCLH,Norwegian Cruise Line Holdings,LVLT,Level 3 Communications,CenturyLink acquired Level 3 Communications.,NCLH,LVLT
+2017-09-18,CDNS,Cadence Design Systems,SPLS,Staples,Sycamore Partners acquired Staples.,CDNS,SPLS
+2017-09-01,,DuPont,DOW.OLD,Dow Chemical Company,The Dow Chemical Company renamed to DowDuPont Inc.,DWDP,DOW
+2017-09-01,SBAC,SBA Communications,,DuPont,The Dow Chemical Company acquired DuPont.,SBAC,DD
+2017-08-29,IQV,QuintilesIMS,WFM,Whole Foods Market,Amazon acquired Whole Foods Market.,Q,WFM
+2017-08-08,BHF,Brighthouse Financial,AN,AutoNation,MetLife completed the corporate spin-off of Brighthouse Financial.,BHF,AN
+2017-07-26,DRE,Duke Realty,RIG,Transocean,Market capitalization changes.,DRE,RIG
+2017-07-26,AOS,A. O. Smith,BBBY,Bed Bath & Beyond,Market capitalization changes.,AOS,BBBY
+2017-07-26,PKG,Packaging Corporation of America,MUR,Murphy Oil,Market capitalization changes.,PKG,MUR
+2017-07-26,RMD,ResMed,MNK,Mallinckrodt,Market capitalization changes.,RMD,MNK
+2017-07-26,MGM,MGM Resorts International,RAI,Reynolds American,British American Tobacco (NYSE MKT:BTI) acquired Reynolds American.,MGM,RAI
+2017-07-07,BKR,Baker Hughes,BHI,Baker Hughes,Baker Hughes merged with GE Oil & Gas to form a new company.,BKR,BHI
+2017-06-19,HLT,Hilton,YHOO,Yahoo!,Verizon acquired Yahoo operations; remainder of Yahoo became Altaba.,HLT,YHOO
+2017-06-19,ALGN,Align Technology,TDC,Teradata,Market capitalization changes.,ALGN,TDC
+2017-06-19,ANSS,Ansys,R,Ryder System,Market capitalization changes.,ANSS,R
+2017-06-19,EG,Everest Re,MJN,Mead Johnson,Reckitt Benckiser acquired Mead Johnson Nutrition.,RE,MJN
+2017-06-02,INFO,IHS Markit,TGNA,Tegna,TGNA completed the corporate spin-off of Cars.com.,INFO,TGNA
+2017-04-05,IT,Gartner,DNB,Dun & Bradstreet,Gartner acquired CEB.,IT,DNB
+2017-04-04,DXC,DXC Technology,SWN,Southwestern Energy,"HPE completed the corporate spin-off of Everett, merged with CSC to form DXC Technology.",DXC,SWN
+2017-03-20,AMD,Advanced Micro Devices,URBN,Urban Outfitters,Market capitalization changes.,AMD,URBN
+2017-03-20,RJF,Raymond James Financial,FTR,Frontier Communications,Market capitalization changes.,RJF,FTR
+2017-03-20,ARE,Alexandria Real Estate Equities,FSLR,First Solar,Market capitalization changes.,ARE,FSLR
+2017-03-16,SNPS,Synopsys,HAR,Harman International,Samsung Electronics acquired Harman International Industries.,SNPS,HAR
+2017-03-13,DISH,Dish Network,LLTC,Linear Technology,Analog Devices acquired Linear Technology.,DISH,LLTC
+2017-03-02,REG,Regency Centers,ENDP,Endo International,Regency Centers acquired EQY.,REG,ENDP
+2017-03-01,CBOE,Cboe Holdings,PBI,Pitney Bowes,CBOE acquired BATS.,CBOE,PBI
+2017-02-28,INCY,Incyte,SE,Spectra Energy,SE was acquired by ENB,INCY,SE
+2017-01-05,IDXX,Idexx Laboratories,STJ,St Jude Medical,Abbott Laboratories acquired St. Jude Medical.,IDXX,STJ
+2016-12-02,MAA,Mid-America Apartments,OI,Owens-Illinois,Market capitalization changes.,MAA,OI
+2016-12-02,EVHC,Envision Healthcare,LM,Legg Mason,Market capitalization changes.,EVHC,LM
+2016-11-01,ARNC,Arconic,AA,Alcoa,Alcoa completed the corporate spin-off off Arconic.,ARNC,AA
+2016-09-30,COTY,Coty,DO,Diamond Offshore Drilling,Siris Capital Group acquired Polycom.,COTY,DO
+2016-09-22,COO,The Cooper Companies,HOT,Starwood Hotels and Resorts,MAR acquired Starwood Hotels,COO,HOT
+2016-09-08,CHTR,Charter Communications,EMC,EMC Corporation,Dell acquired EMC.,CHTR,EMC
+2016-09-06,MTD,Mettler Toledo,TYC,Tyco International,TYC acquired JCI and retained JCI ticker.,MTD,TYC
+2016-07-05,FTV,Fortive Corp,CPGX,Columbia Pipeline Group,CPGX was acquired by TRP.,FTV,CPGX
+2016-07-01,LNT,Alliant Energy Corp,GAS,AGL Resources,AGL Resources was acquired by Southern Company.,LNT,GAS
+2016-07-01,ALB,Albemarle Corporation,TE,TECO Energy,TECO Energy was acquired by EMA.,ALB,TE
+2016-06-22,FBHS,Fortune Brands Home & Security,CVC,Cablevision Systems,Cablevision Systems was acquired by Altice.,FBHS,CVC
+2016-06-03,TDG,TransDigm Group,BXLT,Baxalta,SHPG acquired Baxalta.,TDG,BXLT
+2016-05-31,AJG,Arthur J. Gallagher & Co.,CCE,Coca-Cola Enterprises,Coca-Cola Enterprises merged with European bottlers.,AJG,CCE
+2016-05-23,LKQ,LKQ Corporation,ARG,Airgas,Airgas was acquired by Air Liquide.,LKQ,ARG
+2016-05-18,DLR,Digital Realty,TWC,Time Warner Cable,Time Warner Cable was acquired by Charter.,DLR,TWC
+2016-05-13,ALK,Alaska Air Group,SNDK,SanDisk,Sandisk was acquired by Western Digital.,ALK,SNDK
+2016-05-03,AYI,Acuity Brands,ADT,ADT,ADT was acquired by Apollo.,AYI,ADT
+2016-04-25,GPN,Global Payments,GME,GameStop,Global Payments acquired Heartland Payment Systems.,GPN,GME
+2016-04-18,ULTA,Ulta Beauty,THC,Tenet Healthcare,,ULTA,THC
+2016-04-08,UA,Under Armour (Class C),,,Under Armour distribution of second class of stock.,UA.C,
+2016-04-04,FL,Foot Locker,CAM,Cameron International,Schlumberger acquired Cameron.,FL,CAM
+2016-03-30,HOLX,Hologic,POM,Pepco Holdings,Exelon acquired Pepco.,HOLX,POM
+2016-03-30,CNC,Centene Corporation,ESV,Ensco,Centene acquired Health Net.,CNC,ESV
+2016-03-07,UDR,UDR,GMCR,Keurig Green Mountain,JAB Holding Company acquired Keurig Green Mountain.,UDR,GMCR
+2016-03-04,AWK,American Water Works,CNX,Consol Energy,,AWK,CNX
+2016-02-22,CXO,Concho Resources,PCL,Plum Creek Timber,Weyerhaeuser acquired Plum Creek Timber.,CXO,PCL
+2016-02-01,CFG,Citizens,PCP,Precision Castparts Corporation,,CFG,PCP
+2016-02-01,FRT,Federal Realty Investment Trust,BRCM,Broadcom Corporation,,FRT,BRCM
+2016-01-19,EXR,Extra Space Storage,CB.OLD,Chubb,ACE Ltd acquired Chubb and retained the CB ticker.,EXR,ACE
+2016-01-05,WTW,Willis Towers Watson,FOSL,Fossil Group,Willis Holdings merged with Towers Watson and was renamed Willis Towers Watson.,WLTW,FOSL
+2015-12-29,CHD,Church & Dwight,ALTR,Altera,Altera was acquired by Intel.,CHD,ALTR
+2015-12-15,,,CMCSK,Comcast Series K,CMCSK shares were no longer listed.,,CMCSK
+2015-12-01,CSRA,CSRA,CSC,Computer Sciences Corporation,CSC completed the corporate spin-off off CSRA.,CSRA,CSC
+2015-11-19,ILMN,Illumina,SIAL,Sigma-Aldrich,Sigma-Aldrich was acquired by Merck KGaA.,ILMN,SIAL
+2015-11-18,SYF,Synchrony Financial,GNW,Genworth Financial,GE completed the corporate spin-off of Synchrony Financial.,SYF,GNW
+2015-11-02,HPE,Hewlett Packard Enterprise,HCBK,Hudson City Bancorp,HPQ completed the corporate spin-off of Hewlett Packard Enterprise.,HPE,HCBK
+2015-10-07,VRSK,Verisk Analytics,JOY,Joy Global,Market capitalization changes.,VRSK,JOY
+2015-09-18,CMCSK,Comcast Class K Special,,,Share class methodology change.,CMCSK,
+2015-09-18,FOX.21CF,Twenty-First Century Fox Class B,,,Share class methodology change.,FOX,
+2015-09-18,NWS,News Corporation Class B,,,Share class methodology change.,NWS,
+2015-09-02,UAL,United Continental Holdings,HSP,Hospira,Hospira was acquired.,UAL,HSP
+2015-08-28,ATVI,Activision Blizzard,PLL,Pall Corporation,Pall was acquired.,ATVI,PLL
+2015-07-29,SIG,Signet Jewelers,DTV,DirecTV,DirecTV was acquired by AT&T.,SIG,DTV
+2015-07-20,PYPL,PayPal,NE,Noble Corporation,eBay completed the corporate spin-off of PayPal.,PYPL,NE
+2015-07-08,AAP,Advance Auto Parts,FDO,Family Dollar,Family Dollar was acquired.,AAP,FDO
+2015-07-06,KHC,Kraft Heinz,KRFT,Kraft Foods,Kraft merged with Heinz.,KHC,KRFT
+2015-07-02,CPGX,Columbia Pipeline Group,ATI,Allegheny Technologies,Spin off of Columbia Pipeline.,CPGX,ATI
+2015-07-01,JBHT,J.B. Hunt,TEG,Integrys Energy Group,Integrys was acquired.,JBHT,TEG
+2015-07-01,BXLT,Baxalta,QEP,QEP Resources,Baxter completed the corporate spin-off of Baxalta.,BXLT,QEP
+2015-06-11,QRVO,Qorvo,LO,Lorillard Tobacco Company,Lorillard was acquired.,QRVO,LO
+2015-04-07,O,Realty Income Corporation,WIN,Windstream Communications,Market capitalization changes.,O,WIN
+2015-03-23,AAL,American Airlines Group,AGN.OLD,Allergan,Allergan was acquired by Actavis (and changed its name to Allergan).,AAL,AGN
+2015-03-23,EQIX,Equinix,DNR,Denbury Resources,Market capitalization changes.,EQIX,DNR
+2015-03-23,SLG,SL Green Realty,NBR,Nabors Industries,Market capitalization changes.,SLG,NBR
+2015-03-23,HBI,Hanesbrands,AVP,Avon Products,Market capitalization changes.,HBI,AVP
+2015-03-18,HSIC,Henry Schein,CFN,Carefusion,Carefusion was acquired by Becton Dickinson.,HSIC,CFN
+2015-03-12,SWKS,Skyworks,PETM,PetSmart,PetSmart was acquired by private equity consortium.,SWKS,PETM
+2015-01-27,HCA,HCA Holdings,SWY,Safeway,Safeway was acquired by a private equity consortium.,HCA,SWY
+2015-01-27,ENDP,Endo International,COV,Covidien,Covidien was acquired by Medtronic.,ENDP,COV
