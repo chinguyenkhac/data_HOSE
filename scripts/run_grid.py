@@ -19,4 +19,10 @@ def one(job):
         d = ns["run_full_scn"](":".join(p[1:]), cfg, lo, methods) if kind == "delist" else ns["run_full"](cfg, lo, methods)
         print(f"[{job}] {'long_only' if lo else 'short_ok'}: {len(d['ulog'])} kỳ, {time.time()-t0:.0f}s, "
               f"sec/lần: { {k: round(v, 3) for k, v in d['sec'].items()} }", flush=True)
-for j in sys.argv[1:]: one(j)
+def diag(job):
+    import json, re
+    n = re.sub(r"[^A-Za-z0-9]+", "_", job); dl = ns["DCC_LOG"]
+    json.dump(dict(job=job, newton=ns["_STATS"], wesper_safe=ns["_WSP_SAFE"], wesper_nfev=[int(x) for x in ns["_WSP"]["nfev"]],
+                   wesper_rmse=[float(x) for x in ns["_WSP"]["cost"]], dcc=[{k: (float(v) if not isinstance(v, bool) else v) for k, v in r.items()} for r in dl],
+                   pca_k=[int(k) for k in ns["PCA_K"]]), open(f"results_v4/logs/diag_{n}.json", "w"))
+for j in sys.argv[1:]: one(j); diag(j)

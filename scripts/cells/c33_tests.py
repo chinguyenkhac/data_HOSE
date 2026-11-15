@@ -30,6 +30,7 @@ def jkm_test(ra, rb):
     z = (s2 * m1 - s1 * m2) / np.sqrt(th); return z, 2 * norm.sf(abs(z))
 
 CORE5 = ["NL-LW", "EW-NL-LW", "EW-WeSpeR", "VS-NL-LW"]            # đối thủ lõi của EW-RIE* (họ Holm chính, định trước)
+MAIN = ["EW-RIE*"] + CORE5                                          # bảng chính: EW-RIE* + họ lõi
 
 def holm(p):
     p = np.asarray(p, float); o = np.argsort(p); adj = np.minimum(1, np.maximum.accumulate(p[o] * (len(p) - np.arange(len(p)))))
@@ -65,3 +66,14 @@ assert lw_var_test(_r, 2 * _r[::-1], M=200)[2] < 1e-6                           
 _q = np.random.default_rng(2).standard_normal(1500) * .01
 assert np.isclose(jkm_test(_r, _q)[0], -jkm_test(_q, _r)[0]) and jkm_test(_r + .003, _q - .003)[1] < 1e-6
 assert np.allclose(holm([.01, .04, .03]), [.03, .06, .06])
+
+# ---- tiện ích sinh câu chữ từ bảng (mọi con số trong "Kết quả/Kết luận" lấy từ code, không gõ tay) ----
+def order_txt(vol, keys=None, tol=0.03, d=2):
+    # "A 12,93 < B 13,05 ≈ C 13,07": sắp tăng dần; "≈" khi hai giá trị liền kề chênh < tol
+    v = vol.loc[keys] if keys is not None else vol; v = v.sort_values(); s = f"{v.index[0]} {f2(v.iloc[0], d)}"
+    for (k0, a), (k1, b) in zip(v.items(), list(v.items())[1:]): s += (" ≈ " if b - a < tol else " < ") + f"{k1} {f2(b, d)}"
+    return s.replace("*", "\\*")
+def verdict(delta, lo, hi, who="EW-RIE\\*"):
+    # kết luận từ CI 95%: thấp hơn / cao hơn có ý nghĩa, hoặc không khác biệt
+    return f"{who} thấp hơn có ý nghĩa" if hi < 0 else (f"{who} cao hơn có ý nghĩa" if lo > 0 else "không khác biệt có ý nghĩa")
+dci = lambda d, lo, hi: f"{d:+.2f} [{lo:+.2f}; {hi:+.2f}]".replace(".", ",")

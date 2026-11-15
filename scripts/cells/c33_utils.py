@@ -48,6 +48,10 @@ def metrics(o, cost=None, dates=None):
 f2 = lambda x, d=2: f"{x:.{d}f}".replace(".", ",")
 pv = lambda p: "< 0,001" if p < 1e-3 else f2(p, 3)
 md = lambda s: display(Markdown(s))
+_CAP = {"Bảng": 0, "Hình": 0}
+def cap(kind, text):
+    # chú thích đánh số xuyên suốt: "Bảng n" / "Hình n" (một dòng: mẫu, cấu hình, đơn vị)
+    _CAP[kind] += 1; md(f"**{kind} {_CAP[kind]}.** {text}"); return _CAP[kind]
 def show(df, d=2): display(df.style.format(precision=d, decimal=",", thousands=" ", na_rep="–"))
 def save(df, name):
     assert np.isfinite(df.select_dtypes("number").values).all() or True; df.to_csv(f"{RESULTS_DIR}/{name}.csv")
