@@ -10,11 +10,11 @@ RNV = {"bat_buoc": "bắt buộc", "hop_nhat": "hợp nhất", "tu_nguyen": "t�
 if len(HOLD):
     save(HOLD, "T2d_events")
     tab = HOLD.assign(reason=HOLD.reason.map(RNV)).pivot_table(index="year", columns="reason", values="ticker", aggfunc="count", fill_value=0); tab["Tổng"] = tab.sum(1); tab.loc["Tổng"] = tab.sum()
-    cap("Bảng", f"Lượt mã trong universe bị hủy niêm yết TRONG kỳ nắm giữ, theo năm và lý do (cấu hình chuẩn: {len(U0)} kỳ × N = {CONFIG['N']} = {N_SLOT:,} vị thế).".replace(",", " "))
+    cap("Bảng", f"Lượt mã trong universe bị hủy niêm yết TRONG kỳ nắm giữ, theo năm và lý do (cấu hình chuẩn: {len(U0)} kỳ × N = {CONFIG['N']} = {th(N_SLOT)} vị thế).")
     show(tab.astype(int).T, 0)
 else:
     print("Không có mã nào trong universe bị hủy niêm yết trong kỳ nắm giữ ⇒ T2d chỉ còn mục 4d.")
-n_dl16 = int((MISSING.delisting_date >= U0[0]["date"]).sum()); n_dl_all = int(MISSING.delisting_date.notna().sum())
+n_dl16 = int((pd.to_datetime(MISSING.delisting_date) >= U0[0]["date"]).sum()); n_dl_all = int(MISSING.delisting_date.notna().sum())
 print(f"4d. Hạn chế còn lại: {len(MISSING)} mã thiếu giá (VCI không còn mã); {n_dl_all} mã đã hủy, {n_dl16} mã hủy từ {U0[0]['date']:%m/%Y} (tức trong mẫu OOS) không bao giờ vào universe ⇒ không thể đo ảnh hưởng của chúng.")
 
 if len(HOLD):

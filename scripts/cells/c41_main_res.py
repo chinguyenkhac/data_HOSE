@@ -1,6 +1,6 @@
 # Bảng 1 + Kết quả/Kết luận §4 (số lấy từ RESULTS của ô trên và bảng so sánh cặp)
 tb1 = pd.concat({VN[m]: RESULTS[m]["table"].loc[MAIN, ["Vol %", "Sharpe sau phí", "Turnover/kỳ", "Số mã hiệu dụng"]] for m in MODES}, axis=1)
-cap("Bảng", f"Phương pháp chính, cấu hình chuẩn (N = 100, T = 250, h = 60, REB = 21, COST = 0,25%, ZERO\\_MAX = 20%); {len(RESULTS['long_only']['out']['NL-LW']['r']):,} phiên OOS ({RESULTS['long_only']['out']['NL-LW']['r'].index[0]:%m/%Y}–{RESULTS['long_only']['out']['NL-LW']['r'].index[-1]:%m/%Y}). Vol: %/năm, gộp. Đủ 11 bộ: bảng in ở ô trên.".replace(",", " "))
+cap("Bảng", f"Phương pháp chính, cấu hình chuẩn (N = 100, T = 250, h = 60, REB = 21, COST = 0,25%, ZERO\\_MAX = 20%); {th(len(RESULTS['long_only']['out']['NL-LW']['r']))} phiên OOS ({RESULTS['long_only']['out']['NL-LW']['r'].index[0]:%m/%Y}–{RESULTS['long_only']['out']['NL-LW']['r'].index[-1]:%m/%Y}). Vol: %/năm, gộp. Đủ 11 bộ: bảng in ở ô trên.")
 show(tb1, 2)
 t1 = {m: RESULTS[m]["table"]["Vol %"] for m in MODES}; c1 = {m: RESULTS[m]["ci"] for m in MODES}
 ln = []

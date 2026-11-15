@@ -4,7 +4,7 @@ if len(HOLD):
     chg_rank = any(int(rk.loc[(VN[m], sc), "EW-RIE*"]) != int(rk.loc[(VN[m], s0), "EW-RIE*"]) or rk.loc[(VN[m], sc)].idxmin() != rk.loc[(VN[m], s0)].idxmin() for m in MODES for sc in sc_list)
     chg_sig = any((CS[(sc, m)].loc[b, "p Holm"] < .05) != (CS[(s0, m)].loc[b, "p Holm"] < .05) for m in MODES for sc in sc_list for b in CORE5)
     md("**Kết quả.**\n\n"
-       f"- **Số lượt:** {len(HOLD)} lượt mã trong universe bị hủy niêm yết trong kỳ nắm giữ trên {N_SLOT:,} vị thế ({100 * len(HOLD) / N_SLOT:.2f}%); theo lý do: " .replace(",", " ")
+       f"- **Số lượt:** {len(HOLD)} lượt mã trong universe bị hủy niêm yết trong kỳ nắm giữ trên {th(N_SLOT)} vị thế ({f2(100 * len(HOLD) / N_SLOT)}%); theo lý do: " 
        + ", ".join(f"{RNV[k]} {n}" for k, n in HOLD.reason.value_counts().items()) + f". Còn {n_dl16} mã hủy từ {U0[0]['date']:%m/%Y} thiếu giá, không bao giờ vào universe (hạn chế còn lại).\n"
        f"- **Vol theo kịch bản** (EW-RIE\\*, chỉ mua): " + " → ".join(f"{sc.split(' (')[0]} {f2(v(sc, 'long_only', 'EW-RIE*'))}%" for sc in sc_list) + f"; VS-NL-LW: " + " → ".join(f"{f2(v(sc, 'long_only', 'VS-NL-LW'))}%" for sc in sc_list)
        + f". Bán khống (EW-RIE\\*): " + " → ".join(f"{f2(v(sc, 'short_ok', 'EW-RIE*'))}%" for sc in sc_list) + ".\n"

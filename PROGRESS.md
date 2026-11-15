@@ -23,3 +23,13 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 - **Bước 3 (đối chiếu WeSpeR gốc): bị chặn** — trình phân loại quyền từ chối chạy mã repo ngoài (`nlcvbo/wesper`, commit 1df4890); đã `add_repo` + clone + `torch` 2.15 cài được; viết sẵn `scripts/wesper_check.py` cho người duyệt chạy; fallback = Test 2b 30 lần lặp (cell c1b_oriol_view.py).
 - Timing sơ bộ (máy đang tải) chạy bằng `scripts/run_timing.py`; số chính thức đo lại khi máy rảnh.
 - Đã tạo tác vụ định kỳ hằng giờ (:38) fire vào phiên này; pipeline gốc chép ở PIPELINE_V4_2.md; RUNNING.lock ghi id phiên + giờ.
+
+## 17:40 UTC (trigger giờ)
+- Hàng đợi cũ chết giữa chừng (nh:150:*, nh:50:60 chưa chạy xong) → đã khởi động lại bằng `setsid` toàn bộ: nh (trừ 50:30 đã xong), hlv:10/40, zero:0.1/0.3/1.0, reb:63. Delist S1/S2/S1-mọi-lý-do và std đã xong. Timing sơ bộ xong (N=50..200).
+- Người dùng dặn: KHÔNG push lên main; push chờ duyệt → chỉ commit local khi được cho phép. Commit cuối đã push: d7ce7dd.
+- Việc kế: chạy thử cụm T2–T6 bằng dev_exec khi cache đủ; sửa dấu phẩy/chấm trong cap(); REB=5 (đo DCC 2 s/kỳ nên không cần bỏ DCC); đo timing chính thức khi máy rảnh; BAO_CAO_V4.md; nbconvert.
+
+## 18:40 UTC — LƯU Ý QUAN TRỌNG
+- VM bị khởi động lại khi phiên rảnh (uptime 0): TIẾN TRÌNH NỀN CHẾT khi không có lượt làm việc. Cache trên đĩa còn nguyên. Vì vậy phải giữ lượt hoạt động (vòng chờ foreground ≤ 9 phút) khi chạy nặng; mỗi lần dậy kiểm tra `pgrep run_grid`, chạy lại `queue.sh` với các job chưa xong (job nào đã cache thì chạy lại rất nhanh).
+- /tmp/RESULTS.pkl (cache §4 cho dev_exec) mất nếu /tmp bị xóa.
+- 20:40 UTC: bắt đầu nbconvert --execute (máy rảnh, đo timing chính thức); log results_v4/logs/nbconvert.log

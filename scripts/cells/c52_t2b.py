@@ -12,7 +12,7 @@ T2BC = {(v, m): cmp_table(restrict(d["out"], COMMON), "EW-RIE*", reb_dates=[u["d
 save(pd.concat(T2BC, names=["variant", "mode", "rival"]).reset_index(), "T2b_compare_full")
 info = T2B[T2B["mode"] == "long_only"].groupby("variant")[["Số kỳ hợp lệ", "Mã đủ ĐK (TB)", "Mã đủ ĐK (min)", "% r=0 trong universe"]].first().loc[list(VARS)]
 tb = T2B.pivot_table(index="variant", columns=["mode", "method"], values="Vol %")
-cap("Bảng", f"Vol (%/năm, gộp) theo mức lọc mã đứng giá, trên {len(COMMON):,} ngày OOS chung ({COMMON[0].date()} → {COMMON[-1].date()}); các phương pháp chính. Đủ FULL: `results_v4/T2b_zero_return_full.csv`.".replace(",", " "))
+cap("Bảng", f"Vol (%/năm, gộp) theo mức lọc mã đứng giá, trên {th(len(COMMON))} ngày OOS chung ({COMMON[0].date()} → {COMMON[-1].date()}); các phương pháp chính. Đủ FULL: `results_v4/T2b_zero_return_full.csv`.")
 show(pd.concat([tb.rename(columns=VN, level=0).reindex(columns=pd.MultiIndex.from_product([VN.values(), MAIN])), pd.concat({"Universe": info}, axis=1)], axis=1).loc[list(VARS)], 2)
 rows = [dict(variant=v, mode=VN[m], rival=b, **{c: T2BC[(v, m)].loc[b, c] for c in ("ΔVol (pp)", "CI lo", "CI hi", "p Holm", "ΔTurnover")}) for v in VARS for m in MODES for b in CORE5]
 T2BS = pd.DataFrame(rows).set_index(["mode", "variant", "rival"]).sort_index(level=[0, 1], sort_remaining=False)

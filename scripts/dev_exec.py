@@ -10,6 +10,8 @@ import matplotlib; matplotlib.use("Agg")
 from IPython.display import display as _d, Markdown
 def display(*o, **k):
     for x in o:
+        if hasattr(x, "data") and hasattr(x, "export") is False and type(x).__name__ == "Styler": pass
+        if type(x).__name__ == "Styler": print(x.data.round(3).to_string()); continue
         if hasattr(x, "data") and hasattr(x, "_repr_markdown_") is False: print(x)
         elif isinstance(x, Markdown): print(x.data)
         elif hasattr(x, "to_string"): print(x.to_string())
@@ -21,9 +23,15 @@ for i, c in enumerate(nb.cells):
     src = c.source if c.source.endswith("\n") else c.source + "\n"; fn = f"<cell {i}>"; linecache.cache[fn] = (len(src), None, src.splitlines(True), fn)
     if "RESULTS = {}" in src and os.path.exists("/tmp/RESULTS.pkl"):
         ns["ESTIMATORS"] = ns["build_estimators"](ns["CONFIG"]); ns["RESULTS"] = pickle.load(open("/tmp/RESULTS.pkl", "rb")); ns["PAIRS"] = None; print(f"[cell {i}] RESULTS nạp từ pkl"); continue
+    if "N_GRID, K_WIN, REPS" in src and os.path.exists("results_v4/T43_timing_long.csv"):
+        head = src.split("hl = CONFIG")[0]; post = "TIMING = pd.read_csv('results_v4/T43_timing_long.csv')\n" + src.split("TIMING = pd.DataFrame(rows);")[1].lstrip().replace('save(TIMING, "T43_timing_long")', "pass")
+        post = post.replace("def profile_ew_rie", "def profile_ew_rie_unused").split("_s0 = dict(_STATS)")[0] + "PROF = pd.read_csv('results_v4/T43_ew_rie_profile.csv', index_col=0); HW = 'CPU (dev)'"
+        post = post.replace('save(TT, "T43_timing")', "pass")
+        post = "\n".join(l.lstrip() if l.startswith(" ") and not l.startswith("    ") else l for l in post.split("\n"))
+        exec(compile(head + "\nhl = CONFIG['HL_EW']\n" + post, fn, "exec"), ns); print(f"[cell {i}] timing nạp từ CSV"); continue
     t0 = time.time(); print(f"\n===== cell {i} =====", flush=True)
     try:
-        exec(compile(src, fn, "exec"), ns)
+        exec(compile(src, fn, "exec"), ns); ns["display"] = display
     except Exception:
         traceback.print_exc(); print(f"!!! cell {i} lỗi"); 
         if a.stop_on_error: break

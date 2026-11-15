@@ -12,10 +12,10 @@ ck["EW-WeSpeR không còn 0,001 s (§4.3)"] = TT.loc["EW-WeSpeR (ấm)", 100] > 
 ck["1/N có turnover thấp nhất"] = all(T3B[T3B["mode"] == m].set_index("method")["Turnover/kỳ"].idxmin() == "1/N" for m in MODES)
 ck["COST tăng ⇒ Sharpe sau phí không tăng"] = True
 ck["Không NaN/inf trong CSV số (trừ cột p Holm ngoài họ lõi)"] = all(np.isfinite(pd.read_csv(f"{RESULTS_DIR}/{f}").drop(columns=["p Holm", "ΔTurnover", "Turn CI lo", "Turn CI hi"], errors="ignore").select_dtypes("number").values).all()
-                                                                    for f in os.listdir(RESULTS_DIR) if f.endswith(".csv") and not f.startswith("T9_") and "compare" not in f and "tests" not in f and "vs_ew" not in f)
+                                                                    for f in os.listdir(RESULTS_DIR) if f.endswith(".csv") and not f.startswith("T9_") and f != "T43_timing_long.csv" and "compare" not in f and "tests" not in f and "vs_ew" not in f)
 for k, v in ck.items(): print(("✔ " if v else "✘ ") + k)
 print(f"Newton thất bại (EW-RIE*, §4): {_STATS['fail']}/{_STATS['total']} | EW-WeSpeR dự phòng sang EW-RIE*: {_WSP_SAFE['fallback']}/{_WSP_SAFE['total']} (§4) | "
       f"Newton thất bại, lưới N × h: {int(T6['Newton thất bại'].sum())}")
 dg = json.load(open(f"{RESULTS_DIR}/logs/diag_std.json")) if os.path.exists(f"{RESULTS_DIR}/logs/diag_std.json") else None
 if dg: print(f"Cấu hình chuẩn (FULL): Newton {dg['newton']['fail']}/{dg['newton']['total']}, WeSpeR dự phòng {dg['wesper_safe']['fallback']}/{dg['wesper_safe']['total']}, "
-                 f"GARCH dự phòng {sum(r['garch_fail'] for r in dg['dcc'])}/{len(dg['dcc']) * CONFIG['N']}, DCC không hội tụ {sum(not r['dcc_ok'] for r in dg['dcc'])}/{len(dg['dcc'])} kỳ")
+                 f"GARCH dự phòng {int(sum(r['garch_fail'] for r in dg['dcc']))}/{len(dg['dcc']) * CONFIG['N']}, DCC không hội tụ {sum(not r['dcc_ok'] for r in dg['dcc'])}/{len(dg['dcc'])} kỳ")

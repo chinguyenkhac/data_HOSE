@@ -4,7 +4,7 @@ T3C = {m: cmp_table(OUT0[m], "EW-RIE*", reb_dates=REB_DATES) for m in MODES}
 save(pd.concat(T3C, names=["mode", "rival"]).reset_index(), "T3c_tests_full")
 for m in MODES:
     cap("Bảng", f"{VN[m]}: EW-RIE\\* so với từng đối thủ (ΔVol < 0: EW-RIE\\* rủi ro thấp hơn; CI 95% block bootstrap b = 21; p Holm trên 4 đối thủ lõi, in đậm). "
-       f"{len(OUT0[m]['EW-RIE*']['r']):,} phiên OOS chung. Đủ cột: `results_v4/T3c_tests_full.csv`.".replace(",", " "))
+       f"{th(len(OUT0[m]['EW-RIE*']['r']))} phiên OOS chung. Đủ cột: `results_v4/T3c_tests_full.csv`.")
     display(fmt_cmp(T3C[m].loc[CORE5 + [k for k in T3C[m].index if k not in CORE5]]))
 
 # Bảng phụ: VS + EW-RIE*  (hai cặp định trước)

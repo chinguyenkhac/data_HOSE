@@ -7,6 +7,7 @@ for d in (RESULTS_DIR, FIGS_DIR, CACHE, f"{RESULTS_DIR}/logs"): os.makedirs(d, e
 VN = {"long_only": "Chỉ mua", "short_ok": "Bán khống"}
 f2 = lambda x, d=2: f"{x:.{d}f}".replace(".", ",")
 pv = lambda p: "< 0,001" if p < 1e-3 else f2(p, 3)
+th = lambda n: f"{n:,}".replace(",", " ")        # số hàng nghìn kiểu Việt (chỉ áp cho số nguyên)
 md = lambda s: display(Markdown(s))
 _CAP = {"Bảng": 0, "Hình": 0}
 def cap(kind, text):
