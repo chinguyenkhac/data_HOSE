@@ -16,3 +16,9 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 
 ## Việc tiếp theo
 - Hàng đợi: delist S1-mọi-lý-do, nh (N×h), hlv, zero, reb → rồi Bước 2 (timing, cần máy rảnh), 3 (WeSpeR gốc), viết ô notebook, build, nbconvert, báo cáo.
+
+## Cập nhật 16:55 UTC
+- std (FULL, 2 chế độ) xong. delist S1/S2/S1-mọi-lý-do đang chạy; hàng đợi nh/hlv/zero/reb chạy theo `scripts/queue.sh` (log `results_v4/logs/queue.log`).
+- Viết xong mọi ô v4 (scripts/cells/*) + `layout.py` + `build_v4.py` (notebook dựng từ layout). Còn: chạy thử từng ô (dev_exec.py), md còn thiếu (m00_summary, m43_timing, m_notes_v4), BAO_CAO_V4.md, nbconvert, so ô thầy.
+- **Bước 3 (đối chiếu WeSpeR gốc): bị chặn** — trình phân loại quyền từ chối chạy mã repo ngoài (`nlcvbo/wesper`, commit 1df4890); đã `add_repo` + clone + `torch` 2.15 cài được; viết sẵn `scripts/wesper_check.py` cho người duyệt chạy; fallback = Test 2b 30 lần lặp (cell c1b_oriol_view.py).
+- Timing sơ bộ (máy đang tải) chạy bằng `scripts/run_timing.py`; số chính thức đo lại khi máy rảnh.

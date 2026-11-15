@@ -13,4 +13,23 @@ if all(os.path.exists(f) for f in _f):
        f"Chênh tỷ số rủi ro GMV so với tối ưu (mô phỏng): {f2(100 * OS.risk_diff.mean(), 2)}%. Tiêu chí đạt (ξ < 5% và chênh rủi ro < 1%): **{'đạt' if OK_XI and OK_RISK else 'không đạt'}** (báo nguyên số, không sửa bản nhóm). "
        f"Thời gian mã gốc {f2(OS.sec_oriol.mean(), 1)} s/lần (mô phỏng) và {f2(OH.sec_oriol.mean(), 1)} s/lần (HOSE) so với {f2(OS.sec_nhom.mean(), 2)} s/lần của bản nhóm.")
 else:
-    md("**Đối chiếu mã gốc:** chưa có kết quả (xem Ghi chú v4: đã thử gì, lỗi gì). Thay bằng Test 2b với 30 lần lặp có sai số chuẩn (ô dưới).")
+    md("**Đối chiếu mã gốc:** chưa có kết quả (lý do ở ô trên). Thay bằng Test 2b với 30 lần lặp có sai số chuẩn (ô dưới).")
+# Test 2b-30: như Test 2b (mô hình nhân tố, N = 100, T = 250) nhưng 30 lần lặp/h, báo trung bình ± sai số chuẩn và chênh ghép cặp so với oracle
+_f30 = f"{RESULTS_DIR}/T1b_test2b_30reps.csv"
+if os.path.exists(_f30): R30 = pd.read_csv(_f30)
+else:
+    rng30 = np.random.default_rng(30); rows30 = []
+    for hl in (15, 30, 60):
+        w = ew_weights(T_, hl)
+        for rep in range(30):
+            Ct = factor_corr(N_, rng30); X = rng30.standard_normal((T_, N_)) @ np.linalg.cholesky(Ct).T; C, _ = ew_corr(X, w); lam, V_ = np.linalg.eigh(C)
+            Co = renorm((V_ * np.einsum("ij,jk,ki->i", V_.T, Ct, V_)) @ V_.T); best = gmv(Ct) @ Ct @ gmv(Ct)
+            for k, Ch in {"EW-NL-LW (v2)": renorm(nl_lw_S_v2(C, 1 / (w**2).sum())), "EW-NL-LW": renorm(nl_lw_S(C, 1 / (w**2).sum())), "EW-WeSpeR": ew_wesper_corr(C, w),
+                          "EW-RIE*": ew_rie_corr(C, w), "Oracle": Co}.items():
+                wh = gmv(Ch); rows30.append(dict(h=hl, rep=rep, method=k, ratio=wh @ Ct @ wh / best))
+    R30 = pd.DataFrame(rows30); R30.to_csv(_f30, index=False)
+g30 = R30.groupby(["method", "h"]).ratio.agg(["mean", lambda x: x.std() / np.sqrt(len(x))]).unstack("h"); g30.columns = [f"{'TB' if a == 'mean' else 'SE'} h={h}" for a, h in g30.columns]
+pw = R30.pivot_table(index=["h", "rep"], columns="method", values="ratio"); pd_ = pd.DataFrame({h: {"EW-WeSpeR / Oracle − 1 (TB ± SE, %)": f"{100 * (pw.loc[h]['EW-WeSpeR'] / pw.loc[h]['Oracle'] - 1).mean():.2f} ± {100 * (pw.loc[h]['EW-WeSpeR'] / pw.loc[h]['Oracle'] - 1).std() / np.sqrt(30):.2f}",
+    "EW-RIE* / Oracle − 1 (TB ± SE, %)": f"{100 * (pw.loc[h]['EW-RIE*'] / pw.loc[h]['Oracle'] - 1).mean():.2f} ± {100 * (pw.loc[h]['EW-RIE*'] / pw.loc[h]['Oracle'] - 1).std() / np.sqrt(30):.2f}"} for h in (15, 30, 60)})
+cap("Bảng", "Test 2b với 30 lần lặp mỗi h (N = 100, T = 250, mô hình nhân tố như Test 2): rủi ro GMV / rủi ro tối ưu, trung bình (TB) và sai số chuẩn (SE); hàng dưới: chênh ghép cặp so với oracle.")
+show(g30, 3); show(pd_, 3)
