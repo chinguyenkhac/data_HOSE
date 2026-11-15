@@ -4,3 +4,4 @@ Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
 493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
 run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
 N = 50: xong (12 cửa sổ)
+N = 100: xong (12 cửa sổ)

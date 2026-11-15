@@ -4,12 +4,8 @@ from IPython.display import Markdown
 from scipy.stats import norm
 if importlib.util.find_spec("arch") is None:      # Colab chưa có sẵn `arch` (dùng cho DCC-GARCH)
     subprocess.run([sys.executable, "-m", "pip", "install", "-q", "arch"], check=True)
-SEED = 0; np.random.seed(SEED)
-RESULTS_DIR, FIGS_DIR, CACHE = "./results_v4", "./figs_v4", "./results_v4/cache"
-for d in (RESULTS_DIR, FIGS_DIR, CACHE, f"{RESULTS_DIR}/logs"): os.makedirs(d, exist_ok=True)
 RECOMPUTE = False                       # True: chạy lại mọi backtest; False: dùng cache results_v4/cache/*.pkl nếu có
 MODES = {"long_only": True, "short_ok": False}
-VN = {"long_only": "Chỉ mua", "short_ok": "Bán khống"}
 COL = {"EW-RIE*": "#1baf7a", "NL-LW": "#2a78d6", "EW-NL-LW": "#eb6834", "EW-WeSpeR": "#8e44ad", "VS-NL-LW": "#e0a800"}
 GREY = "#9aa0a6"; col_of = lambda k: COL.get(k, GREY)
 
@@ -45,17 +41,6 @@ def metrics(o, cost=None, dates=None):
     return {"Vol %": ann(r)[0], "Sharpe": ann(r)[1], "Sharpe sau phí": ann(rn)[1], "LN/năm %": r.mean() * 252 * 100,
             "Turnover/kỳ": o["m"]["Turnover/kỳ"], "Số mã hiệu dụng": o["m"]["Số mã hiệu dụng"], "Số ngày OOS": len(r)}
 
-f2 = lambda x, d=2: f"{x:.{d}f}".replace(".", ",")
-pv = lambda p: "< 0,001" if p < 1e-3 else f2(p, 3)
-md = lambda s: display(Markdown(s))
-_CAP = {"Bảng": 0, "Hình": 0}
-def cap(kind, text):
-    # chú thích đánh số xuyên suốt: "Bảng n" / "Hình n" (một dòng: mẫu, cấu hình, đơn vị)
-    _CAP[kind] += 1; md(f"**{kind} {_CAP[kind]}.** {text}"); return _CAP[kind]
-def show(df, d=2): display(df.style.format(precision=d, decimal=",", thousands=" ", na_rep="–"))
-def save(df, name):
-    assert np.isfinite(df.select_dtypes("number").values).all() or True; df.to_csv(f"{RESULTS_DIR}/{name}.csv")
-def savefig(fig, name): fig.savefig(f"{FIGS_DIR}/{name}.png", dpi=150, bbox_inches="tight"); plt.show()
 
 R_BT = np.log(P).diff(); R_BT = np.expm1(R_BT.mask(R_BT.abs() > CONFIG["MAX_ABS_RET"], 0.0))   # đúng như trong run_backtest
 POS = {d: i for i, d in enumerate(R_BT.index)}

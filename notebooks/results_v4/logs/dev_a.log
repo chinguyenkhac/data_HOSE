@@ -40,3 +40,96 @@ Oracle          1.278  1.201
 [2s]
 
 ===== cell 18 =====
+[Test 2b] rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), mô hình nhân tố, N=100, T=250; T_eff = {15: 43, 30: 86, 60: 155}
+hl                  15     30     60
+method                              
+EW-NL-LW         1.422  1.744  1.183
+EW-NL-LW (v2)   12.441  1.849  1.183
+EW-RIE (q_eff)   1.741  1.753  1.573
+EW-RIE*          1.718  1.313  1.152
+EW-Sample        5.598  2.797  1.881
+EW-WeSpeR        1.386  1.317  1.153
+Oracle           1.367  1.301  1.147
+[158s]
+
+===== cell 19 =====
+Traceback (most recent call last):
+  File "/home/user/data_HOSE/notebooks/../scripts/dev_exec.py", line 26, in <module>
+    exec(compile(src, fn, "exec"), ns)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cell 19>", line 2, in <module>
+    md(f"**Kết quả Test 2b** (rủi ro GMV / rủi ro tối ưu, 1 = hoàn hảo).\n\n"
+    ^^
+NameError: name 'md' is not defined. Did you mean: 'pd'?
+!!! cell 19 lỗi
+[0s]
+
+===== cell 21 =====
+Traceback (most recent call last):
+  File "/home/user/data_HOSE/notebooks/../scripts/dev_exec.py", line 26, in <module>
+    exec(compile(src, fn, "exec"), ns)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cell 21>", line 2, in <module>
+    _f = [f"{RESULTS_DIR}/T1b_oriol_check_sim.csv", f"{RESULTS_DIR}/T1b_oriol_check_hose.csv"]
+             ^^^^^^^^^^^
+NameError: name 'RESULTS_DIR' is not defined
+!!! cell 21 lỗi
+[0s]
+
+===== cell 24 =====
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+[0s]
+
+===== cell 25 =====
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+[0s]
+
+===== cell 26 =====
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+[0s]
+
+===== cell 27 =====
+Tỷ lệ |r| > ngưỡng: 0.0005%
+Tỷ lệ phiên giá không đổi (r = 0): 15.3%
+[0s]
+
+===== cell 29 =====
+                                                                                             giá trị
+Khoảng thời gian                                                2015-01-05 → 2026-11-10 (2957 phiên)
+Số mã trong security_master / có giá / thiếu giá                                      512 / 493 / 19
+Lượt hủy niêm yết (có giá / thiếu giá)                                                 105 (86 / 19)
+Quan sát ngoài khoảng niêm yết (đã loại)                                               101 (mã: SAP)
+% ô có giá trong khoảng niêm yết                                                               94.1%
+% phiên đứng giá (r = 0)                                                                       15.3%
+Phiên |r| > 15% (đặt = 0) / khối lượng = 0 mà có giá / giá ≤ 0                             5 / 0 / 0
+[0s]
+
+===== cell 32 =====
+Lý do hủy: {'bắt buộc': 85, 'hợp nhất/sáp nhập': 9, 'tự nguyện': 8, 'chưa rõ': 2, 'chuyển sàn': 1}
+[0s]
+
+===== cell 35 =====
+             số kỳ đủ N=100 mã (/129)  số mã đủ ĐK: trung vị  nhỏ nhất
+ZERO_MAX                                                              
+không lọc                         129                    278       166
+20% (chuẩn)                       118                    249        61
+10%                                69                    114         3
+[0s]
+
+===== cell 39 =====
+[0s]
+
+===== cell 41 =====
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+[7s]
+
+===== cell 43 =====
+[0s]
+
+===== cell 44 =====
+[0s]
+
+===== cell 45 =====
+[1s]
+
+===== cell 47 =====

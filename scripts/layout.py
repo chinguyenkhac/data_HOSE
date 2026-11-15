@@ -8,7 +8,7 @@ PAIRS_NEW = '''PAIRS = [("EW-RIE*", "EW-RIE (q_eff)"), ("EW-RIE*", "EW-NL-LW"), 
 LAYOUT = [
     ("m", "m00_summary.md"), ("m", "m01_assign.md"), ("m", "m02_changes.md"),
     # ---------------- 0 ----------------
-    ("n", 3), ("n", 4, D), ("n", 5, D),
+    ("n", 3), ("n", 4, D), ("n", 5, D), ("f", "c00_helpers.py", D),
     # ---------------- 1 ----------------
     T("## 1. Thư viện: các bộ ước lượng\n\n### 1.1 Bộ của thầy\n\nKhông cần sửa. Mỗi bộ ước lượng nhận ma trận lợi suất `X` (T×N) và trả về ma trận hiệp phương sai N×N."),
     ("n", 7, D), ("n", 8, D), ("n", 9, D), ("n", 10, D),
