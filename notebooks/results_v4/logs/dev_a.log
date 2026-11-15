@@ -1,0 +1,42 @@
+
+===== cell 4 =====
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+[1s]
+
+===== cell 5 =====
+[0s]
+
+===== cell 7 =====
+[0s]
+
+===== cell 8 =====
+[0s]
+
+===== cell 9 =====
+[0s]
+
+===== cell 10 =====
+[0s]
+
+===== cell 12 =====
+[0s]
+
+===== cell 13 =====
+[0s]
+
+===== cell 15 =====
+[Test 1] trọng số đều: sai lệch tương đối max = 2.9e-15
+[0s]
+
+===== cell 16 =====
+[Test 2] rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), mô hình nhân tố:
+hl                 30     60
+method                      
+EW-NL-LW        1.636  1.269
+EW-RIE (q_eff)  1.782  1.629
+EW-RIE*         1.290  1.210
+EW-Sample       2.929  2.048
+Oracle          1.278  1.201
+[2s]
+
+===== cell 18 =====
