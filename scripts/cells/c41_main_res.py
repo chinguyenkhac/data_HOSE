@@ -14,4 +14,4 @@ for m in ("short_ok", "long_only"):
 md("**Kết quả** (Vol ngoài mẫu %/năm).\n\n" + "\n".join(ln))
 lowest = {m: t1[m][MAIN].idxmin() for m in MODES}
 md(f"**Kết luận.** Ở cấu hình chuẩn, Vol thấp nhất trong năm phương pháp chính là **{lowest['long_only'].replace('*', chr(92) + '*')}** (chỉ mua) và **{lowest['short_ok'].replace('*', chr(92) + '*')}** (bán khống). "
-   f"Các bộ EW chênh nhau < {max(t1[m][['EW-RIE*', 'EW-WeSpeR', 'EW-NL-LW']].max() - t1[m][['EW-RIE*', 'EW-WeSpeR', 'EW-NL-LW']].min() for m in MODES):.2f} pp nên cần kiểm định cặp đủ phương pháp (T3, Bảng 7).")
+   f"Các bộ EW chênh nhau < {max(t1[m][['EW-RIE*', 'EW-WeSpeR', 'EW-NL-LW']].max() - t1[m][['EW-RIE*', 'EW-WeSpeR', 'EW-NL-LW']].min() for m in MODES):.2f} pp nên cần kiểm định cặp đủ phương pháp (§4.4 và T3c).")

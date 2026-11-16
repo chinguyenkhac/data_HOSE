@@ -1,5 +1,7 @@
 # ---- Tiện ích hiển thị/lưu (dùng từ §1b trở đi) ----
 import hashlib, json, platform, importlib.util
+try: get_ipython().run_line_magic("matplotlib", "inline")      # v5: hình hiện ngay trong notebook/HTML (không đặt MPLBACKEND=Agg khi chạy nbconvert)
+except NameError: pass
 from IPython.display import Markdown, display
 SEED = 0; np.random.seed(SEED)
 RESULTS_DIR, FIGS_DIR, CACHE = "./results_v4", "./figs_v4", "./results_v4/cache"

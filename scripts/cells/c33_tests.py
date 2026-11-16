@@ -100,3 +100,26 @@ def fmt_cmp(C):
 def sig_mark(C, a=0.05):
     # ▼ EW-RIE* thấp hơn có ý nghĩa (p Holm < a với họ lõi; p LW-boot < a ngoài họ), ▲ cao hơn, = không khác biệt
     p = C["p Holm"].where(C["p Holm"].notna(), C["p LW-boot"]); return np.where(p < a, np.where(C["ΔVol (pp)"] < 0, "▼", "▲"), "=")
+
+# ---- 3.3 (v5) So sánh mọi cặp trong nhóm dẫn đầu (Phụ lục A của pipeline v5) ----
+TOP = ["EW-RIE*", "VS-NL-LW", "VS-EW-RIE*", "EW-WeSpeR", "EW-NL-LW", "VS-RIE"]   # 6 bộ đứng đầu theo hạng TB (Bảng tổng kết v4)
+
+def pairwise_top(out, methods=TOP, reb_dates=None, block=21, M=2000, seed=0):
+    # Mọi cặp (a, b) trong TOP: ΔVol = Vol(a) − Vol(b), kiểm định phương sai LW (2011) bootstrap, Holm trên toàn bộ cặp.
+    ms = [m for m in methods if m in out]; rows = []
+    for i, a in enumerate(ms):
+        for b in ms[i + 1:]:
+            ra, rb = out[a]["r"].values, out[b]["r"].values
+            assert out[a]["r"].index.equals(out[b]["r"].index), f"khác mẫu: {a}, {b}"
+            d, se, p_hac, p_bt = lw_var_test(ra, rb, block=block, M=M)
+            row = dict(a=a, b=b, dvol=(ra.std() - rb.std()) * np.sqrt(252) * 100, p_hac=p_hac, p_boot=p_bt, p_jkm=jkm_test(ra, rb)[1])
+            if reb_dates is not None:
+                row["dturn"] = np.nanmean(turnover_series(out[a], reb_dates) - turnover_series(out[b], reb_dates))
+            rows.append(row)
+    PW = pd.DataFrame(rows); PW["p_holm"] = holm(PW["p_boot"].values)
+    # ma trận vuông: ô (a, b) = ΔVol(a − b), dấu * nếu p Holm < 0,05
+    D = pd.DataFrame(np.nan, index=ms, columns=ms); S = pd.DataFrame("", index=ms, columns=ms)
+    for r in PW.itertuples():
+        D.loc[r.a, r.b], D.loc[r.b, r.a] = r.dvol, -r.dvol
+        if r.p_holm < .05: S.loc[r.a, r.b] = S.loc[r.b, r.a] = "*"
+    return PW, D, S

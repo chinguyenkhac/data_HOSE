@@ -1,10 +1,10 @@
 """Nạp không gian tên của notebook v4 trong script: chạy lại đúng các ô mã (chỉ ô định nghĩa/dữ liệu) của notebook.
-Dùng: ns = load_ns("EW_RIE_HOSE_v4.ipynb", cells=[...]) ; cells = chỉ số ô hoặc tên thẻ 'defs'."""
+Dùng: ns = load_ns("EW_RIE_HOSE_v5.ipynb", cells=[...]) ; cells = chỉ số ô hoặc tên thẻ 'defs'."""
 import os, sys, json, nbformat, linecache
 os.environ.setdefault("MPLBACKEND", "Agg"); os.environ.setdefault("OMP_NUM_THREADS", "1"); os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 NB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "notebooks")
 
-def load_ns(nb="EW_RIE_HOSE_v4.ipynb", cells=None, tag="defs", ns=None):
+def load_ns(nb="EW_RIE_HOSE_v5.ipynb", cells=None, tag="defs", ns=None):
     os.chdir(NB_DIR); nbk = nbformat.read(nb, 4); ns = ns if ns is not None else {"__name__": "__main__"}
     for i, c in enumerate(nbk.cells):
         if c.cell_type != "code": continue

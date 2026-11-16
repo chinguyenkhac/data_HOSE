@@ -10,13 +10,15 @@ for (n_, h_, m), d in GR.items():
                      "Đứng đầu": vol.idxmin(), "Vol đứng đầu": vol.min(), "Vol VS-NL-LW": vol["VS-NL-LW"], "ΔVol vs VS-NL-LW": c.loc["VS-NL-LW", "ΔVol (pp)"],
                      "CI lo": c.loc["VS-NL-LW", "CI lo"], "CI hi": c.loc["VS-NL-LW", "CI hi"], "p LW-boot": c.loc["VS-NL-LW", "p LW-boot"], "p Holm": c.loc["VS-NL-LW", "p Holm"],
                      "ΔVol vs EW-NL-LW": c.loc["EW-NL-LW", "ΔVol (pp)"], "p Holm EW-NL-LW": c.loc["EW-NL-LW", "p Holm"],
+                     "ΔVol vs EW-WeSpeR": c.loc["EW-WeSpeR", "ΔVol (pp)"], "p Holm EW-WeSpeR": c.loc["EW-WeSpeR", "p Holm"],
+                     "ΔVol vs VS-EW-RIE*": c.loc["VS-EW-RIE*", "ΔVol (pp)"], "p LW-boot VS-EW-RIE*": c.loc["VS-EW-RIE*", "p LW-boot"],
                      "ΔTurnover vs VS-NL-LW": c.loc["VS-NL-LW", "ΔTurnover"], "Newton thất bại": d["newton"][0]}))
 T6 = pd.DataFrame(rows); save(T6, "T6_N_h_grid_full")
 save(pd.concat({f"{n_}_{h_}_{m}": c for (n_, h_, m), c in GC.items()}, names=["cell", "rival"]).reset_index(), "T6_N_h_compare_full")
 for m in MODES:
     t = T6[T6["mode"] == m].copy(); t["ΔVol vs VS-NL-LW [CI]"] = [f"{a:+.2f} [{b:+.2f}; {c:+.2f}]" for a, b, c in zip(t["ΔVol vs VS-NL-LW"], t["CI lo"], t["CI hi"])]
-    cap("Bảng", f"{VN[m]}: lưới N × h (Vol %/năm gộp; mỗi N có tập kỳ OOS riêng nên chỉ so trong cùng N). ΔVol = Vol(EW-RIE\\*) − Vol(VS-NL-LW) [CI 95%], p Holm trên 4 đối thủ lõi; q_eff = N·Σw². Đủ FULL: `results_v4/T6_N_h_grid_full.csv`.")
-    show(t[["N", "h", "q_eff", "kỳ", "Vol EW-RIE*", "Hạng EW-RIE*", "Đứng đầu", "Vol đứng đầu", "ΔVol vs VS-NL-LW [CI]", "p Holm"]].set_index(["N", "h"]), 3)
+    cap("Bảng", f"{VN[m]}: lưới N × h (Vol %/năm gộp; mỗi N có tập kỳ OOS riêng nên chỉ so trong cùng N). ΔVol = Vol(EW-RIE\\*) − Vol(VS-NL-LW) [CI 95%], p Holm trên 4 đối thủ lõi; q_eff = N·Σw². Đủ FULL: `results_v5/T6_N_h_grid_full.csv`.")
+    show(t[["N", "h", "q_eff", "kỳ", "Vol EW-RIE*", "Hạng EW-RIE*", "Đứng đầu", "Vol đứng đầu", "ΔVol vs VS-NL-LW [CI]", "p Holm", "ΔVol vs EW-WeSpeR", "p Holm EW-WeSpeR", "ΔVol vs VS-EW-RIE*", "p LW-boot VS-EW-RIE*"]].set_index(["N", "h"]), 3)
 def heat(col, ttl, fname, other=None):
     fig, ax = plt.subplots(1, 2, figsize=(11, 3.8))
     for a, m in zip(ax, MODES):
@@ -30,6 +32,8 @@ heat("ΔVol vs VS-NL-LW", "", "fig_heat_nh_vs_vsnllw", other="p Holm")
 cap("Hình", "Heatmap ΔVol = Vol(EW-RIE\\*) − Vol(VS-NL-LW) theo N × h (pp/năm; xanh: EW-RIE\\* thấp hơn); \\* = p Holm < 0,05 (4 đối thủ lõi, mô tả, không hiệu chỉnh xuyên lưới).")
 heat("ΔVol vs EW-NL-LW", "", "fig_heat_nh_vs_ewnllw", other="p Holm EW-NL-LW")
 cap("Hình", "Phụ: heatmap cũ, ΔVol = Vol(EW-RIE\\*) − Vol(EW-NL-LW) theo N × h; \\* = p Holm < 0,05.")
+heat("ΔVol vs EW-WeSpeR", "", "fig_heat_nh_vs_wesper", other="p Holm EW-WeSpeR")
+cap("Hình", "Heatmap ΔVol = Vol(EW-RIE\\*) − Vol(EW-WeSpeR) theo N × h (pp/năm; xanh: EW-RIE\\* thấp hơn); \\* = p Holm < 0,05.")
 n_top = {m: int((T6[T6["mode"] == m]["Đứng đầu"] == "EW-RIE*").sum()) for m in MODES}; n_cells = T6[T6["mode"] == "long_only"].shape[0]
 n_neg = {m: int((T6[T6["mode"] == m]["ΔVol vs VS-NL-LW"] < 0).sum()) for m in MODES}
 n_sig_lo = {m: int(((T6[T6["mode"] == m]["ΔVol vs VS-NL-LW"] < 0) & (T6[T6["mode"] == m]["p Holm"] < .05)).sum()) for m in MODES}

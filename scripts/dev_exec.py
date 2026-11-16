@@ -3,7 +3,7 @@
 import sys, os, re, pickle, argparse, traceback, linecache, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hose_ns, nbformat
-ap = argparse.ArgumentParser(); ap.add_argument("--nb", default="EW_RIE_HOSE_v4.ipynb"); ap.add_argument("--frm", type=int, default=0); ap.add_argument("--to", type=int, default=10**6)
+ap = argparse.ArgumentParser(); ap.add_argument("--nb", default="EW_RIE_HOSE_v5.ipynb"); ap.add_argument("--frm", type=int, default=0); ap.add_argument("--to", type=int, default=10**6)
 ap.add_argument("--skip", default=""); ap.add_argument("--stop-on-error", action="store_true"); a = ap.parse_args()
 os.chdir(hose_ns.NB_DIR); nb = nbformat.read(a.nb, 4); ns = {"__name__": "__main__"}; skip = {int(x) for x in a.skip.split(",") if x}
 import matplotlib; matplotlib.use("Agg")
@@ -23,9 +23,9 @@ for i, c in enumerate(nb.cells):
     src = c.source if c.source.endswith("\n") else c.source + "\n"; fn = f"<cell {i}>"; linecache.cache[fn] = (len(src), None, src.splitlines(True), fn)
     if "RESULTS = {}" in src and os.path.exists("/tmp/RESULTS.pkl"):
         ns["ESTIMATORS"] = ns["build_estimators"](ns["CONFIG"]); ns["RESULTS"] = pickle.load(open("/tmp/RESULTS.pkl", "rb")); ns["PAIRS"] = None; print(f"[cell {i}] RESULTS nạp từ pkl"); continue
-    if "N_GRID, K_WIN, REPS" in src and os.path.exists("results_v4/T43_timing_long.csv"):
-        head = src.split("hl = CONFIG")[0]; post = "TIMING = pd.read_csv('results_v4/T43_timing_long.csv')\n" + src.split("TIMING = pd.DataFrame(rows);")[1].lstrip().replace('save(TIMING, "T43_timing_long")', "pass")
-        post = post.replace("def profile_ew_rie", "def profile_ew_rie_unused").split("_s0 = dict(_STATS)")[0] + "PROF = pd.read_csv('results_v4/T43_ew_rie_profile.csv', index_col=0); HW = 'CPU (dev)'"
+    if "N_GRID, K_WIN, REPS" in src and os.path.exists("results_v5/T43_timing_long.csv"):
+        head = src.split("hl = CONFIG")[0]; post = "TIMING = pd.read_csv('results_v5/T43_timing_long.csv')\n" + src.split("TIMING = pd.DataFrame(rows);")[1].lstrip().replace('save(TIMING, "T43_timing_long")', "pass")
+        post = post.replace("def profile_ew_rie", "def profile_ew_rie_unused").split("_s0 = dict(_STATS)")[0] + "PROF = pd.read_csv('results_v5/T43_ew_rie_profile.csv', index_col=0); HW = 'CPU (dev)'"
         post = post.replace('save(TT, "T43_timing")', "pass")
         post = "\n".join(l.lstrip() if l.startswith(" ") and not l.startswith("    ") else l for l in post.split("\n"))
         exec(compile(head + "\nhl = CONFIG['HL_EW']\n" + post, fn, "exec"), ns); print(f"[cell {i}] timing nạp từ CSV"); continue
