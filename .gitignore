@@ -3,3 +3,5 @@ notebooks/rmt_work/
 __pycache__/
 .ipynb_checkpoints/
 notebooks/results_v4/cache/
+notebooks/results_v5/cache/
+notebooks/results_v6/cache/
