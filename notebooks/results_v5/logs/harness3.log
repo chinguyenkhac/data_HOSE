@@ -1,0 +1,108 @@
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+===== c44_pairwise.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89d196a0>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89f111d0>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+[13s]
+===== c51_t2a.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89a991d0>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89a99310>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89a99310>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89a99310>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+[47s]
+===== c53_t2c_ext.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c896347d0>
+<IPython.core.display.Markdown object>
+[0s]
+===== c64_t3c.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89a99e50>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89a99e50>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c89a99e50>
+<IPython.core.display.Markdown object>
+[18s]
+===== c54w_window.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8930bd90>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8930bd90>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8930bd90>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8935c050>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8935c050>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8935c690>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8935c690>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+[83s]
+===== c51_h_ext.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8930bed0>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8935c190>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8935c190>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c8935c190>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+[44s]
+===== c52g_grid.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c97e43390>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c97e43390>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+[141s]
+===== c53h_hlvol.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c88864690>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c88864690>
+[49s]
+===== c69_summary.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c88864690>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c88864690>
+[222s]
+===== c69_summary_res.py
+<IPython.core.display.Markdown object>
+[0s]
+===== c69b_summary_ext.py
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x7f1c88711090>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+[1s]
+===== c70_conclusion.py
+<IPython.core.display.Markdown object>
+[0s]
