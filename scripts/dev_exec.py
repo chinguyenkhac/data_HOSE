@@ -1,5 +1,5 @@
 """Chạy thử các ô mã của notebook v4 trong MỘT tiến trình (không cần kernel): dev_exec.py [--from I] [--to J] [--skip a,b] [--tag T]
-Ô §4 (RESULTS) được lưu/nạp từ /tmp/RESULTS.pkl để khỏi chạy lại 5 phút."""
+Ô §4 (RESULTS) được lưu/nạp từ /tmp/RESULTS6.pkl để khỏi chạy lại 5 phút."""
 import sys, os, re, pickle, argparse, traceback, linecache, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hose_ns, nbformat
@@ -21,8 +21,8 @@ ns["display"] = display
 for i, c in enumerate(nb.cells):
     if c.cell_type != "code" or i < a.frm or i > a.to or i in skip: continue
     src = c.source if c.source.endswith("\n") else c.source + "\n"; fn = f"<cell {i}>"; linecache.cache[fn] = (len(src), None, src.splitlines(True), fn)
-    if "RESULTS = {}" in src and os.path.exists("/tmp/RESULTS.pkl"):
-        ns["ESTIMATORS"] = ns["build_estimators"](ns["CONFIG"]); ns["RESULTS"] = pickle.load(open("/tmp/RESULTS.pkl", "rb")); ns["PAIRS"] = None; print(f"[cell {i}] RESULTS nạp từ pkl"); continue
+    if "RESULTS = {}" in src and os.path.exists("/tmp/RESULTS6.pkl"):
+        ns["ESTIMATORS"] = ns["build_estimators"](ns["CONFIG"]); ns["RESULTS"] = pickle.load(open("/tmp/RESULTS6.pkl", "rb")); ns["PAIRS"] = None; print(f"[cell {i}] RESULTS nạp từ pkl"); continue
     if "N_GRID, K_WIN, REPS" in src and os.path.exists("results_v5/T43_timing_long.csv"):
         head = src.split("hl = CONFIG")[0]; post = "TIMING = pd.read_csv('results_v5/T43_timing_long.csv')\n" + src.split("TIMING = pd.DataFrame(rows);")[1].lstrip().replace('save(TIMING, "T43_timing_long")', "pass")
         post = post.replace("def profile_ew_rie", "def profile_ew_rie_unused").split("_s0 = dict(_STATS)")[0] + "PROF = pd.read_csv('results_v5/T43_ew_rie_profile.csv', index_col=0); HW = 'CPU (dev)'"
@@ -35,5 +35,5 @@ for i, c in enumerate(nb.cells):
     except Exception:
         traceback.print_exc(); print(f"!!! cell {i} lỗi"); 
         if a.stop_on_error: break
-    if "RESULTS = {}" in src: pickle.dump(ns["RESULTS"], open("/tmp/RESULTS.pkl", "wb"))
+    if "RESULTS = {}" in src: pickle.dump(ns["RESULTS"], open("/tmp/RESULTS6.pkl", "wb"))
     print(f"[{time.time() - t0:.0f}s]")

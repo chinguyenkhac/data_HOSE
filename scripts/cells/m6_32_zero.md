@@ -1,0 +1,3 @@
+### 3.2 Lọc mã đứng giá (`ZERO_MAX`) — không sửa `run_backtest` của thầy
+
+`run_backtest` bên dưới được **sinh từ chính mã nguồn của thầy** (`inspect.getsource`), chỉ chèn: (i) trước `if ok.sum() < N: continue`: `ok &= (win == 0).mean() <= cfg.get("ZERO_MAX", 1.0)` (chỉ dùng cửa sổ quá khứ; kỳ không đủ N mã bị bỏ); (ii) ghi log universe; (iii) sau dòng tính `Y`, cộng ma trận điều chỉnh `d` (mặc định không dùng; T2d dùng để đặt lợi suất ngày hủy niêm yết, không đụng tới giá `P`); (iv) bộ VS "đủ T" (§5.4) nhận thêm HL\_VOL phiên ngay trước cửa sổ (chỉ dữ liệu quá khứ). Với `ZERO_MAX = 1.0` và `d = 0` kết quả trùng hệt bản của thầy (assert). `PERIODS` theo mẫu 2016–2026.

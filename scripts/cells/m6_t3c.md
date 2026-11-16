@@ -1,0 +1,1 @@
+**T3c. Kiểm định 12 cặp** — kiểm định sai khác phương sai Ledoit–Wolf (2011): p HAC và p bootstrap khối (b = 21, M = 2000; **kết quả chính**), Holm trên 12 cặp riêng từng chế độ; CI 95% bootstrap khối của ΔVol; Jobson–Korkie–Memmel cho Sharpe; ΔTurnover/kỳ kèm CI bootstrap theo kỳ.

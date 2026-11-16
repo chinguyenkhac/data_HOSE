@@ -30,12 +30,12 @@ LAYOUT = [
     ("m", "m6_33_utils.md"), ("f", "c33_utils.py", D), ("f", "c33_tests6.py", D), ("f", "c33_full.py", D), ("f", "c33_v6.py", D),
     # ---------------- 4 ----------------
     ("n", 40), T("### 4.1 Bảng kết quả"), ("f", "c6_41_cap.py"), ("ne", 41, [(PAIRS_OLD, PAIRS_NEW)]),
-    T("### 4.2 Hình"), ("n", 42), ("f", "c6_42_cap.py"), ("n", 43), ("n", 44),
+    T("### 4.2 Hình"), ("n", 42), ("f", "c6_42_cap.py"), ("n", 43), ("n", 44), ("f", "c6_std.py", D),
     ("m", "m6_43_timing.md"), ("f", "c6_43_timing.py"),
     ("m", "m6_44_spectrum.md"), ("f", "c6_44_spectrum.py"),
     # ---------------- 5 ----------------
     ("m", "m6_50_sens.md"), T("### 5.1 Half-life (ô của thầy)"), ("f", "c6_51_cap.py"), ("n", 46), ("n", 47),
-    ("f", "c6_50_load.py", D), ("m", "m6_5nh.md"), ("f", "c6_5nh_figs.py"),
+    ("m", "m6_5nh.md"), ("f", "c6_5nh_figs.py"),
     ("m", "m6_52.md"), ("f", "c6_52_tableA.py"),
     ("m", "m6_53.md"), ("f", "c6_53_pairs.py"),
     ("m", "m6_53b.md"), ("f", "c6_53b_hhv.py"),

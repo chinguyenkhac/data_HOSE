@@ -113,3 +113,12 @@ e_ = lambda s: s.replace("*", "\\*")
 # kiểm tra nhanh (không phải số liệu): ewma_sig đúng số học của ewma_standardize; VS chỉ phần chung với σ_m ≡ 1 là phép nhân hằng
 _X = np.random.default_rng(1).standard_normal((120, 5)) * .01; _Z, _s = ewma_standardize(_X, 20); _S, _sT = ewma_sig(_X, 20)
 assert np.allclose(_X / _S, _Z) and np.allclose(_s, _sT)
+
+def grid_count(G, pair):
+    # số ô (cột × chế độ) có mặt cặp, số ô ΔVol < 0, số ô âm có ý nghĩa, số ô dương có ý nghĩa (p Holm trong cột)
+    D_ = pd.concat([G[m][0] for m in G], axis=1); P_ = pd.concat([G[m][1] for m in G], axis=1); r = D_.xs(pair, level=1).iloc[0]; p = P_.xs(pair, level=1).iloc[0]
+    ok = r.notna(); return int(ok.sum()), int((r[ok] < 0).sum()), int(((r < 0) & (p < .05)).sum()), int(((r > 0) & (p < .05)).sum())
+def concl_grid(G):
+    a, e = grid_count(G, "EW-RIE* − EW-NL-LW"), grid_count(G, "EW-RIE* − VS-NL-LW")
+    return (f"EW-RIE\\* thấp hơn EW-NL-LW có ý nghĩa ở {a[2]}/{a[0]} ô (cao hơn có ý nghĩa {a[3]}); cặp thầy hỏi (EW-RIE\\* − VS-NL-LW) "
+            + (f"không có ý nghĩa ở ô nào trong {e[0]} ô" if e[2] + e[3] == 0 else f"có ý nghĩa ở {e[2] + e[3]}/{e[0]} ô (âm {e[2]}, dương {e[3]})") + " (mô tả).")

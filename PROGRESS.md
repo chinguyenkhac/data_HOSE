@@ -71,3 +71,10 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 - Quyết định: `pair_grid` để trống các cặp có bộ không có trong cột (cụm A, B ở cột HL_VOL; Holm trên số cặp có mặt).
 ## Đang chạy nền
 - Oriol 200 epoch (6 tiến trình: h ∈ {15, 30} × mẫu 0–2; `scripts/wesper_epochs.py`), lọc đứng giá 5%/15% (M12), VS-EW-RIE* ở h ∈ {30, 120} × HL_VOL ∈ {10, 40}.
+## Bước 2 — xong (chạy), số liệu vào §5.4
+- Bản vá `run_backtest` (c32_v6): bộ có thuộc tính `pre` nhận thêm `pre` phiên ngay trước cửa sổ (chỉ quá khứ). Ba bộ "đủ T" = `make_vs` của thầy (và `make_vs_ew_rie`) áp lên cửa sổ mở rộng HL_VOL phiên ⇒ sau khi bỏ HL_VOL phiên khởi động còn đúng T phiên. `scripts/run_extra6.py` chạy T ∈ {120, 250, 500}, hai chế độ: 0 kỳ thiếu phiên trước cửa sổ.
+- VS-NL-LW chỉ mua ở T = 120: bản thầy 17,85% → bản "đủ T" 13,63% (xác nhận lỗi v5). Kiểm (a) trùng hệt cho bộ không phải VS và (b) cùng ngày đặt bằng assert trong ô §5.4.
+## Bước 3 — đang chạy (Oriol 200 epoch, 6 tiến trình)
+## Bước 4 — đã viết toàn bộ ô theo mục lục mục 5 (scripts/cells/c6_*.py, m6_*.md); đang chạy thử bằng `scripts/dev_exec.py`.
+- Quyết định: lọc đứng giá 5%: 0 kỳ đủ 100 mã ⇒ báo riêng, không tính; Bảng 21 xếp hai chế độ theo hàng (một bảng) vì 5 mức × 2 chế độ > 8 cột mà mục lục chỉ có một số bảng.
+- Quyết định: Test 2b chạy 20 lần lặp (v3 là 6) theo mục lục; câu Kết quả sinh từ code.
