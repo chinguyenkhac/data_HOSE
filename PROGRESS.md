@@ -55,3 +55,8 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 - Chạy thử toàn notebook v5 (nbconvert, 1 lõi): 0 lỗi, 26 ảnh nhúng, tự kiểm 13/14 đạt (✘ do CSV đối chiếu Oriol có NaN hợp lệ → đã loại khỏi quy tắc NaN).
 - Đối chiếu Oriol (khởi tạo đúng, 50 epoch): h=60 (20 mẫu) ξ lệch trung vị ≈ 3%, chênh rủi ro ≈ 0%; h=30 ≈ 11%, h=15 ≈ 9–10%; mã gốc NaN ở 1/12 mẫu giả lập h=30 và 7/12 cửa sổ HOSE; 130–900 s/lần. Dừng lúc ~05:55 theo giới hạn giờ, rồi chạy sạch khi máy rảnh (để đo timing).
 - Git: đã push c973f4c lên nhánh `claude/kind-wozniak-z1fq73` (không main).
+- 06:31 chạy sạch lần 1 lỗi assert d=0 (bit-trùng phụ thuộc số luồng BLAS); chạy lại với OMP/OPENBLAS/MKL=1 (như cache).
+
+## 07:20 UTC — v5 XONG
+- Chạy sạch (OMP/OPENBLAS/MKL = 1) không lỗi; HTML xuất; `check_v5.py` đạt (ô thầy 15/18 + 3 ngoại lệ; ô mở đầu chỉ khác ở Kết quả/Hạn chế; 27 ảnh trong HTML; tự kiểm 14/14). `BAO_CAO_V5.md` sinh bởi `scripts/make_report_v5.py`.
+- Đối chiếu Oriol dừng ở 10/17/20 mẫu (h=15/30/60) do giới hạn giờ; tiêu chí ξ<5% KHÔNG đạt ở h=15, 30 (đạt ở h=60).

@@ -9,7 +9,7 @@ L = ["# BAO_CAO_V5 — EW-RIE\\* trên HOSE (pipeline v5)", "", "Notebook: `note
 # 1. WeSpeR
 OSall = pd.read_csv(f"{R}/T1b_oriol_check_sim.csv"); OS = OSall[OSall.loss_finite.astype(bool) & OSall.xi_med.notna()]; OH = pd.read_csv(f"{R}/T1b_oriol_check_hose.csv"); OHf = OH[OH.loss_finite.astype(bool) & OH.xi_med.notna()]
 g = OS.groupby("h").agg(mẫu=("rep", "size"), W1=("W1_tau", "median"), xi_med=("xi_med", "median"), xi_max=("xi_max", "max"), risk_diff=("risk_diff", "mean"), giây_gốc=("sec_oriol", "mean"), giây_nhóm=("sec_nhom", "mean"))
-g = g.apply(lambda c: c.map(lambda x: f2(x, 3) if c.name not in ("mẫu",) else str(int(x))))
+g = g.apply(lambda c: c.map(lambda x: str(int(x)) if c.name == "mẫu" else f2(x, 0 if c.name == "giây_gốc" else 2 if c.name == "giây_nhóm" else 3)))
 L += ["## 1. Đối chiếu EW-WeSpeR với mã gốc", "",
       "- Repo dùng: `github.com/nlcvbo/wesper` (commit `1df4890`, MIT). **Chưa xác minh được đây là repo chính thức**: arXiv 2410.14413 không mở được (mạng chặn) và trang repo không có README/liên kết tới bài báo.",
       "- Chạy bằng `scripts/wesper_check.py` (torch 2.15 CPU); không sửa mã gốc, chỉ bọc 2 chỗ tương thích scipy mới. τ khởi tạo theo mã thí nghiệm của tác giả (trị riêng bản co wLWO), 50 epoch, lr 5e-2.",
@@ -17,14 +17,14 @@ L += ["## 1. Đối chiếu EW-WeSpeR với mã gốc", "",
       f"- Giả lập (mô hình nhân tố Test 2, N = 100, T = 250): số mẫu mỗi h theo bảng (không đủ 20 vì mã gốc chậm 130–900 s/lần; dừng theo giới hạn 3 giờ). Cột: W1 = Wasserstein-1 chuẩn hóa của phổ τ; xi_med = sai lệch tương đối trung vị của ξ; risk_diff = chênh tỷ số rủi ro GMV/tối ưu (gốc so với nhóm).", "", tab(g), "",
       f"- Mã gốc trả NaN ở {len(OSall) - len(OS)}/{len(OSall)} mẫu giả lập (loại khỏi bảng trên).",
       f"- HOSE (N = 100, h = 60): mã gốc trả NaN (loss không hữu hạn) ở {len(OH) - len(OHf)}/{len(OH)} cửa sổ; {len(OHf)} cửa sổ chạy được cho sai lệch ξ trung vị {f2(100 * OHf.xi_med.median(), 1)}%, lớn nhất {f2(100 * OHf.xi_max.max(), 0)}%.",
-      f"- Tiêu chí (ξ trung vị < 5% và chênh rủi ro < 1%): {open(f'{R}/wesper_status.txt', encoding='utf-8').read().split('tiêu chí')[1].split(';')[0].strip()}.",
+      f"- Tiêu chí (ξ trung vị < 5% và chênh rủi ro < 1%): {'đạt' if (OS.groupby('h').xi_med.median() < .05).all() and OHf.xi_med.median() < .05 and (OS.groupby('h').risk_diff.mean().abs() < .01).all() else 'KHÔNG đạt (ξ trung vị: ' + ', '.join(f'h={h}: {f2(100 * v, 1)}%' for h, v in OS.groupby('h').xi_med.median().items()) + '; chênh rủi ro trung bình đều < 1%)'}.",
       "- Thời gian: mã gốc ≥ 130 s/lần ⇒ không chạy backtest \"EW-WeSpeR (Oriol)\" (ngưỡng 30 s). Bản nhóm ≈ 0,1–1 s/lần.", "- Hình mới: scatter ξ nhóm – ξ gốc (`figs_v5/fig_oriol_xi_scatter.png`).", ""]
 # 2. T
 WI = pd.read_csv(f"{R}/T6_window_info.csv").drop(columns="Unnamed: 0", errors="ignore"); WC = pd.read_csv(f"{R}/T6_window_compare_full.csv")
 x = WC[WC.rival.isin(["VS-NL-LW", "EW-WeSpeR", "EW-NL-LW", "NL-LW"])].copy()
 x["ΔVol [CI]"] = [f"{a:+.2f} [{b:+.2f}; {c:+.2f}]".replace(".", ",") for a, b, c in zip(x["ΔVol (pp)"], x["CI lo"], x["CI hi"])]; x["p Holm"] = x["p Holm"].map(lambda p: f2(p, 3))
 x = x.pivot_table(index=["mode", "rival"], columns="T", values="ΔVol (pp)", aggfunc="first").round(2)
-L += ["## 2. Cửa sổ T (§5.4)", "", tab(WI.set_index("T")), "", "ΔVol = Vol(EW-RIE\\*) − Vol(đối thủ), pp/năm (cùng T, cùng ngày). Đủ CI, p Holm, 15 bộ: `T6_window_compare_full.csv`.", "", tab(x), ""]
+L += ["## 2. Cửa sổ T (§5.4)", "", tab(WI.set_index("T").round(3).apply(lambda c: c.map(lambda v: f2(v, 3) if isinstance(v, float) else v))), "", "ΔVol = Vol(EW-RIE\\*) − Vol(đối thủ), pp/năm (cùng T, cùng ngày). Đủ CI, p Holm, 15 bộ: `T6_window_compare_full.csv`.", "", tab(x.apply(lambda c: c.map(lambda v: f2(v, 2)))), ""]
 # 3. pairwise
 P = pd.read_csv(f"{R}/T44_pairwise_std.csv"); sig = P[P.p_holm < .05][["mode", "a", "b", "dvol", "p_holm"]]
 A = pd.read_csv(f"{R}/pairwise_all_cells.csv"); TOP = ["EW-RIE*", "VS-NL-LW", "VS-EW-RIE*", "EW-WeSpeR", "EW-NL-LW", "VS-RIE"]; CNT = pd.DataFrame(0, index=TOP, columns=TOP)
