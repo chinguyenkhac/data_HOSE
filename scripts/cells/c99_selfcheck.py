@@ -18,7 +18,7 @@ ck["pairwise_top (EW-RIE* vs VS-NL-LW) cho cùng ΔVol với compare_to"] = all(
 ck["Cửa sổ T = 250 trùng cấu hình chuẩn (cùng ΔVol vs VS-NL-LW)"] = all(abs(WC[(250, m)].loc["VS-NL-LW", "ΔVol (pp)"] - T3C[m].loc["VS-NL-LW", "ΔVol (pp)"]) < 1e-9 for m in MODES)
 ck["Cửa sổ T: mọi bảng cùng ngày trong từng T"] = all(WR[(t_, m)]["out"][k]["r"].index.equals(WR[(t_, m)]["out"]["EW-RIE*"]["r"].index) for t_ in WINS for m in MODES for k in WR[(t_, m)]["out"])
 ck["Không NaN/inf trong CSV số (trừ cột p Holm ngoài họ lõi)"] = all(np.isfinite(pd.read_csv(f"{RESULTS_DIR}/{f}").drop(columns=["p Holm", "ΔTurnover", "Turn CI lo", "Turn CI hi"], errors="ignore").select_dtypes("number").values).all()
-                                                                    for f in os.listdir(RESULTS_DIR) if f.endswith(".csv") and not f.startswith("T9_") and f != "T43_timing_long.csv" and "compare" not in f and "tests" not in f and "vs_ew" not in f and "pairwise" not in f and "T44" not in f and "window" not in f)
+                                                                    for f in os.listdir(RESULTS_DIR) if f.endswith(".csv") and not f.startswith("T9_") and f != "T43_timing_long.csv" and "compare" not in f and "tests" not in f and "vs_ew" not in f and "pairwise" not in f and "T44" not in f and "window" not in f and "oriol" not in f)
 for k, v in ck.items(): print(("✔ " if v else "✘ ") + k)
 print(f"Newton thất bại (EW-RIE*, §4): {_STATS['fail']}/{_STATS['total']} | EW-WeSpeR dự phòng sang EW-RIE*: {_WSP_SAFE['fallback']}/{_WSP_SAFE['total']} (§4) | "
       f"Newton thất bại, lưới N × h: {int(T6['Newton thất bại'].sum())}")

@@ -1,20 +1,20 @@
 # Đối chiếu EW-WeSpeR (bản numpy của nhóm) với mã gốc PyTorch của tác giả: kết quả từ scripts/wesper_check.py (chạy riêng, nặng; đọc CSV)
 _f = [f"{RESULTS_DIR}/T1b_oriol_check_sim.csv", f"{RESULTS_DIR}/T1b_oriol_check_hose.csv"]
 if all(os.path.exists(f) for f in _f):
-    OS, OH = (pd.read_csv(f) for f in _f)
+    OSall, OH = (pd.read_csv(f) for f in _f); OS = OSall[OSall["loss_finite"].astype(bool) & OSall["xi_med"].notna()]; nfail_s = len(OSall) - len(OS)   # mẫu mã gốc trả NaN bị loại khỏi thống kê, đếm riêng
     g = OS.groupby("h").agg(**{"W1 phổ τ (chuẩn hóa)": ("W1_tau", "median"), "sai lệch ξ, trung vị": ("xi_med", "median"), "sai lệch ξ, lớn nhất": ("xi_max", "max"),
                                "rủi ro GMV/tối ưu – nhóm": ("risk_nhom", "mean"), "rủi ro GMV/tối ưu – gốc": ("risk_oriol", "mean"), "chênh tỷ số rủi ro (TB)": ("risk_diff", "mean"),
                                "s/lần – nhóm": ("sec_nhom", "mean"), "s/lần – gốc": ("sec_oriol", "mean")})
     OHf = OH[OH["loss_finite"].astype(bool) & OH["xi_med"].notna()]; nfail = len(OH) - len(OHf)
     gh = OHf.agg({"W1_tau": "median", "xi_med": "median", "xi_max": "max", "sec_nhom": "mean", "sec_oriol": "mean"}).to_frame(f"HOSE ({len(OHf)}/{len(OH)} cửa sổ mã gốc chạy được)").T
-    cap("Bảng", f"Đối chiếu EW-WeSpeR của nhóm với mã gốc (nlcvbo/wesper, 50 epoch): mô hình nhân tố Test 2 (N = 100, T = 250, {OS.groupby('h').size().min()}–{OS.groupby('h').size().max()} lần lặp/h) và cửa sổ HOSE (N = 100, h = 60). ξ: sai lệch tương đối của trị riêng sau co (cùng chuẩn hóa vết), trung vị trên các trị riêng rồi trên các mẫu; W1: khoảng cách Wasserstein-1 của phổ quần thể τ chia cho trung bình; rủi ro GMV chia cho tối ưu của ma trận thật.")
+    cap("Bảng", f"Đối chiếu EW-WeSpeR của nhóm với mã gốc (nlcvbo/wesper, 50 epoch): mô hình nhân tố Test 2 (N = 100, T = 250, {OS.groupby('h').size().min()}–{OS.groupby('h').size().max()} mẫu hợp lệ/h) và cửa sổ HOSE (N = 100, h = 60). ξ: sai lệch tương đối của trị riêng sau co (cùng chuẩn hóa vết), trung vị trên các trị riêng rồi trên các mẫu; W1: khoảng cách Wasserstein-1 của phổ quần thể τ chia cho trung bình; rủi ro GMV chia cho tối ưu của ma trận thật.")
     show(g, 4); show(gh, 4)
     gx, gr = OS.groupby("h").xi_med.median(), OS.groupby("h").risk_diff.mean()
     OK_XI, OK_RISK = bool((gx < 0.05).all() and OHf.xi_med.median() < 0.05), bool((gr.abs() < 0.01).all())
     md("**Kết quả.** Giả lập (sai lệch tương đối trung vị của ξ; chênh tỷ số rủi ro GMV, bản gốc so với bản nhóm): " + "; ".join(f"h = {h_}: {f2(100 * gx[h_], 1)}%; {f2(100 * gr[h_], 2)}%" for h_ in gx.index)
-       + f". HOSE: mã gốc trả NaN (loss không hữu hạn) ở {nfail}/{len(OH)} cửa sổ; ở {len(OHf)} cửa sổ còn lại sai lệch ξ trung vị {f2(100 * OHf.xi_med.median(), 1)}%, lớn nhất {f2(100 * OHf.xi_max.max(), 0)}% (ξ của vài trị riêng nhỏ nhất lệch xa). "
+       + f". Mã gốc trả NaN ở {nfail_s}/{len(OSall)} mẫu giả lập (loại khỏi thống kê). HOSE: mã gốc trả NaN (loss không hữu hạn) ở {nfail}/{len(OH)} cửa sổ; ở {len(OHf)} cửa sổ còn lại sai lệch ξ trung vị {f2(100 * OHf.xi_med.median(), 1)}%, lớn nhất {f2(100 * OHf.xi_max.max(), 0)}% (ξ của vài trị riêng nhỏ nhất lệch xa). "
        f"Tiêu chí đạt (ξ < 5% và chênh rủi ro < 1%): **{'đạt' if OK_XI and OK_RISK else 'không đạt'}** (báo nguyên số, không sửa bản nhóm; không biết bên nào lệch: chưa có đáp án đúng cho dữ liệu thật). "
-       f"Thời gian mã gốc {f2(OS.sec_oriol.mean(), 0)} s/lần (giả lập) và {f2(OHf.sec_oriol.mean(), 0)} s/lần (HOSE, cửa sổ chạy được) so với {f2(OS.sec_nhom.mean(), 2)} s/lần của bản nhóm; vì ≥ 30 s/lần nên **không** chạy backtest \"EW-WeSpeR (Oriol)\".")
+       f"Thời gian mã gốc {f2(OS.sec_oriol.mean(), 0)} s/lần (giả lập) và {f2(OHf.sec_oriol.mean(), 0)} s/lần (HOSE, cửa sổ chạy được) so với {f2(OS.sec_nhom.mean(), 2)} s/lần của bản nhóm (cùng đo khi nhiều tiến trình chạy song song nên không so được với §4.3); vì ≥ 30 s/lần nên **không** chạy backtest \"EW-WeSpeR (Oriol)\".")
     open(f"{RESULTS_DIR}/wesper_status.txt", "w", encoding="utf-8").write(f"EW-WeSpeR đã đối chiếu với mã gốc nlcvbo/wesper (repo chính thức chưa xác minh được): sai lệch ξ trung vị {f2(100 * float(gx.min()), 1)}–{f2(100 * float(gx.max()), 1)}% (giả lập, theo h), tiêu chí < 5% **{'đạt' if OK_XI and OK_RISK else 'không đạt'}**; mã gốc trả NaN ở {nfail}/{len(OH)} cửa sổ HOSE (§1b)")
     _fz = f"{RESULTS_DIR}/T1b_oriol_scatter.npz"
     if os.path.exists(_fz):

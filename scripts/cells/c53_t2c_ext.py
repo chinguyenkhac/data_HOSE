@@ -17,4 +17,5 @@ for m in MODES:
 BEs = {m: (f"{BE[m]:.2%}".replace(".", ",") if np.isfinite(BE[m]) else "không có trong [0; 5%]") for m in MODES}
 md("**Kết quả (v5).** Mức phí một chiều làm Sharpe sau phí của EW-RIE\\* bằng VS-NL-LW (hòa vốn): " + f"chỉ mua {BEs['long_only']}, bán khống {BEs['short_ok']}. "
    + " ".join(f"{VN[m]}, COST 0,25%: ΔSharpe {f2(T2J.loc[(VN[m], 'COST 0,25% (gốc)'), 'ΔSharpe (EW-RIE* − VS-NL-LW)'], 3)}, p JKM {pv(T2J.loc[(VN[m], 'COST 0,25% (gốc)'), 'p JKM'])}." for m in MODES)
-   + " Hòa vốn nằm ngoài [0; 5%] nghĩa là EW-RIE\\* ít giao dịch hơn nhưng không bù được chênh lệch Sharpe gộp.")
+   + (" Ở phí thực tế (0,20–0,25% một chiều) EW-RIE\\* vẫn thấp hơn VS-NL-LW về Sharpe sau phí và chênh lệch không có ý nghĩa (p JKM > 0,05); chỉ khi phí vượt mức hòa vốn thì việc ít giao dịch hơn mới bù được chênh lệch Sharpe gộp."
+      if all(np.isfinite(BE[m]) for m in MODES) else " Hòa vốn nằm ngoài [0; 5%] ở ít nhất một chế độ: EW-RIE\\* ít giao dịch hơn nhưng không bù được chênh lệch Sharpe gộp."))

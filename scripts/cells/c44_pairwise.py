@@ -29,7 +29,7 @@ def pw_text(PWD, scope=""):
     return " ".join(t)
 md(f"**Kết quả.** {pw_text(PWS)}")
 _sig = lambda m: {frozenset((r.a, r.b)) for r in PWS[m][0].itertuples() if r.p_holm < .05}
-_eqv = [k for k in TOP if k != "EW-NL-LW" and all(frozenset(("EW-RIE*", k)) not in _sig(m) for m in MODES)]
+_eqv = [k for k in TOP if k not in ("EW-NL-LW", "EW-RIE*") and all(frozenset(("EW-RIE*", k)) not in _sig(m) for m in MODES)]
 md(f"**Kết luận.** EW-RIE\\* không phân biệt được về rủi ro với {', '.join(_e(k) for k in _eqv)} ở cả hai chế độ (p Holm ≥ 0,05); "
    f"riêng EW-NL-LW {'khác' if all(frozenset(('EW-RIE*', 'EW-NL-LW')) in _sig(m) for m in MODES) else 'không khác ở mọi chế độ so với'} EW-RIE\\* có ý nghĩa. Xem ΔTurnover trong bảng: cùng rủi ro nhưng turnover khác nhau là chỗ các bộ này thật sự khác nhau.")
 open(f"{RESULTS_DIR}/pairwise_sentence.txt", "w", encoding="utf-8").write(f"Trong nhóm dẫn đầu (15 cặp, Holm): " + pw_text(PWS).replace("**", ""))

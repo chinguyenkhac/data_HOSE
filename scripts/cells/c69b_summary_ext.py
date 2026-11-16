@@ -19,7 +19,9 @@ fig, ax = plt.subplots(1, 2, figsize=(13, 5))
 for a, m in zip(ax, MODES):
     for k, o in OUT0[m].items():
         v_, t_ = o["m"]["Vol %"], o["m"]["Turnover/kỳ"]; a.scatter(t_, v_, s=60 if k in TOP else 28, color=col_of(k) if k in COL else GREY, zorder=3)
-        a.annotate(k, (t_, v_), fontsize=7, xytext=(4, 3), textcoords="offset points")
+        off = {"EW-RIE*": (-12, 14), "EW-WeSpeR": (-52, -16), "EW-NL-LW": (6, 10), "VS-NL-LW": (6, -14), "VS-EW-RIE*": (-6, -17), "VS-RIE": (6, 4), "NL-LW": (-34, 6)}.get(k)
+        if off is None and k not in ("DCC-GARCH(1,1)", "Sample", "EW-RIE (q_eff)", "PCA-auto", "RIE"): continue
+        a.annotate(k, (t_, v_), fontsize=7, xytext=off or (4, 3), textcoords="offset points", arrowprops=dict(arrowstyle="-", lw=.4, color="#9aa0a6") if off else None)
     a.set_xscale("log"); a.set_xlabel("Turnover/kỳ (log)"); a.set_ylabel("Vol %/năm"); a.set_title(VN[m], fontsize=10); a.grid(alpha=.3)
     a.set_ylim(top=min(a.get_ylim()[1], 18))
 plt.tight_layout(); savefig(fig, "fig_vol_turnover")

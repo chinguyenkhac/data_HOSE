@@ -56,7 +56,7 @@ rel = {m: WV[m].div(WV[m].loc["NL-LW"], axis=1) for m in MODES}                 
 spread = {m: {g: float(np.mean([rel[m].loc[k].max() - rel[m].loc[k].min() for k in ks])) for g, ks in (("EW", EWG), ("phẳng", [k for k in FLG if k != "NL-LW"]))} for m in MODES}
 md("**Kết quả.** " + " ".join(f"**{VN[m]}:** ΔVol(EW-RIE\\* − VS-NL-LW) = " + "; ".join(f"T = {t_}: {_dvw(m, t_)}" for t_ in WINS) + ". "
    f"Hạng EW-RIE\\* theo T = {', '.join(str(int(WRK[m].loc['EW-RIE*', t_])) for t_ in WINS)}; hạng VS-NL-LW = {', '.join(str(int(WRK[m].loc['VS-NL-LW', t_])) for t_ in WINS)}. "
-   f"Vol tương đối so với NL-LW cùng T dao động (max − min qua 3 T, trung bình): nhóm EW {spread[m]['EW']:.3f}, nhóm cửa sổ phẳng (RIE, VS-NL-LW, VS-RIE) {spread[m]['phẳng']:.3f}. " for m in MODES))
+   f"Vol tương đối so với NL-LW cùng T dao động (max − min qua 3 T, trung bình): nhóm EW {f2(spread[m]['EW'], 3)}, nhóm cửa sổ phẳng (RIE, VS-NL-LW, VS-RIE) {f2(spread[m]['phẳng'], 3)}. " for m in MODES))
 _nsig = {m: int(sum((WP[(t_, m)][0]["p_holm"] < .05).sum() for t_ in WINS)) for m in MODES}
 md(f"**Kết luận.** Số cặp phân biệt được trong nhóm dẫn đầu (p Holm < 0,05, tổng 3 T): chỉ mua {_nsig['long_only']}/45, bán khống {_nsig['short_ok']}/45. "
    "Câu hỏi 'EW-RIE\\* hơn/ngang/kém VS-NL-LW theo T' đọc trực tiếp từ dấu và CI của ΔVol ở bảng trên; không kết luận vượt quá CI.")

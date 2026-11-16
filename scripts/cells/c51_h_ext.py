@@ -21,5 +21,5 @@ for a, m in zip(ax, MODES):
 ax[0].legend(fontsize=7); plt.tight_layout(); savefig(fig, "fig_halflife_top6")
 cap("Hình", "Vol theo half-life h của 6 bộ đầu bảng (N = 100); nét đứt: bộ không phụ thuộc h.")
 _c = lambda h_, m, r_: H5C[(h_, m)].loc[r_]
-md("**Kết quả (v5).** ΔVol(EW-RIE\\* − VS-NL-LW) theo h = 30/60/120: " + "; ".join(f"{VN[m]} " + ", ".join(f"{_c(h_, m, 'VS-NL-LW')['ΔVol (pp)']:+.2f}" for h_ in HH) for m in MODES)
-   + ". So với EW-WeSpeR: " + "; ".join(f"{VN[m]} " + ", ".join(f"{_c(h_, m, 'EW-WeSpeR')['ΔVol (pp)']:+.2f}" for h_ in HH) for m in MODES) + " (pp/năm, xem p Holm và CI ở bảng trên).")
+md("**Kết quả (v5).** ΔVol(EW-RIE\\* − VS-NL-LW) theo h = 30/60/120: " + "; ".join(f"{VN[m]} " + ", ".join(f"{_c(h_, m, 'VS-NL-LW')['ΔVol (pp)']:+.2f}".replace(".", ",") for h_ in HH) for m in MODES)
+   + ". So với EW-WeSpeR: " + "; ".join(f"{VN[m]} " + ", ".join(f"{_c(h_, m, 'EW-WeSpeR')['ΔVol (pp)']:+.2f}".replace(".", ",") for h_ in HH) for m in MODES) + " (pp/năm, xem p Holm và CI ở bảng trên).")
