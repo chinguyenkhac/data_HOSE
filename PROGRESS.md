@@ -78,3 +78,8 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 ## Bước 4 — đã viết toàn bộ ô theo mục lục mục 5 (scripts/cells/c6_*.py, m6_*.md); đang chạy thử bằng `scripts/dev_exec.py`.
 - Quyết định: lọc đứng giá 5%: 0 kỳ đủ 100 mã ⇒ báo riêng, không tính; Bảng 21 xếp hai chế độ theo hàng (một bảng) vì 5 mức × 2 chế độ > 8 cột mà mục lục chỉ có một số bảng.
 - Quyết định: Test 2b chạy 20 lần lặp (v3 là 6) theo mục lục; câu Kết quả sinh từ code.
+## 18:50 UTC
+- **Sửa lỗi bộ VS "đủ T"**: lần chạy đầu ra VS-NL-LW bán khống 18,07% ở T = 250 vì mã chưa niêm yết trong 20 phiên trước cửa sổ (NaN → 0) làm phương sai khởi động EWMA ≈ 1e-10, lợi suất chuẩn hóa ~9 900. Sửa: phần trước cửa sổ giữ NaN; mã không có đủ HL_VOL phiên (NaN hoặc toàn 0) khởi động trên đầu cửa sổ như `make_vs` (`ewma_standardize_full`). Xóa 18 cache cũ, chạy lại: T = 250 bản "đủ T" lệch bản thầy −0,02/−0,03 pp; số lượt khởi động dự phòng ghi ở §5.4.
+- **EW-WeSpeR phụ thuộc khởi tạo ấm**: Test 2b 20 lần lặp để lại trạng thái khởi tạo ấm, làm EW-WeSpeR bán khống ở §4 ra 13,33% (thay vì 12,57%). Thêm `_WSP["warm"].clear()` cuối Test 2b (tái lập). Ghi vào báo cáo như một điểm yếu của EW-WeSpeR.
+- **Bước 3 xong**: 6 tiến trình Oriol 200 epoch: 5 mẫu chạy đủ, mẫu h=30 #2 trả NaN ngay 50 epoch. ξ lệch giảm mạnh từ 50 → 100 epoch (h=15: 8,5/6,5/13,4% → 4,3/1,8/3,6%; h=30: 11,3/16,8% → 4,1/10,9%), tới 200 epoch: h=15 ~4–6%, h=30 3,0/5,9%.
+- Chạy thử toàn notebook (dev_exec) không lỗi; đủ 34 bảng, 17 hình. Đang chạy sạch nbconvert (1 luồng BLAS).

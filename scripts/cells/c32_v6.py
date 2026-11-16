@@ -21,7 +21,7 @@ def _xpre(R, s, W, tick, pre):
     # v6: cửa sổ mở rộng thêm `pre` phiên NGAY TRƯỚC cửa sổ ước lượng (chỉ dữ liệu quá khứ) để khởi động EWMA của bộ VS "đủ T"
     a = s - W - pre
     if a < 0: PRE_SHORT.append(-a)
-    return R.iloc[max(0, a):s][tick].fillna(0).values
+    E = R.iloc[max(0, a):s][tick]; return np.vstack([E.iloc[:-W].values, E.iloc[-W:].fillna(0).values])     # phần trước cửa sổ giữ NaN (mã chưa niêm yết)
 exec(_src.replace("def run_backtest(", "def run_backtest_x(")
          .replace(_chk, '        ok &= (win == 0).mean() <= cfg.get("ZERO_MAX", 1.0)          # v3: lọc mã đứng giá (cửa sổ quá khứ)\n' + _chk)
          .replace(_sel, _sel + "        ULOG.append(dict(date=dates[s], n_eligible=int(ok.sum()), tickers=list(tick)))\n")

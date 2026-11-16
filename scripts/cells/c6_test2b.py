@@ -32,3 +32,4 @@ g_ = lambda k, h: f2(t2b.loc[k, h], 3)
 md(f"**Kết quả.** h = 15 (N > T\\_eff): EW-NL-LW bản thầy {g_('EW-NL-LW (v2)', 15)} → bản sửa **{g_('EW-NL-LW', 15)}** (oracle {g_('Oracle', 15)}); EW-WeSpeR {g_('EW-WeSpeR', 15)}; EW-RIE\\* {g_('EW-RIE*', 15)}. "
    f"h = 60 (N < T\\_eff): hai bản EW-NL-LW trùng nhau ({g_('EW-NL-LW', 60)}); EW-RIE\\* {g_('EW-RIE*', 60)}, EW-WeSpeR {g_('EW-WeSpeR', 60)}.\n\n"
    f"**Kết luận.** Bản sửa EW-NL-LW đúng; EW-WeSpeR cách oracle tối đa {f2(100 * (t2b.loc['EW-WeSpeR'] / t2b.loc['Oracle'] - 1).max(), 1)}%; EW-RIE\\* {'kém hơn' if t2b.loc['EW-RIE*', 15] > t2b.loc['EW-WeSpeR', 15] else 'không kém'} EW-WeSpeR khi N > T\\_eff (h = 15).")
+_WSP["warm"].clear()          # xóa khởi tạo ấm của EW-WeSpeR do Test 2b để lại: §4 không phụ thuộc số lần lặp của Test 2b (tái lập được; xem Ghi chú)

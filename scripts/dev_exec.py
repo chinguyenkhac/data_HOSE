@@ -23,7 +23,7 @@ for i, c in enumerate(nb.cells):
     src = c.source if c.source.endswith("\n") else c.source + "\n"; fn = f"<cell {i}>"; linecache.cache[fn] = (len(src), None, src.splitlines(True), fn)
     if "RESULTS = {}" in src and os.path.exists("/tmp/RESULTS6.pkl"):
         ns["ESTIMATORS"] = ns["build_estimators"](ns["CONFIG"]); ns["RESULTS"] = pickle.load(open("/tmp/RESULTS6.pkl", "rb")); ns["PAIRS"] = None; print(f"[cell {i}] RESULTS nạp từ pkl"); continue
-    if "N_GRID, K_WIN, REPS" in src and os.path.exists("results_v5/T43_timing_long.csv"):
+    if False:
         head = src.split("hl = CONFIG")[0]; post = "TIMING = pd.read_csv('results_v5/T43_timing_long.csv')\n" + src.split("TIMING = pd.DataFrame(rows);")[1].lstrip().replace('save(TIMING, "T43_timing_long")', "pass")
         post = post.replace("def profile_ew_rie", "def profile_ew_rie_unused").split("_s0 = dict(_STATS)")[0] + "PROF = pd.read_csv('results_v5/T43_ew_rie_profile.csv', index_col=0); HW = 'CPU (dev)'"
         post = post.replace('save(TT, "T43_timing")', "pass")

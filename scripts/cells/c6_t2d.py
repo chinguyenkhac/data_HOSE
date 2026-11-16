@@ -7,9 +7,10 @@ for u in U0:
 HOLD = pd.DataFrame(rows); save(HOLD, "T2d_events")
 RNV = {"bat_buoc": "bắt buộc", "hop_nhat": "hợp nhất", "tu_nguyen": "tự nguyện", "chuyen_san": "chuyển sàn", "chua_ro": "chưa rõ"}
 tab = HOLD.assign(reason=HOLD.reason.map(RNV)).pivot_table(index="year", columns="reason", values="ticker", aggfunc="count", fill_value=0); tab["Tổng"] = tab.sum(1); tab.loc["Tổng"] = tab.sum()
-ever = set().union(*[set(u["tickers"]) for u in U0]); dl_px = set(DL_EVENTS.ticker); n_in = len(dl_px & ever)
+ever = set().union(*[set(u["tickers"]) for u in U0]); _dl = MASTER.dropna(subset=["delisting_date"]); _hp = _dl[_dl.ticker.isin(P.columns)]
+dl_px = set(_hp.ticker); n_in = len(dl_px & ever)
 cap("Bảng", f"Lượt mã trong universe bị hủy niêm yết trong kỳ nắm giữ, theo năm và lý do (cấu hình chuẩn: {len(U0)} kỳ × N = {CONFIG['N']} = {th(len(U0) * CONFIG['N'])} vị thế). "
-    f"Trong {len(dl_px)} mã hủy có giá, {n_in} mã từng vào universe (danh mục) ít nhất một kỳ.")
+    f"Trong {len(_hp)} lượt hủy niêm yết có giá ({len(dl_px)} mã), {n_in} mã từng vào universe (danh mục) ít nhất một kỳ.")
 show(tab.astype(int), 0)
 ADJ["d"] = {}                                                                          # d = 0 ⇒ trùng hệt bản chuẩn (kiểm tra cài đặt)
 for lo, m in ((True, "long_only"), (False, "short_ok")):

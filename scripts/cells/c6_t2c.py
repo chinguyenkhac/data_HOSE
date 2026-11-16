@@ -16,4 +16,5 @@ save(T22, "T2c_sharpe_convention")
 cap("Bảng", "Sharpe (năm hóa) theo quy ước phí, REB = 21, 12 phương pháp; in đậm: cao nhất mỗi cột. Với Σw = 1, giá trị mua = giá trị bán = turnover/2 nên phí (mua 0,15%, bán 0,25%) ≡ COST đối xứng 0,20% (unit test 200 trường hợp, và r_net tính lại khớp backtest chạy lại thật).")
 display(T22.style.format(precision=3, decimal=",").highlight_max(axis=0, props="font-weight: bold"))
 md("**Kết quả.** Sharpe theo phí thực tế (mua 0,15% / bán 0,25%) — " + "; ".join(f"{VN[m]}: cao nhất {e_(T22[(VN[m], 'Mua 0,15% / bán 0,25%')].idxmax())} ({f2(T22[(VN[m], 'Mua 0,15% / bán 0,25%')].max(), 3)}), EW-RIE\\* {f2(T22.loc['EW-RIE*', (VN[m], 'Mua 0,15% / bán 0,25%')], 3)}, VS-NL-LW {f2(T22.loc['VS-NL-LW', (VN[m], 'Mua 0,15% / bán 0,25%')], 3)}" for m in ("short_ok", "long_only")) + ".\n\n"
-   "**Kết luận.** Giả định COST = 0,25% hơi bảo thủ so với phí thực tế (tương đương 0,20%) nhưng không đổi thứ tự giữa các bộ.")
+   f"**Kết luận.** Giả định COST = 0,25% hơi bảo thủ so với phí thực tế (tương đương 0,20%); thứ tự Sharpe của 12 bộ giữa hai quy ước phí "
+   + ("không đổi." if all((T22[(VN[m], 'COST 0,25% (chuẩn)')].rank() == T22[(VN[m], 'Mua 0,15% / bán 0,25%')].rank()).all() for m in MODES) else "có đổi ở vài vị trí."))

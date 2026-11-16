@@ -31,4 +31,4 @@ cv = T30[(T30["Giai đoạn"] == "2020Q1 COVID")].set_index(["Chế độ", "C�
 md("**Kết quả.** Giai đoạn cả ba cặp đều âm (VS giảm rủi ro) — " + "; ".join(f"{VN[m]}: {', '.join(neg[m]) if neg[m] else 'không có'}" for m in ("short_ok", "long_only"))
    + f". 2020Q1 COVID: " + ", ".join(f"{e_(p)} {dv(v)}" for (mm, p), v in cv.items() if mm == VN['long_only']) + " (chỉ mua).\n\n"
    f"**Kết luận.** VS giảm rủi ro nhiều nhất ở giai đoạn {T5P.mean(axis=1).idxmin()} (ΔVol trung bình {dv(T5P.mean(axis=1).min())} pp); "
-   f"chỉ {int(((T30['CI hi'] < 0) & (T30['Giai đoạn'] != 'Toàn mẫu')).sum())}/{int((T30['Giai đoạn'] != 'Toàn mẫu').sum())} ô (giai đoạn × cặp × chế độ) có CI nằm hẳn dưới 0.")
+   f"{int(((T30['CI hi'] < 0) & (T30['Giai đoạn'] != 'Toàn mẫu')).sum())}/{int((T30['Giai đoạn'] != 'Toàn mẫu').sum())} ô (giai đoạn × cặp × chế độ) có CI nằm hẳn dưới 0.")

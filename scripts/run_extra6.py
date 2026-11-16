@@ -3,6 +3,9 @@ import sys, os, time; sys.path.insert(0, os.path.dirname(os.path.abspath(__file_
 from hose_ns import load_ns
 ns = load_ns("EW_RIE_HOSE_v6.ipynb"); T = int(sys.argv[1]); ms = sys.argv[2].split(",")
 for lo in (True, False):
-    t0 = time.time(); ns["PRE_SHORT"].clear(); d = ns["run_full"](dict(ns["CONFIG"], WINDOW=T), lo, ms)
+    t0 = time.time(); ns["PRE_SHORT"].clear(); ns["PRE_FALLBACK"].update(n=0, cols=0); d = ns["run_full"](dict(ns["CONFIG"], WINDOW=T), lo, ms)
     print(f"T={T} {'long_only' if lo else 'short_ok'}: {len(d['ulog'])} kỳ, {time.time()-t0:.0f}s, thiếu phiên trước cửa sổ: {len(ns['PRE_SHORT'])} lần, "
+          f"khởi động trên đầu cửa sổ: {ns['PRE_FALLBACK']['cols']} (kỳ × mã) / {ns['PRE_FALLBACK']['n']} lần gọi, "
           f"Vol: { {k: round(o['m']['Vol %'], 2) for k, o in d['out'].items()} }", flush=True)
+    import json; json.dump(dict(T=T, long_only=lo, methods=ms, fallback_cols=ns["PRE_FALLBACK"]["cols"], calls=ns["PRE_FALLBACK"]["n"], pre_short=len(ns["PRE_SHORT"])),
+                           open(f"results_v6/logs/prefb_T{T}_{'lo' if lo else 'so'}_{len(ms)}.json", "w"))

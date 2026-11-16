@@ -7,7 +7,7 @@ def sens_d(lab, m):
 def sens_out(lab, m):       # cột HL_VOL: chỉ giữ ba bộ VS và các bộ chúng ghép cặp (để heatmap cụm C, D, E)
     d = sens_d(lab, m); return d["out"] if SENS[lab][0] != "hv" else {k: o for k, o in d["out"].items() if k in VSSET + ["NL-LW", "RIE", "EW-RIE*"]}
 TA = {}
-for m in MODES:
+for m in ("short_ok", "long_only"):
     TA[m] = pd.DataFrame({lab: vols(sens_d(lab, m)["out"], M12).where(lambda s: s.index.isin(VSSET) | (SENS[lab][0] != "hv")) for lab in SENS}).reindex(M12)
     save(TA[m], f"T5_tableA_{m}")
     kys = ", ".join(f"{lab}: {len(sens_d(lab, m)['ulog'])}" for lab in SENS if SENS[lab][0] == "N")

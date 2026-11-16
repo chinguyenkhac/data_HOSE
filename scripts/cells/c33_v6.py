@@ -4,9 +4,6 @@ def timed(name, f):                     # (định nghĩa lại) giữ thuộc t
         t = time.perf_counter(); S = f(X); TIMES.setdefault(name, []).append(time.perf_counter() - t); check_cov(S, name); return S
     g.pre = getattr(f, "pre", 0); return g
 
-def with_pre(est, pre):                 # bộ VS "đủ T": nhận thêm `pre` = HL_VOL phiên ngay trước cửa sổ để khởi động EWMA, rồi dùng đủ T phiên
-    est.pre = pre; return est
-
 def ewma_sig(X, hl):
     # độ lệch chuẩn EWMA dùng tại từng phiên, đúng số học của ewma_standardize của thầy; trả về (σ_t cho t = 0..T−1, σ sau phiên cuối)
     lam = 0.5 ** (1 / hl); s2 = X[:hl].var(0) + 1e-10; S = np.empty_like(X)
@@ -25,13 +22,34 @@ def make_vs_split(part, hl_vol):
         s = Z.std(0, ddof=1) * (si_T / sm_T); return clean(Z) * np.outer(s, s)
     return est
 
+PRE_FALLBACK = {"n": 0, "cols": 0}     # số (kỳ × mã) không có đủ dữ liệu trước cửa sổ ⇒ khởi động EWMA trên đầu cửa sổ như make_vs
+def ewma_standardize_full(Xe, hl):
+    # Xe = [hl phiên trước cửa sổ (có thể NaN) ; T phiên cửa sổ]. Mã có đủ hl phiên trước cửa sổ (không NaN, phương sai > 0): EWMA khởi động trên đoạn đó rồi chuẩn hóa đủ T phiên.
+    # Mã thiếu (chưa niêm yết, hoặc toàn 0): khởi động như ewma_standardize trên đầu cửa sổ (không bỏ phiên nào). Trả về Z (T × N) và σ cuối.
+    pre, X = Xe[:hl], Xe[hl:]; good = np.isfinite(pre).all(0) & (np.nan_to_num(pre).var(0) > 0)
+    Z = np.empty_like(X); sig = np.empty(X.shape[1])
+    if good.any(): z, s_ = ewma_standardize(np.vstack([pre[:, good], X[:, good]]), hl); Z[:, good], sig[good] = z[hl:], s_
+    if (~good).any(): z, s_ = ewma_standardize(X[:, ~good], hl); Z[:, ~good], sig[~good] = z, s_
+    PRE_FALLBACK["cols"] += int((~good).sum()); PRE_FALLBACK["n"] += 1
+    return Z, sig
+def make_vs_full(corr_cleaner, hl_vol):
+    # bản "đủ T" của make_vs: nhận thêm hl_vol phiên trước cửa sổ (est.pre), tương quan tính trên đủ T phiên
+    def est(Xe):
+        Z, sig = ewma_standardize_full(Xe, hl_vol); return corr_cleaner(Z) * np.outer(sig, sig)
+    est.pre = hl_vol; return est
+def make_vs_ew_rie_full(hl_vol, hl):
+    def est(Xe):
+        Z, sig = ewma_standardize_full(Xe, hl_vol); w = ew_weights(len(Z), hl); C, _ = ew_corr(Z, w)
+        return ew_rie_corr(C, w) * np.outer(sig, sig)
+    est.pre = hl_vol; return est
+
 EXTRA6 = ["VS-NL-LW (đủ T)", "VS-RIE (đủ T)", "VS-EW-RIE* (đủ T)", "VS chỉ phần chung", "VS chỉ phần riêng"]
 _build_full5 = build_full
 def build_full(cfg):
     E = _build_full5(cfg); hv, hl = cfg["HL_VOL"], cfg["HL_EW"]
-    E.update({"VS-NL-LW (đủ T)": with_pre(make_vs(lambda Z: renorm(nl_lw_S(np.cov(Z, rowvar=False), len(Z) - 1)), hv), hv),
-              "VS-RIE (đủ T)": with_pre(make_vs(lambda Z: rie_corr(np.corrcoef(Z, rowvar=False), Z.shape[1] / len(Z)), hv), hv),
-              "VS-EW-RIE* (đủ T)": with_pre(make_vs_ew_rie(hv, hl), hv),
+    E.update({"VS-NL-LW (đủ T)": make_vs_full(lambda Z: renorm(nl_lw_S(np.cov(Z, rowvar=False), len(Z) - 1)), hv),
+              "VS-RIE (đủ T)": make_vs_full(lambda Z: rie_corr(np.corrcoef(Z, rowvar=False), Z.shape[1] / len(Z)), hv),
+              "VS-EW-RIE* (đủ T)": make_vs_ew_rie_full(hv, hl),
               "VS chỉ phần chung": make_vs_split("chung", hv), "VS chỉ phần riêng": make_vs_split("riêng", hv)})
     return E
 USES_HL_EW |= {"VS-EW-RIE* (đủ T)"}; USES_HL_VOL |= {"VS-NL-LW (đủ T)", "VS-RIE (đủ T)", "VS-EW-RIE* (đủ T)", "VS chỉ phần chung", "VS chỉ phần riêng"}
@@ -113,6 +131,8 @@ e_ = lambda s: s.replace("*", "\\*")
 # kiểm tra nhanh (không phải số liệu): ewma_sig đúng số học của ewma_standardize; VS chỉ phần chung với σ_m ≡ 1 là phép nhân hằng
 _X = np.random.default_rng(1).standard_normal((120, 5)) * .01; _Z, _s = ewma_standardize(_X, 20); _S, _sT = ewma_sig(_X, 20)
 assert np.allclose(_X / _S, _Z) and np.allclose(_s, _sT)
+_Xe = np.vstack([np.full((20, 5), np.nan), _X]); _Za, _sa = ewma_standardize_full(_Xe, 20); assert np.allclose(_Za, _Z) and np.allclose(_sa, _s)   # thiếu trước cửa sổ ⇒ như make_vs nhưng giữ đủ T
+PRE_FALLBACK.update(n=0, cols=0)
 
 def grid_count(G, pair):
     # số ô (cột × chế độ) có mặt cặp, số ô ΔVol < 0, số ô âm có ý nghĩa, số ô dương có ý nghĩa (p Holm trong cột)
