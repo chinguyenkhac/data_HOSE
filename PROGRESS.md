@@ -60,3 +60,14 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 ## 07:20 UTC — v5 XONG
 - Chạy sạch (OMP/OPENBLAS/MKL = 1) không lỗi; HTML xuất; `check_v5.py` đạt (ô thầy 15/18 + 3 ngoại lệ; ô mở đầu chỉ khác ở Kết quả/Hạn chế; 27 ảnh trong HTML; tự kiểm 14/14). `BAO_CAO_V5.md` sinh bởi `scripts/make_report_v5.py`.
 - Đối chiếu Oriol dừng ở 10/17/20 mẫu (h=15/30/60) do giới hạn giờ; tiêu chí ξ<5% KHÔNG đạt ở h=15, 30 (đạt ở h=60).
+
+---
+# PIPELINE V6 (bắt đầu 17:27 UTC 16/11)
+## Bước 0 — xong
+- `scripts/layout_v6.py` + `scripts/build_v6.py` dựng `EW_RIE_HOSE_v6.ipynb` (nền v3_nho + ô thầy + ô mới `scripts/cells/c6_*`, `c32_v6`, `c33_v6`, `c33_tests6`, `c00_helpers6`). Cache v5 chép sang `notebooks/results_v6/cache`.
+- Hồi quy (`scripts/step0_v6.py`, đọc cache run_full): 12 phương pháp khớp bảng Bước 0 đến 0,01; 118 kỳ, 2 475 phiên, 2016-12-08 → 2026-11-10.
+## Bước 1 — xong
+- §3.3: `M12`, `PAIRS12`, `holm`, `turnover_series`, `pair_table`, `pair_grid`, `pair_heatmap` (+ `save_grid`, `table_a`). Kiểm: EW-RIE*−VS-NL-LW +0,070/+0,133; EW-RIE*−EW-NL-LW −0,162/−0,057 (bán khống/chỉ mua) ✔.
+- Quyết định: `pair_grid` để trống các cặp có bộ không có trong cột (cụm A, B ở cột HL_VOL; Holm trên số cặp có mặt).
+## Đang chạy nền
+- Oriol 200 epoch (6 tiến trình: h ∈ {15, 30} × mẫu 0–2; `scripts/wesper_epochs.py`), lọc đứng giá 5%/15% (M12), VS-EW-RIE* ở h ∈ {30, 120} × HL_VOL ∈ {10, 40}.
