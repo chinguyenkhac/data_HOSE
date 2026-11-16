@@ -83,3 +83,7 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 - **EW-WeSpeR phụ thuộc khởi tạo ấm**: Test 2b 20 lần lặp để lại trạng thái khởi tạo ấm, làm EW-WeSpeR bán khống ở §4 ra 13,33% (thay vì 12,57%). Thêm `_WSP["warm"].clear()` cuối Test 2b (tái lập). Ghi vào báo cáo như một điểm yếu của EW-WeSpeR.
 - **Bước 3 xong**: 6 tiến trình Oriol 200 epoch: 5 mẫu chạy đủ, mẫu h=30 #2 trả NaN ngay 50 epoch. ξ lệch giảm mạnh từ 50 → 100 epoch (h=15: 8,5/6,5/13,4% → 4,3/1,8/3,6%; h=30: 11,3/16,8% → 4,1/10,9%), tới 200 epoch: h=15 ~4–6%, h=30 3,0/5,9%.
 - Chạy thử toàn notebook (dev_exec) không lỗi; đủ 34 bảng, 17 hình. Đang chạy sạch nbconvert (1 luồng BLAS).
+## 19:20 UTC — v6 XONG (Bước 5–9)
+- Chạy sạch nbconvert (1 luồng BLAS) không lỗi; ô mở đầu sinh bằng `scripts/make_intro6.py --patch` (số từ T3c/T3b); xuất `EW_RIE_HOSE_v6.html` (đủ code) và `EW_RIE_HOSE_v6_gon.html` (`--no-input`).
+- `scripts/check_v6.py`: ô thầy 15/18 + đúng 3 ngoại lệ; ô mở đầu chỉ khác đoạn Kết quả/Hạn chế; 34 bảng, 17 hình (17 ảnh trong notebook); mọi tự kiểm ✔ (gồm hồi quy §4 của thầy tính lại); Newton thất bại 0, EW-WeSpeR dự phòng 0/118.
+- `BAO_CAO_V6.md` sinh bởi `scripts/make_report_v6.py`.

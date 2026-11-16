@@ -19,16 +19,18 @@
 
 **Đối chứng:** ma trận mẫu, Ledoit–Wolf (2004), NL-LW (Ledoit–Wolf 2020), MP-clip (Laloux 1999), RIE (Bun–Bouchaud–Potters 2016/17), bản EW với $q\_{\text{eff}}$, EW-NL-LW, và biến thể VS (chuẩn hóa biến động EWMA).
 
-**Kết quả hiện có (HOSE 2009–3/2020, N=100, T=250, h=60):**
+**Kết quả hiện có (HOSE 12/2016–11/2026, N=100, T=250, h=60):**
 
 |  | Bán khống | Chỉ mua |
 | --- | --- | --- |
-| NL-LW | 15,14% | 15,95% |
-| EW-NL-LW | 14,43% | 15,28% |
-| EW-RIE ($q\_{\text{eff}}$) | 15,97% | 16,41% |
-| **EW-RIE\*** | **14,24%** | **15,21%** |
+| NL-LW | 13,10% | 13,72% |
+| EW-NL-LW | 12,72% | 13,12% |
+| EW-RIE ($q\_{\text{eff}}$) | 14,30% | 14,76% |
+| EW-WeSpeR | 12,57% | 13,05% |
+| VS-NL-LW | 12,49% | 12,93% |
+| **EW-RIE\*** | **12,56%** | **13,07%** |
 
-EW-RIE\* tốt hơn có ý nghĩa (bootstrap khối, 95%) so với mọi đối chứng, ở mọi half-life 30/60/120. Trên dữ liệu tổng hợp, EW-RIE\* chỉ cách oracle ≈1%.
-Hạn chế: dữ liệu đến 3/2020; survivorship bias; VS **không** được xác nhận trong mô phỏng GARCH.
+EW-RIE\* có rủi ro thấp hơn EW-NL-LW có ý nghĩa (ΔVol −0,16 / −0,06 điểm %, bán khống / chỉ mua; p Holm < 0,01 / < 0,01) và thấp hơn NL-LW (−0,54 / −0,65 điểm %; CI 95% bootstrap khối của thầy không chứa 0 ở cả hai chế độ). So với VS-NL-LW và EW-WeSpeR, chênh lệch rủi ro không có ý nghĩa (ΔVol +0,07 / +0,13 và −0,01 / +0,01 điểm %; p Holm = 1,00 / = 1,00 và = 1,00 / = 1,00). Turnover mỗi kỳ của EW-RIE\* thấp hơn VS-NL-LW (−0,47 / −0,27; CI 95% không chứa 0).
+Hạn chế: 19 mã hủy niêm yết thiếu giá; chưa có VN30/HNX; EW-RIE\* kém ổn định khi N > T\_eff; EW-WeSpeR khớp mã gốc về rủi ro GMV nhưng trị riêng sau co lệch ~10% ở h = 15–30 (repo gốc chưa xác minh).
 
 **Tài liệu chính:** Bun, Bouchaud & Potters (2016) *IEEE Trans. Inf. Theory* 62(12); (2017) *Physics Reports* 666; Ledoit & Wolf (2020) *Ann. Statist.*; Laloux et al. (1999) *PRL*; Jagannathan & Ma (2003) *J. Finance*.
