@@ -1,0 +1,19 @@
+effective_from,effective_to,n,quality,note
+2016-07-25,2017-01-22,30,derived_official,"HOSE 1/2017 notice: added BMP,CTD,DHG; removed FLC,HCM,PPC (reversed)"
+2017-01-23,2017-07-23,30,official,HOSE list 1/2017
+2017-07-24,2018-01-21,30,news_inferred,"7/2017 review: +NVL,ROS,SAB -HAG,HNG,ITA (press); consistent with HOSE 1/2018 list"
+2018-01-22,2018-07-22,30,official,HOSE list 1/2018
+2018-07-23,2019-02-10,30,news_inferred,"7/2018 review: +PNJ,VPB,VRE -BID,BVH,NT2 (press)"
+2019-02-11,2019-08-04,30,official,HOSE list 1/2019 (as of Apr-2019 update)
+2019-08-05,2020-01-31,30,official,HOSE list 7/2019
+2021-02-01,2021-08-01,30,official,"HOSE list 1/2021 (effective date = first Monday of Feb, assumed)"
+2021-08-02,2022-07-31,30,official_assumed_unchanged,HOSE list 7/2021; assumes no change at 1/2022 review
+2022-08-01,2023-02-05,30,news_inferred,8/2022: +VIB -PNJ (press)
+2023-02-06,2023-08-06,30,inferred_date_uncertain,KDH->BCM swap occurred between 2022-08 and 2023-08 (exact date not found)
+2023-08-07,2024-02-04,30,official,HOSE list 7/2023
+2024-02-05,2024-08-04,30,official,HOSE list 1/2024
+2024-08-05,2025-02-02,30,official,HOSE list 7/2024
+2025-02-03,2025-08-03,30,official,HOSE list 1/2025
+2025-08-04,2026-02-01,30,official,HOSE update 10/2025 (7/2025 review: +DGC -BVH effective 2025-08-04)
+2026-02-02,2026-08-02,30,official,HOSE list 1/2026 (4/2026 update identical)
+2026-08-03,2026-11-16,30,vci_current_list,VCI group VN30 as of 2026-11-17; effective date assumed 2026-08-03
