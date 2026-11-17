@@ -7805,19 +7805,19 @@ a.anchor-link {
 <p><strong>Phương pháp đề xuất: EW-RIE*</strong></p>
 <ol>
 <li>Ước lượng tương quan có trọng số mũ (half-life <em>h</em>) để phản ứng nhanh với thay đổi chế độ:
-$E = \sum\_t w\_t x\_t x\_t^\top = C^{1/2} W C^{1/2}$, với $W = \sum\_t w\_t y\_t y\_t^\top$ là nhiễu.</li>
-<li>R-transform của nhiễu (tổng tự do các ma trận hạng 1): $R\_W(g) = \sum\_t \dfrac{w\_t}{1 - N w\_t g}$.</li>
+$E = \sum_t w_t x_t x_t^\top = C^{1/2} W C^{1/2}$, với $W = \sum_t w_t y_t y_t^\top$ là nhiễu.</li>
+<li>R-transform của nhiễu (tổng tự do các ma trận hạng 1): $R_W(g) = \sum_t \dfrac{w_t}{1 - N w_t g}$.</li>
 <li>Phép thế nhân (BBP 2016) cho trị riêng làm sạch:
-$\xi\_i = \lambda\_i\,\dfrac{\operatorname{Im}\gamma(z\_i)}{\operatorname{Im} t\_E(z\_i)}$, $z\_i = \lambda\_i - i\eta$, $t\_E = z g\_E(z) - 1$, với $\gamma$ là nghiệm của $\gamma\,R\_W(\gamma) = t\_E$.
+$\xi_i = \lambda_i\,\dfrac{\operatorname{Im}\gamma(z_i)}{\operatorname{Im} t_E(z_i)}$, $z_i = \lambda_i - i\eta$, $t_E = z g_E(z) - 1$, với $\gamma$ là nghiệm của $\gamma\,R_W(\gamma) = t_E$.
 Trọng số đều ⇒ trùng công thức RIE cổ điển $\lambda/|1-q+qzg|^2$.</li>
 <li>Ba chi tiết kỹ thuật (đóng góp của nhóm):<ul>
-<li><strong>Chọn đúng nhánh nghiệm</strong> bằng tiếp tục giải tích: đi từ $t\approx 0$ (nơi $\gamma\approx t$) theo tia đến $t\_E$.</li>
+<li><strong>Chọn đúng nhánh nghiệm</strong> bằng tiếp tục giải tích: đi từ $t\approx 0$ (nơi $\gamma\approx t$) theo tia đến $t_E$.</li>
 <li><strong>Ngoại lai</strong> (trị riêng cô lập, ví dụ mode thị trường): đánh giá trên trục thực với $g$ bỏ-một, $\xi = \lambda\,\gamma'(t)$. Công thức BBP gốc với $\eta = N^{-1/2}$ ước lượng sai mode thị trường.</li>
 <li><strong>Hiệu chỉnh N hữu hạn</strong>: so với cùng công thức trên phổ nhiễu thuần (khớp thang theo trung vị).</li>
 </ul>
 </li>
 </ol>
-<p><strong>Đối chứng:</strong> ma trận mẫu, Ledoit–Wolf (2004), NL-LW (Ledoit–Wolf 2020), MP-clip (Laloux 1999), RIE (Bun–Bouchaud–Potters 2016/17), bản EW với $q\_{\text{eff}}$, EW-NL-LW, và biến thể VS (chuẩn hóa biến động EWMA).</p>
+<p><strong>Đối chứng:</strong> ma trận mẫu, Ledoit–Wolf (2004), NL-LW (Ledoit–Wolf 2020), MP-clip (Laloux 1999), RIE (Bun–Bouchaud–Potters 2016/17), bản EW với $q_{\text{eff}}$, EW-NL-LW, và biến thể VS (chuẩn hóa biến động EWMA).</p>
 <p><strong>Kết quả hiện có (HOSE 12/2016–11/2026, N=100, T=250, h=60):</strong></p>
 <table>
 <thead>
@@ -7839,7 +7839,7 @@ Trọng số đều ⇒ trùng công thức RIE cổ điển $\lambda/|1-q+qzg|^
 <td>13,12%</td>
 </tr>
 <tr>
-<td>EW-RIE ($q\_{\text{eff}}$)</td>
+<td>EW-RIE ($q_{\text{eff}}$)</td>
 <td>14,30%</td>
 <td>14,76%</td>
 </tr>
@@ -7927,6 +7927,72 @@ Hạn chế: 19 mã hủy niêm yết thiếu giá; chưa có VN30/HNX; EW-RIE* 
 </tbody>
 </table>
 <p><strong>Quy ước:</strong> mỗi người làm trên bản sao notebook (<code>File → Save a copy in Drive</code>), ghi kết quả vào thư mục chung. Đổi tham số ở ô CONFIG, không sửa thư viện ở §1 trừ khi đã thống nhất.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ff826877">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="M%E1%BB%A5c-l%E1%BB%A5c">Mục lục<a class="anchor-link" href="#M%E1%BB%A5c-l%E1%BB%A5c">¶</a></h2><table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nội dung</th>
+<th>Đầu ra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0. Cài đặt &amp; cấu hình</strong></td>
+<td>Thư viện; cấu hình chuẩn: N = 100, T = 250, h = 60, HL_VOL = 20, REB = 21, phí 0,25%, lọc mã đứng giá 20%</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>1. Thư viện</strong></td>
+<td>1.1 Mười bộ ước lượng của thầy · 1.2 Bổ sung: EW-NL-LW khi N &gt; T_eff, EW-WeSpeR (Oriol 2024), VS-EW-RIE*</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>1b. Kiểm thử</strong> (giả lập)</td>
+<td>Test 1, Test 2 của thầy · Test 2b (20 lần lặp, kiểm bản sửa EW-NL-LW và EW-WeSpeR) · Đối chiếu EW-WeSpeR với mã gốc của Oriol</td>
+<td>Bảng 1–2</td>
+</tr>
+<tr>
+<td><strong>2. Dữ liệu</strong> (T1)</td>
+<td>HOSE 2015–11/2026, gồm mã hủy niêm yết: nạp và lọc khoảng niêm yết, chất lượng dữ liệu, lịch sử niêm yết/hủy, chọn ngưỡng lọc đứng giá</td>
+<td>Bảng 3–5, Hình 1–3</td>
+</tr>
+<tr>
+<td><strong>3. Danh mục &amp; backtest</strong></td>
+<td><code>run_backtest</code> của thầy · lọc mã đứng giá (không sửa ô thầy) · tiện ích chung: 12 phương pháp, 12 cặp so sánh định trước (cụm A–E), kiểm định Ledoit–Wolf (2011) + Holm, heatmap cặp</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>4. Chạy chính</strong></td>
+<td>4.1 Bảng kết quả của thầy (thêm cặp EW-RIE* vs VS-NL-LW và vs EW-WeSpeR) · 4.2 Hình của thầy · 4.3 Thời gian chạy · 4.4 Phổ trị riêng trước/sau làm sạch</td>
+<td>Bảng 6–12, Hình 4–5</td>
+</tr>
+<tr>
+<td><strong>5. Độ nhạy</strong> (T6)</td>
+<td>5.1 Half-life (ô thầy) + lưới N × h · 5.2 Vol 12 phương pháp theo N, h, HL_VOL · 5.3 Heatmap 12 cặp · 5.3b h × HL_VOL cho VS-EW-RIE* · 5.4 Cửa sổ T (sửa lỗi bộ VS khi T nhỏ) · 5.5 Tham số tự chọn từ quá khứ</td>
+<td>Bảng 13–18, Hình 6–9</td>
+</tr>
+<tr>
+<td><strong>6. Việc của nhóm</strong></td>
+<td><strong>T2 Độ vững:</strong> tái cân bằng và phí, lọc đứng giá, phí thực tế, lợi suất ngày hủy niêm yết · <strong>T3 Đối chứng &amp; kiểm định:</strong> 1/N, PCA, DCC-GARCH, kiểm định 12 cặp · <strong>T5 Vì sao VS giúp:</strong> theo giai đoạn, dự báo biến động, cặp chính theo thời gian, phần chung hay phần riêng · <strong>Tổng kết</strong> 12 cặp trên mọi cấu hình</td>
+<td>Bảng 19–34, Hình 10–17</td>
+</tr>
+<tr>
+<td><strong>Ghi chú</strong></td>
+<td>Ghi chú của thầy; hạn chế và trạng thái các việc T của nhóm</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cách đọc:</strong> ΔVol = Vol(bộ trước) − Vol(bộ sau), %/năm; âm là bộ trước rủi ro thấp hơn. Mỗi mục: Câu hỏi → Bảng/Hình → Kết quả → Kết luận. Kết luận chính dựa vào kiểm định ở cấu hình chuẩn (T3c); heatmap và số theo giai đoạn chỉ mang tính mô tả.</p>
 </div>
 </div>
 </div>
