@@ -1,0 +1,1 @@
+**T5b. Dự báo biến động** — dự báo phương sai 21 phiên tới của từng mã trong universe chuẩn, chỉ dùng cửa sổ quá khứ; mục tiêu = trung bình r² của 21 phiên sau. Sai số: RMSE của vol năm hóa và QLIKE (Patton 2011).

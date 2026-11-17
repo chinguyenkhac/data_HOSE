@@ -1,0 +1,7 @@
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+[nh:50:60] long_only: 129 kỳ, 201s, sec/lần: {'Sample': np.float64(0.0), 'Ledoit-Wolf': np.float64(0.002), 'NL-LW': np.float64(0.001), 'MP-clip': np.float64(0.001), 'RIE': np.float64(0.001), 'VS-NL-LW': np.float64(0.002), 'VS-RIE': np.float64(0.004), 'EW-NL-LW': np.float64(0.001), 'EW-RIE (q_eff)': np.float64(0.001), 'EW-WeSpeR': np.float64(1.142), 'EW-RIE*': np.float64(0.084), 'PCA-auto': np.float64(0.003), 'DCC-GARCH(1,1)': np.float64(1.417), '1/N': np.float64(0.0), 'VS-EW-RIE*': np.float64(0.08)}
+[nh:50:60] short_ok: 129 kỳ, 36s, sec/lần: {'Sample': np.float64(0.0), 'Ledoit-Wolf': np.float64(0.002), 'NL-LW': np.float64(0.001), 'MP-clip': np.float64(0.001), 'RIE': np.float64(0.001), 'VS-NL-LW': np.float64(0.002), 'VS-RIE': np.float64(0.002), 'EW-NL-LW': np.float64(0.001), 'EW-RIE (q_eff)': np.float64(0.001), 'EW-WeSpeR': np.float64(0.0), 'EW-RIE*': np.float64(0.089), 'PCA-auto': np.float64(0.002), 'DCC-GARCH(1,1)': np.float64(0.0), '1/N': np.float64(0.0), 'VS-EW-RIE*': np.float64(0.082)}

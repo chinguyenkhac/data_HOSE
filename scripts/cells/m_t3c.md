@@ -1,0 +1,1 @@
+**T3c — kiểm định.** ΔVol với CI 95%, kiểm định phương sai Ledoit–Wolf (2011) (HAC và studentized circular block bootstrap), Holm trên 4 đối thủ lõi, Jobson–Korkie–Memmel cho Sharpe, ΔTurnover. Bảng phụ: VS-EW-RIE\* (VS + EW-RIE\*).

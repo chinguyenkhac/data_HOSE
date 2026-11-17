@@ -1,0 +1,228 @@
+
+===== cell 4 =====
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+[1s]
+
+===== cell 5 =====
+[0s]
+
+===== cell 7 =====
+[0s]
+
+===== cell 8 =====
+[0s]
+
+===== cell 9 =====
+[0s]
+
+===== cell 10 =====
+[0s]
+
+===== cell 12 =====
+[0s]
+
+===== cell 13 =====
+[0s]
+
+===== cell 15 =====
+[Test 1] trọng số đều: sai lệch tương đối max = 2.9e-15
+[0s]
+
+===== cell 16 =====
+[Test 2] rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), mô hình nhân tố:
+hl                 30     60
+method                      
+EW-NL-LW        1.636  1.269
+EW-RIE (q_eff)  1.782  1.629
+EW-RIE*         1.290  1.210
+EW-Sample       2.929  2.048
+Oracle          1.278  1.201
+[2s]
+
+===== cell 18 =====
+[Test 2b] rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), mô hình nhân tố, N=100, T=250; T_eff = {15: 43, 30: 86, 60: 155}
+hl                  15     30     60
+method                              
+EW-NL-LW         1.422  1.744  1.183
+EW-NL-LW (v2)   12.441  1.849  1.183
+EW-RIE (q_eff)   1.741  1.753  1.573
+EW-RIE*          1.718  1.313  1.152
+EW-Sample        5.598  2.797  1.881
+EW-WeSpeR        1.386  1.317  1.153
+Oracle           1.367  1.301  1.147
+[158s]
+
+===== cell 19 =====
+Traceback (most recent call last):
+  File "/home/user/data_HOSE/notebooks/../scripts/dev_exec.py", line 26, in <module>
+    exec(compile(src, fn, "exec"), ns)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cell 19>", line 2, in <module>
+    md(f"**Kết quả Test 2b** (rủi ro GMV / rủi ro tối ưu, 1 = hoàn hảo).\n\n"
+    ^^
+NameError: name 'md' is not defined. Did you mean: 'pd'?
+!!! cell 19 lỗi
+[0s]
+
+===== cell 21 =====
+Traceback (most recent call last):
+  File "/home/user/data_HOSE/notebooks/../scripts/dev_exec.py", line 26, in <module>
+    exec(compile(src, fn, "exec"), ns)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cell 21>", line 2, in <module>
+    _f = [f"{RESULTS_DIR}/T1b_oriol_check_sim.csv", f"{RESULTS_DIR}/T1b_oriol_check_hose.csv"]
+             ^^^^^^^^^^^
+NameError: name 'RESULTS_DIR' is not defined
+!!! cell 21 lỗi
+[0s]
+
+===== cell 24 =====
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+[0s]
+
+===== cell 25 =====
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+[0s]
+
+===== cell 26 =====
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+[0s]
+
+===== cell 27 =====
+Tỷ lệ |r| > ngưỡng: 0.0005%
+Tỷ lệ phiên giá không đổi (r = 0): 15.3%
+[0s]
+
+===== cell 29 =====
+                                                                                             giá trị
+Khoảng thời gian                                                2015-01-05 → 2026-11-10 (2957 phiên)
+Số mã trong security_master / có giá / thiếu giá                                      512 / 493 / 19
+Lượt hủy niêm yết (có giá / thiếu giá)                                                 105 (86 / 19)
+Quan sát ngoài khoảng niêm yết (đã loại)                                               101 (mã: SAP)
+% ô có giá trong khoảng niêm yết                                                               94.1%
+% phiên đứng giá (r = 0)                                                                       15.3%
+Phiên |r| > 15% (đặt = 0) / khối lượng = 0 mà có giá / giá ≤ 0                             5 / 0 / 0
+[0s]
+
+===== cell 32 =====
+Lý do hủy: {'bắt buộc': 85, 'hợp nhất/sáp nhập': 9, 'tự nguyện': 8, 'chưa rõ': 2, 'chuyển sàn': 1}
+[0s]
+
+===== cell 35 =====
+             số kỳ đủ N=100 mã (/129)  số mã đủ ĐK: trung vị  nhỏ nhất
+ZERO_MAX                                                              
+không lọc                         129                    278       166
+20% (chuẩn)                       118                    249        61
+10%                                69                    114         3
+[0s]
+
+===== cell 39 =====
+[0s]
+
+===== cell 41 =====
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+[7s]
+
+===== cell 43 =====
+[0s]
+
+===== cell 44 =====
+[0s]
+
+===== cell 45 =====
+[1s]
+
+===== cell 47 =====
+
+===== short_ok | 232s =====
+                Vol %  LN/năm %  Sharpe  Sharpe sau phí  Turnover/kỳ  Số mã hiệu dụng  Tỷ trọng max %  Short %
+Sample          14.58      2.52    0.17           -0.20         1.81             4.60           24.22   122.25
+Ledoit-Wolf     13.63      2.55    0.19           -0.08         1.20             8.41           17.87    86.54
+NL-LW           13.10      1.76    0.13           -0.05         0.81            11.52           13.98    60.78
+MP-clip         13.48      1.92    0.14           -0.05         0.86             7.46           22.86    64.80
+RIE             13.30      4.69    0.35            0.23         0.55            12.88           17.25    30.58
+VS-NL-LW        12.49      3.15    0.25           -0.08         1.41             7.65           25.73    54.28
+VS-RIE          12.63      4.15    0.33            0.09         0.99            11.22           21.34    29.08
+EW-NL-LW        12.72      1.30    0.10           -0.13         1.00             8.04           22.77    58.70
+EW-RIE (q_eff)  14.30      4.75    0.33            0.23         0.51            20.25           14.14    12.53
+EW-WeSpeR       12.57      1.73    0.14           -0.08         0.92             8.67           21.82    53.59
+EW-RIE*         12.56      1.01    0.08           -0.14         0.94             8.53           22.16    54.96
+                2016-17 Ổn định  2018-19 Điều chỉnh  2020Q1 COVID  2020-21 Bùng nổ  2022 Sụt giảm  2023-24 Phục hồi  2025-26
+Sample                    11.11               11.85         16.85            15.15          18.09             12.39    17.27
+Ledoit-Wolf                9.54               11.24         20.32            13.77          17.15             11.50    15.73
+NL-LW                      9.38               10.87         20.48            12.81          16.95             10.66    15.20
+MP-clip                    9.31               11.02         16.80            13.16          17.57             10.88    16.68
+RIE                        9.04               10.60         17.79            13.15          17.89             11.13    15.69
+VS-NL-LW                   8.33               10.11         14.67            10.65          17.49              9.91    16.09
+VS-RIE                     8.15               10.21         15.21            10.90          18.17             10.41    15.64
+EW-NL-LW                   8.78               10.42         16.65            11.60          17.25              9.97    16.03
+EW-RIE (q_eff)             8.49               10.79         18.46            13.55          20.68             12.25    17.12
+EW-WeSpeR                  8.50               10.08         16.47            11.52          17.13             10.03    15.83
+EW-RIE*                    8.59               10.14         16.45            11.48          17.12              9.90    15.81
+                           CI 2.5%  CI 97.5%  Có ý nghĩa
+EW-RIE* vs EW-RIE (q_eff)   -2.305    -1.121        True
+EW-RIE* vs EW-NL-LW         -0.237    -0.094        True
+EW-RIE* vs NL-LW            -0.990    -0.058        True
+EW-RIE* vs RIE              -1.196    -0.208        True
+NL-LW vs Ledoit-Wolf        -0.741    -0.319        True
+VS-NL-LW vs NL-LW           -1.277     0.061       False
+EW-RIE* vs VS-NL-LW         -0.309     0.530       False
+EW-RIE* vs EW-WeSpeR        -0.090     0.073       False
+EW-RIE* vs VS-RIE           -0.555     0.459       False
+
+===== long_only | 80s =====
+                Vol %  LN/năm %  Sharpe  Sharpe sau phí  Turnover/kỳ  Số mã hiệu dụng  Tỷ trọng max %  Short %
+Sample          13.52      1.65    0.12            0.03         0.41             9.24           25.08      0.0
+Ledoit-Wolf     13.64      2.36    0.17            0.09         0.38            12.63           20.06      0.0
+NL-LW           13.72      2.08    0.15            0.08         0.34            14.40           16.80      0.0
+MP-clip         13.67      3.36    0.25            0.16         0.41             9.09           25.93      0.0
+RIE             14.02      4.44    0.32            0.24         0.35            15.32           17.52      0.0
+VS-NL-LW        12.93      4.24    0.33            0.16         0.74             8.06           30.73      0.0
+VS-RIE          13.30      4.73    0.36            0.20         0.68            12.83           21.99      0.0
+EW-NL-LW        13.12      1.20    0.09           -0.02         0.49             9.17           26.22      0.0
+EW-RIE (q_eff)  14.76      4.99    0.34            0.26         0.41            22.24           14.07      0.0
+EW-WeSpeR       13.05      1.40    0.11           -0.00         0.47             9.39           25.74      0.0
+EW-RIE*         13.07      1.31    0.10           -0.01         0.48             9.46           25.65      0.0
+                2016-17 Ổn định  2018-19 Điều chỉnh  2020Q1 COVID  2020-21 Bùng nổ  2022 Sụt giảm  2023-24 Phục hồi  2025-26
+Sample                     9.61               12.06         17.02            13.21          17.58             11.41    15.53
+Ledoit-Wolf                9.49               12.09         20.58            13.13          17.67             11.36    15.43
+NL-LW                      9.52               12.10         20.67            13.08          18.11             11.42    15.50
+MP-clip                    9.58               11.87         16.69            13.26          18.16             11.45    15.99
+RIE                        9.29               11.62         18.04            13.71          19.31             11.90    16.15
+VS-NL-LW                   8.66               11.27         14.13            10.76          18.78             10.71    15.77
+VS-RIE                     8.48               11.16         15.12            11.26          19.67             11.26    15.96
+EW-NL-LW                   8.84               11.45         16.14            11.79          17.77             11.08    15.77
+EW-RIE (q_eff)             8.67               11.41         18.67            13.95          21.54             12.84    17.34
+EW-WeSpeR                  8.77               11.30         16.13            11.66          17.77             11.10    15.66
+EW-RIE*                    8.81               11.33         16.11            11.73          17.75             11.02    15.71
+                           CI 2.5%  CI 97.5%  Có ý nghĩa
+EW-RIE* vs EW-RIE (q_eff)   -2.162    -1.220        True
+EW-RIE* vs EW-NL-LW         -0.091    -0.025        True
+EW-RIE* vs NL-LW            -1.030    -0.281        True
+EW-RIE* vs RIE              -1.311    -0.564        True
+NL-LW vs Ledoit-Wolf        -0.048     0.219       False
+VS-NL-LW vs NL-LW           -1.481    -0.119        True
+EW-RIE* vs VS-NL-LW         -0.317     0.632       False
+EW-RIE* vs EW-WeSpeR        -0.021     0.050       False
+EW-RIE* vs VS-RIE           -0.670     0.235       False
+Newton thất bại: {'fail': 0, 'total': 52404}
+[312s]
+
+===== cell 49 =====
+[0s]
+
+===== cell 50 =====
+**Bảng 1.** Phương pháp chính  cấu hình chuẩn (N = 100  T = 250  h = 60  REB = 21  COST = 0 25%  ZERO\_MAX = 20%); 2 475 phiên OOS (12/2016–11/2026). Vol: %/năm  gộp. Đủ 11 bộ: bảng in ở ô trên.
+<pandas.io.formats.style.Styler object at 0x7fee1f6bbb60>
+**Kết quả** (Vol ngoài mẫu %/năm).
+
+- **Bán khống:** VS-NL-LW 12,49 < EW-RIE\* 12,56 ≈ EW-WeSpeR 12,57 < EW-NL-LW 12,72 < NL-LW 13,10. EW-RIE\* − VS-NL-LW = +0,07 [-0,31; +0,53] pp ⇒ không khác biệt có ý nghĩa (CI 95% block bootstrap).
+- **Chỉ mua:** VS-NL-LW 12,93 < EW-WeSpeR 13,05 ≈ EW-RIE\* 13,07 < EW-NL-LW 13,12 < NL-LW 13,72. EW-RIE\* − VS-NL-LW = +0,13 [-0,32; +0,63] pp ⇒ không khác biệt có ý nghĩa (CI 95% block bootstrap).
+- **Bán khống, kiểm định cặp:** so với NL-LW: EW-RIE\* thấp hơn có ý nghĩa; so với EW-NL-LW: EW-RIE\* thấp hơn có ý nghĩa; so với EW-WeSpeR: không khác biệt có ý nghĩa.
+- **Chỉ mua, kiểm định cặp:** so với NL-LW: EW-RIE\* thấp hơn có ý nghĩa; so với EW-NL-LW: EW-RIE\* thấp hơn có ý nghĩa; so với EW-WeSpeR: không khác biệt có ý nghĩa.
+**Kết luận.** Ở cấu hình chuẩn, Vol thấp nhất trong năm phương pháp chính là **VS-NL-LW** (chỉ mua) và **VS-NL-LW** (bán khống). Các bộ EW chênh nhau < 0.16 pp nên cần kiểm định cặp đủ phương pháp (T3, Bảng 7).
+[0s]
+
+===== cell 51 =====
+Đã lưu vào ./rmt_work
+[0s]

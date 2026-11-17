@@ -1,0 +1,1 @@
+Trong nhóm dẫn đầu (15 cặp, Holm): Chỉ mua: 2/15 cặp phân biệt được (p Holm < 0,05): EW-RIE\* < EW-NL-LW (ΔVol −0,06 pp, p Holm = 0,01), EW-WeSpeR < EW-NL-LW (ΔVol −0,07 pp, p Holm = 0,05). 13 cặp còn lại không phân biệt được rủi ro. Bán khống: 1/15 cặp phân biệt được (p Holm < 0,05): EW-RIE\* < EW-NL-LW (ΔVol −0,16 pp, p Holm < 0,01). 14 cặp còn lại không phân biệt được rủi ro.

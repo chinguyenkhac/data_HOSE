@@ -1,0 +1,670 @@
+
+===== cell 3 =====
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+[1s]
+
+===== cell 4 =====
+[0s]
+
+===== cell 5 =====
+[0s]
+
+===== cell 8 =====
+[0s]
+
+===== cell 9 =====
+[0s]
+
+===== cell 10 =====
+[0s]
+
+===== cell 11 =====
+[0s]
+
+===== cell 13 =====
+[0s]
+
+===== cell 14 =====
+[0s]
+
+===== cell 17 =====
+[Test 1] trọng số đều: sai lệch tương đối max = 2.9e-15
+[0s]
+
+===== cell 19 =====
+[Test 2] rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), mô hình nhân tố:
+hl                 30     60
+method                      
+EW-NL-LW        1.636  1.269
+EW-RIE (q_eff)  1.782  1.629
+EW-RIE*         1.290  1.210
+EW-Sample       2.929  2.048
+Oracle          1.278  1.201
+[2s]
+
+===== cell 21 =====
+**Bảng 1.** Test 2b: rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), trung bình 20 lần lặp, mô hình nhân tố N = 100, T = 250; cột = half-life h (T\_eff = 43, 86, 155).
+hl                  15     30     60
+method                              
+EW-NL-LW         1.447  1.657  1.225
+EW-NL-LW (v2)   11.681  1.913  1.225
+EW-RIE (q_eff)   1.690  1.756  1.636
+EW-RIE*          1.825  1.270  1.181
+EW-Sample        5.365  2.986  1.932
+EW-WeSpeR        1.390  1.266  1.180
+Oracle           1.374  1.252  1.175
+**Kết quả.** h = 15 (N > T\_eff): EW-NL-LW bản thầy 11,681 → bản sửa **1,447** (oracle 1,374); EW-WeSpeR 1,390; EW-RIE\* 1,825. h = 60 (N < T\_eff): hai bản EW-NL-LW trùng nhau (1,225); EW-RIE\* 1,181, EW-WeSpeR 1,180.
+
+**Kết luận.** Bản sửa EW-NL-LW đúng; EW-WeSpeR cách oracle tối đa 1,2%; EW-RIE\* kém hơn EW-WeSpeR khi N > T\_eff (h = 15).
+[554s]
+
+===== cell 23 =====
+**Bảng 2.** Đối chiếu EW-WeSpeR của nhóm với mã gốc (nlcvbo/wesper). ξ lệch = sai lệch tương đối trung vị của trị riêng sau co (cùng chuẩn hóa vết), %; mẫu mã gốc trả NaN bị loại khỏi thống kê. Cột 100/200 epoch: 3 mẫu đầu, chạy tiếp từ τ của giai đoạn trước. Rủi ro GMV chia cho tối ưu của ma trận thật (chỉ có ở giả lập). Thời gian đo khi nhiều tiến trình chạy song song.
+               số mẫu  mã gốc không hội tụ (NaN)  ξ lệch, trung vị (50 epoch)  ξ lệch, 3 mẫu (50 epoch)  ξ lệch, 3 mẫu (100 epoch)  ξ lệch, 3 mẫu (200 epoch)  chênh rủi ro GMV (gốc/nhóm − 1), TB %  chênh rủi ro GMV, |lớn nhất| %  giây/lần, mã gốc (50 epoch)  giây/lần, bản nhóm
+h = 15           10.0                        1.0                       12.203                     8.462                      3.587                      5.475                                  0.034                           4.862                      793.191              19.714
+h = 30           17.0                        1.0                       11.469                    14.046                      7.482                      4.433                                  0.436                           7.800                      467.839               1.770
+h = 60           20.0                        1.0                        3.192                       NaN                        NaN                        NaN                                  0.036                           1.427                      231.881               0.903
+HOSE (h = 60)    12.0                        7.0                        4.365                       NaN                        NaN                        NaN                                    NaN                             NaN                      259.571               0.956
+**Kết quả.** Rủi ro GMV của hai bản gần như trùng: chênh trung bình h = 15: 0,03%, h = 30: 0,44%, h = 60: 0,04%. ξ lệch trung vị (50 epoch): h = 15: 12,2%, h = 30: 11,5%, h = 60: 3,2%; chạy tiếp 3 mẫu đến 200 epoch: h = 15: 8,5% → 3,6% → 5,5%, h = 30: 14,0% → 7,5% → 4,4%. Mã gốc không hội tụ (NaN) ở 7/12 cửa sổ HOSE và 3/47 mẫu giả lập.
+**Kết luận.** Hai bản khớp về rủi ro GMV; trị riêng sau co khớp ở h = 60 (< 5%) nhưng lệch ~10% ở h = 15–30, và độ lệch giảm khi chạy thêm epoch (một phần do mã gốc chưa hội tụ). Repo `nlcvbo/wesper` chưa xác minh được là repo chính thức của tác giả.
+[0s]
+
+===== cell 26 =====
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+[0s]
+
+===== cell 27 =====
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+[0s]
+
+===== cell 28 =====
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+[1s]
+
+===== cell 29 =====
+Tỷ lệ |r| > ngưỡng: 0.0005%
+Tỷ lệ phiên giá không đổi (r = 0): 15.3%
+[0s]
+
+===== cell 30 =====
+**Hình 1.** Số mã có dữ liệu theo năm (ô kiểm tra chất lượng của thầy).
+[0s]
+
+===== cell 32 =====
+**Bảng 3.** Chất lượng dữ liệu: khoảng thời gian, số mã, hủy niêm yết, quan sát bị loại, phiên đứng giá.
+[0s]
+
+===== cell 33 =====
+                                                                                             giá trị
+Khoảng thời gian                                                2015-01-05 → 2026-11-10 (2957 phiên)
+Số mã trong security_master / có giá / thiếu giá                                      512 / 493 / 19
+Lượt hủy niêm yết (có giá / thiếu giá)                                                 105 (86 / 19)
+Quan sát ngoài khoảng niêm yết (đã loại)                                               101 (mã: SAP)
+% ô có giá trong khoảng niêm yết                                                               94.1%
+% phiên đứng giá (r = 0)                                                                       15.3%
+Phiên |r| > 15% (đặt = 0) / khối lượng = 0 mà có giá / giá ≤ 0                             5 / 0 / 0
+[0s]
+
+===== cell 36 =====
+**Hình 2.** Tổng số cổ phiếu niêm yết trên HOSE cuối mỗi năm (2026: đến 11/2026).
+**Hình 3.** Số cổ phiếu hủy niêm yết (rời HOSE) theo năm và lý do.
+**Bảng 4.** Số mã hủy niêm yết theo năm và lý do (cột cuối: tổng số mã niêm yết cuối năm).
+reason  bắt buộc  chuyển sàn  chưa rõ  hợp nhất/sáp nhập  tự nguyện  Tổng hủy  Niêm yết cuối năm
+year                                                                                            
+2015           8           0        2                  1          6        17                308
+2016           5           0        0                  1          0         6                321
+2017           5           0        0                  2          0         7                345
+2018           5           0        0                  1          1         7                374
+2019           5           1        0                  1          1         8                379
+2020           6           0        0                  0          0         6                393
+2021           4           0        0                  1          0         5                405
+2022           9           0        0                  1          0        10                403
+2023          12           0        0                  1          0        13                395
+2024          12           0        0                  0          0        12                393
+2025           7           0        0                  0          0         7                400
+2026           7           0        0                  0          0         7                408
+[1s]
+
+===== cell 39 =====
+**Bảng 5.** Số kỳ tái cân bằng đủ N = 100 mã và số mã đủ điều kiện mỗi kỳ theo ngưỡng lọc đứng giá (cơ sở chọn `ZERO_MAX`).
+[0s]
+
+===== cell 40 =====
+             số kỳ đủ N=100 mã (/129)  số mã đủ ĐK: trung vị  nhỏ nhất
+ZERO_MAX                                                              
+không lọc                         129                    278       166
+20% (chuẩn)                       118                    249        61
+10%                                69                    114         3
+[0s]
+
+===== cell 44 =====
+[0s]
+
+===== cell 46 =====
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+[7s]
+
+===== cell 48 =====
+[0s]
+
+===== cell 49 =====
+[0s]
+
+===== cell 50 =====
+[1s]
+
+===== cell 51 =====
+[0s]
+
+===== cell 54 =====
+**Bảng 6–11.** Ô của thầy in ba bảng cho mỗi chế độ, bán khống trước, chỉ mua sau: (1) tổng hợp (Vol %/năm, lợi suất, Sharpe, Sharpe sau phí, turnover/kỳ, số mã hiệu dụng, tỷ trọng max, % bán khống); (2) Vol theo giai đoạn thị trường; (3) CI 95% bootstrap khối của Vol(a) − Vol(b) cho các cặp trong `PAIRS` (nhóm thêm EW-RIE\* vs VS-NL-LW và EW-RIE\* vs EW-WeSpeR). 11 bộ ước lượng (10 bộ của thầy + EW-WeSpeR); 118 kỳ, 2 475 phiên ngoài mẫu, 12/2016–11/2026.
+[0s]
+[cell 55] RESULTS nạp từ pkl
+
+===== cell 57 =====
+[0s]
+
+===== cell 58 =====
+**Hình 4.** Rủi ro ngoài mẫu (Vol %/năm) từng phương pháp, cấu hình chuẩn (hình của thầy; trục không bắt đầu từ 0).
+[0s]
+
+===== cell 60 =====
+Đã lưu vào ./rmt_work
+[0s]
+
+===== cell 61 =====
+[0s]
+
+===== cell 63 =====
+**Bảng 12.** Thời gian một lần ước lượng (ms, trung vị trên 12 cửa sổ HOSE thật; DCC: 3 cửa sổ), 12 phương pháp và DCC-GARCH. Máy: Intel(R) Xeon(R) Processor @ 2.10GHz, 4 lõi; BLAS: [('openblas', 1), ('openmp', 1)].
+                  N = 50   N = 100   N = 150  × NL-LW (N = 100)
+method                                                         
+Sample             0.101     0.129     0.227              0.095
+Ledoit-Wolf        1.620     2.757     6.258              2.021
+NL-LW              0.785     1.364     2.630              1.000
+MP-clip            0.660     1.232     2.411              0.903
+RIE                0.456     1.337     3.005              0.980
+VS-NL-LW           1.550     2.500     3.945              1.833
+VS-RIE             1.473     2.373     3.791              1.740
+EW-NL-LW           0.530     1.521     2.859              1.115
+EW-RIE (q_eff)     0.425     1.311     2.599              0.961
+EW-WeSpeR        459.112  1293.412  3074.027            948.343
+EW-RIE*           75.054   157.677   234.407            115.611
+VS-EW-RIE*        72.928   150.058   214.573            110.024
+DCC-GARCH(1,1)  1028.830  1757.347  2609.092           1288.505
+**Kết quả.** Ở N = 100: NL-LW 1,4 ms, EW-NL-LW 1,5 ms, RIE 1,3 ms, **EW-RIE\* 158 ms**, **EW-WeSpeR 1293 ms** (8,2 × EW-RIE\*), VS-EW-RIE\* 150 ms, DCC-GARCH 1,8 s.
+
+**Kết luận.** EW-RIE\* chậm hơn các bộ co cổ điển cỡ 116 lần nhưng nhanh hơn EW-WeSpeR cỡ 8 lần; cả hai đều không đáng kể so với một kỳ tái cân bằng.
+[282s]
+
+===== cell 65 =====
+**Hình 5.** Phổ trị riêng trước (trục x) và sau làm sạch (trục y), log–log; N = 100, T = 250, h = 60. Trái: giả lập có oracle; phải: cửa sổ HOSE thật (không có oracle).
+**Kết quả.** Ở giả lập, bám oracle nhất ở phần khối (90% trị riêng nhỏ, sai lệch log trung vị) là **EW-WeSpeR** (0,031; EW-RIE\* 0,124), ở trị riêng lớn nhất là **EW-RIE\*** (oracle 41,4; EW-RIE\* 44,0, EW-NL-LW 44,6, EW-RIE (q\_eff) 7,2). Trên HOSE, trị riêng lớn nhất (mode thị trường) λ = 31,1 được giữ là 28,5 (EW-RIE\*) và 29,1 (EW-NL-LW).
+
+**Kết luận.** Các bộ khác nhau chủ yếu ở phần khối và ở mode thị trường; lệch oracle nhiều nhất ở phần khối là EW-RIE (q_eff).
+[4s]
+
+===== cell 68 =====
+**Bảng 13.** Ô của thầy (`RUN_SENS = True`): Vol (%/năm) của EW-NL-LW và EW-RIE\* theo half-life h, hai chế độ, và CI 95% bootstrap khối của Vol(EW-RIE\*) − Vol(EW-NL-LW).
+[0s]
+
+===== cell 69 =====
+    hl       mode  vol_EWNLLW  vol_EWRIE  CI_lo  CI_hi
+0   30   short_ok      13.648     12.703 -1.284 -0.633
+1   30  long_only      13.213     13.030 -0.268 -0.096
+2   60   short_ok      12.719     12.557 -0.237 -0.094
+3   60  long_only      13.124     13.066 -0.091 -0.025
+4  120   short_ok      12.666     12.637 -0.057 -0.000
+5  120  long_only      13.195     13.186 -0.024  0.008
+[178s]
+
+===== cell 72 =====
+**Hình 6.** Lưới N × h (heatmap của v3): Vol của EW-RIE\* (trái) và ΔVol = Vol(EW-RIE\*) − Vol(EW-NL-LW) (phải); hàng trên: chỉ mua, hàng dưới: bán khống. Chỉ so trong cùng hàng N.
+**Hình 7.** Lưới N × h: ΔVol của EW-RIE\* so với VS-NL-LW (trái) và EW-WeSpeR (phải), pp/năm; xanh: EW-RIE\* thấp hơn; \* = p Holm < 0,05 (12 cặp trong từng ô, mô tả).
+**Kết quả.** Chỉ mua: so với EW-NL-LW, EW-RIE\* thấp hơn ở 9/9 ô (3 có ý nghĩa); so với VS-NL-LW thấp hơn ở 2/9 ô (có ý nghĩa: thấp hơn 0, cao hơn 0); so với EW-WeSpeR thấp hơn ở 3/9 ô (có ý nghĩa: thấp hơn 0, cao hơn 0). Bán khống: so với EW-NL-LW, EW-RIE\* thấp hơn ở 9/9 ô (6 có ý nghĩa); so với VS-NL-LW thấp hơn ở 3/9 ô (có ý nghĩa: thấp hơn 0, cao hơn 0); so với EW-WeSpeR thấp hơn ở 6/9 ô (có ý nghĩa: thấp hơn 0, cao hơn 0).
+
+**Kết luận.** EW-RIE\* thấp hơn EW-NL-LW ở 18/18 ô (cấu hình × chế độ); so với VS-NL-LW: thấp hơn có ý nghĩa 0 ô, cao hơn có ý nghĩa 0 ô; so với EW-WeSpeR: thấp hơn có ý nghĩa 0 ô, cao hơn có ý nghĩa 0 ô (mô tả).
+[106s]
+
+===== cell 74 =====
+**Bảng 14.** Chỉ mua: Vol (%/năm, gộp) của 12 phương pháp khi đổi một tham số (các tham số khác chuẩn); in đậm: thấp nhất mỗi cột. Số kỳ ngoài mẫu — N = 50: 129, N = 100: 118, N = 150: 110; cột h và HL\_VOL: 118 kỳ. Không so giữa các cột N.
+                N = 50  N = 100  N = 150  h = 30  h = 60  h = 120  HL_VOL = 10  HL_VOL = 20  HL_VOL = 40
+Sample          15.795   13.522   11.463  13.522  13.522   13.522          NaN          NaN          NaN
+Ledoit-Wolf     15.827   13.638   11.640  13.638  13.638   13.638          NaN          NaN          NaN
+NL-LW           15.827   13.721   11.950  13.721  13.721   13.721          NaN          NaN          NaN
+MP-clip         15.911   13.674   11.368  13.674  13.674   13.674          NaN          NaN          NaN
+RIE             15.699   14.016   13.326  14.016  14.016   14.016          NaN          NaN          NaN
+VS-NL-LW        15.514   12.933   10.506  12.933  12.933   12.933       13.157       12.933       12.963
+VS-RIE          15.425   13.298   12.107  13.298  13.298   13.298       13.237       13.298       13.735
+EW-NL-LW        15.508   13.124   10.825  13.213  13.124   13.195          NaN          NaN          NaN
+EW-RIE (q_eff)  15.527   14.760   15.132  16.216  14.760   14.043          NaN          NaN          NaN
+EW-WeSpeR       15.466   13.054   10.756  13.117  13.054   13.143          NaN          NaN          NaN
+EW-RIE*         15.479   13.066   10.769  13.030  13.066   13.186          NaN          NaN          NaN
+VS-EW-RIE*      15.546   12.958   10.387  13.040  12.958   12.943       13.139       12.958       13.046
+**Bảng 15.** Bán khống: Vol (%/năm, gộp) của 12 phương pháp khi đổi một tham số (các tham số khác chuẩn); in đậm: thấp nhất mỗi cột. Số kỳ ngoài mẫu — N = 50: 129, N = 100: 118, N = 150: 110; cột h và HL\_VOL: 118 kỳ. Không so giữa các cột N.
+                N = 50  N = 100  N = 150  h = 30  h = 60  h = 120  HL_VOL = 10  HL_VOL = 20  HL_VOL = 40
+Sample          16.093   14.578   15.057  14.578  14.578   14.578          NaN          NaN          NaN
+Ledoit-Wolf     15.695   13.626   12.282  13.626  13.626   13.626          NaN          NaN          NaN
+NL-LW           15.459   13.100   11.459  13.100  13.100   13.100          NaN          NaN          NaN
+MP-clip         15.824   13.481   11.153  13.481  13.481   13.481          NaN          NaN          NaN
+RIE             15.256   13.299   12.712  13.299  13.299   13.299          NaN          NaN          NaN
+VS-NL-LW        15.301   12.487   10.135  12.487  12.487   12.487       12.654       12.487       12.623
+VS-RIE          15.056   12.634   11.555  12.634  12.634   12.634       12.716       12.634       13.024
+EW-NL-LW        15.140   12.719   10.701  13.648  12.719   12.666          NaN          NaN          NaN
+EW-RIE (q_eff)  15.026   14.301   14.955  16.017  14.301   13.383          NaN          NaN          NaN
+EW-WeSpeR       15.117   12.568   10.384  12.681  12.568   12.735          NaN          NaN          NaN
+EW-RIE*         15.035   12.557   10.415  12.703  12.557   12.637          NaN          NaN          NaN
+VS-EW-RIE*      15.177   12.430   10.005  12.612  12.430   12.422       12.523       12.430       12.597
+**Kết quả.** Bộ có Vol thấp nhất theo từng cột — Chỉ mua: VS-NL-LW 6/9, VS-EW-RIE\* 2/9, VS-RIE 1/9; Bán khống: VS-EW-RIE\* 7/9, EW-RIE (q_eff) 1/9, VS-NL-LW 1/9. Hạng của EW-RIE\* trong 12 bộ (các cột N, h): Chỉ mua 3, 4, 4, 2, 4, 4; Bán khống 2, 3, 4, 5, 3, 4.
+
+**Kết luận.** Bộ thấp nhất mỗi cột luôn là bộ có trọng số mũ hoặc VS, và đổi theo tham số; chênh lệch giữa các bộ đầu bảng cần đọc ở kiểm định cặp (5.3).
+[0s]
+
+===== cell 76 =====
+**Hình 8.** ΔVol (pp/năm) của 12 cặp định trước theo N, h, HL\_VOL; xanh: bộ đứng trước rủi ro thấp hơn; màu cắt ở ±1 pp. \* = p Holm < 0,05 trên các cặp trong cùng cột (mô tả, không hiệu chỉnh xuyên cột). Số liệu: `T5_pairs_sens.csv`.
+**Kết quả.** Số ô (cấu hình × chế độ) có ΔVol < 0 / âm có ý nghĩa / dương có ý nghĩa: EW-RIE\* − EW-NL-LW: 12/12 / 8 / 0; EW-RIE\* − VS-NL-LW: 5/18 / 0 / 0; VS-NL-LW − NL-LW: 18/18 / 3 / 0; VS-EW-RIE\* − VS-NL-LW: 10/18 / 0 / 0.
+
+**Kết luận.** EW-RIE\* thấp hơn EW-NL-LW có ý nghĩa ở 8/12 ô (cao hơn có ý nghĩa 0); cặp thầy hỏi (EW-RIE\* − VS-NL-LW) không có ý nghĩa ở ô nào trong 18 ô (mô tả).
+[24s]
+
+===== cell 78 =====
+**Bảng 16.** VS-EW-RIE\* theo half-life h × HL\_VOL (N = 100): Vol %/năm (ΔVol so với VS-NL-LW cùng HL\_VOL, pp; \* = p Holm < 0,05 trên 9 ô của mỗi chế độ, kiểm định phương sai bootstrap khối).
+                 HL_VOL = 10    HL_VOL = 20    HL_VOL = 40
+Chế độ    h                                               
+Bán khống 30   12,56 (−0,09)  12,61 (+0,13)  12,92 (+0,30)
+          60   12,52 (−0,13)  12,43 (−0,06)  12,60 (−0,03)
+          120  12,56 (−0,09)  12,42 (−0,07)  12,56 (−0,06)
+Chỉ mua   30   13,19 (+0,03)  13,04 (+0,11)  13,24 (+0,27)
+          60   13,14 (−0,02)  12,96 (+0,03)  13,05 (+0,08)
+          120  13,14 (−0,02)  12,94 (+0,01)  12,97 (+0,01)
+**Kết quả.** Chỉ mua: Vol thấp nhất ở h = 120, HL\_VOL = 20 (12,94%, ΔVol so với VS-NL-LW +0,01); ΔVol < 0 ở 2/9 ô, có ý nghĩa 0/9; Bán khống: Vol thấp nhất ở h = 120, HL\_VOL = 20 (12,42%, ΔVol so với VS-NL-LW −0,07); ΔVol < 0 ở 7/9 ô, có ý nghĩa 0/9.
+
+**Kết luận.** VS-EW-RIE\* không hơn VS-NL-LW có ý nghĩa ở tổ hợp nào; chọn h, HL\_VOL theo kết quả ngoài mẫu sẽ thiên lệch (xem 5.5).
+[7s]
+
+===== cell 80 =====
+**Bảng 17.** Vol (%/năm, gộp) theo cửa sổ T, 12 phương pháp và ba bộ VS "đủ T"; in đậm: thấp nhất mỗi cột. Số kỳ ngoài mẫu — T = 120: 120 kỳ từ 2016-10-05, T = 250: 118 kỳ từ 2016-12-08, T = 500: 111 kỳ từ 2017-07-12. Không so giữa các cột T.
+                  Bán khống                 Chỉ mua                
+                    T = 120 T = 250 T = 500 T = 120 T = 250 T = 500
+Sample               28.269  14.578  14.052  13.883  13.522  14.335
+Ledoit-Wolf          14.488  13.626  13.791  13.966  13.638  14.278
+NL-LW                13.783  13.100  13.386  14.140  13.721  14.270
+MP-clip              13.831  13.481  13.749  13.963  13.674  14.414
+RIE                  15.395  13.299  13.328  15.683  14.016  14.258
+VS-NL-LW             18.091  12.487  13.501  17.854  12.933  14.084
+VS-RIE               15.832  12.634  13.879  15.978  13.298  14.496
+EW-NL-LW             13.296  12.719  13.012  13.489  13.124  13.595
+EW-RIE (q_eff)       16.248  14.301  14.378  16.361  14.760  14.934
+EW-WeSpeR            13.620  12.568  12.859  13.424  13.054  13.494
+EW-RIE*              13.302  12.557  12.836  13.431  13.066  13.497
+VS-EW-RIE*           78.623  12.430  12.821  13.423  12.958  13.611
+VS-NL-LW (đủ T)      13.070  12.470  13.458  13.333  12.904  14.040
+VS-RIE (đủ T)        14.865  12.538  13.868  15.172  13.188  14.479
+VS-EW-RIE* (đủ T)    13.065  12.397  12.819  13.329  12.940  13.608
+**Hình 9.** ΔVol (pp/năm) của 12 cặp theo cửa sổ T; các cặp có VS dùng bản "đủ T". \* = p Holm < 0,05 trong từng cột (mô tả). Số liệu: `T5_pairs_window.csv`.
+**Kết quả.** Ở T = 120, VS-NL-LW của thầy có Vol 18,09% / 17,85% (bán khống / chỉ mua) và VS-EW-RIE\* 78,62% / 13,42%, trong khi bản "đủ T" chỉ 13,07% / 13,33% và 13,06% / 13,33%: do `make_vs` bỏ HL\_VOL = 20 phiên nên chỉ còn 100 phiên cho 100 mã, ma trận gần suy biến. Ở T = 250, bản "đủ T" lệch bản của thầy: VS-NL-LW −0,02 / −0,03 pp, VS-EW-RIE\* −0,03 / −0,02 pp. Cặp EW-RIE\* − VS-NL-LW (đủ T): T = 120: +0,23 / +0,10; T = 250: +0,09 / +0,16; T = 500: −0,62 / −0,54 pp.
+
+**Kết luận.** Kết quả "EW-RIE\* hơn hẳn VS-NL-LW ở T = 120" của v5 là do lỗi khởi động EWMA của bộ VS, không dùng; với bản "đủ T": EW-RIE\* thấp hơn EW-NL-LW có ý nghĩa ở 4/6 ô (cao hơn có ý nghĩa 0); cặp thầy hỏi (EW-RIE\* − VS-NL-LW) không có ý nghĩa ở ô nào trong 6 ô (mô tả).
+[36s]
+
+===== cell 82 =====
+**Bảng 18.** Tham số tự chọn từ quá khứ (252 phiên ngoài mẫu trước mỗi ngày tái cân bằng; 118 kỳ, cùng ngày với cấu hình chuẩn). Trên: Vol %/năm ở tham số chuẩn và tự chọn, số lần đổi, tỷ lệ số kỳ chọn từng giá trị (tỷ lệ tính theo h với EW-RIE\*, EW-NL-LW và theo HL\_VOL với VS-NL-LW). Dưới: kiểm định hai cặp "tự chọn với tự chọn" (Holm trên 2 cặp). Phép thử độ nhạy, không thay cấu hình chuẩn; chưa tính phí giao dịch phát sinh khi đổi tham số.
+                    Vol (tham số chuẩn)  Vol (tự chọn)  Số lần đổi  tỷ lệ chọn h = 30  tỷ lệ chọn h = 60  tỷ lệ chọn h = 120  tỷ lệ chọn HL_VOL = 10  tỷ lệ chọn HL_VOL = 20  tỷ lệ chọn HL_VOL = 40
+Chế độ    Bộ                                                                                                                                                                                        
+Bán khống EW-RIE*                12.557         12.639          23              0.407              0.331               0.263                     NaN                     NaN                     NaN
+          EW-NL-LW               12.719         12.727          14              0.102              0.424               0.475                     NaN                     NaN                     NaN
+          VS-NL-LW               12.487         12.448          29                NaN                NaN                 NaN                   0.288                   0.271                   0.441
+Chỉ mua   EW-RIE*                13.066         13.044          28              0.508              0.246               0.246                     NaN                     NaN                     NaN
+          EW-NL-LW               13.124         13.055          19              0.305              0.364               0.331                     NaN                     NaN                     NaN
+          VS-NL-LW               12.933         13.011          28                NaN                NaN                 NaN                   0.237                   0.449                   0.314
+                                                  ΔVol (pp)  CI lo  CI hi  p LW-HAC  p LW-boot  p Holm  p JKM
+Chế độ    Cặp                                                                                                
+Bán khống EW-RIE* (tự chọn) − VS-NL-LW (tự chọn)      0.190 -0.186  0.614     0.362      0.402   0.746  0.240
+          EW-RIE* (tự chọn) − EW-NL-LW (tự chọn)     -0.088 -0.275  0.102     0.341      0.373   0.746  0.024
+Chỉ mua   EW-RIE* (tự chọn) − VS-NL-LW (tự chọn)      0.033 -0.303  0.352     0.848      0.848   1.000  0.040
+          EW-RIE* (tự chọn) − EW-NL-LW (tự chọn)     -0.011 -0.111  0.097     0.835      0.841   1.000  0.642
+**Kết quả.** Vol tự chọn so với tham số chuẩn — Bán khống: EW-RIE\* 12,56 → 12,64, EW-NL-LW 12,72 → 12,73, VS-NL-LW 12,49 → 12,45; Chỉ mua: EW-RIE\* 13,07 → 13,04, EW-NL-LW 13,12 → 13,06, VS-NL-LW 12,93 → 13,01. EW-RIE\* (tự chọn) − VS-NL-LW (tự chọn): Bán khống +0,19 pp (p Holm 0,75); Chỉ mua +0,03 pp (p Holm 1,00).
+
+**Kết luận.** Chọn tham số chỉ bằng quá khứ không làm đổi kết luận so sánh EW-RIE\* với VS-NL-LW.
+[3s]
+
+===== cell 85 =====
+[0s]
+
+===== cell 87 =====
+**Bảng 19.** Vol (%/năm, gộp) theo tần suất tái cân bằng REB (phiên), 12 phương pháp; in đậm: thấp nhất mỗi cột. Mỗi REB một bộ ngày ngoài mẫu chung cho mọi phương pháp.
+               Bán khống                   Chỉ mua                  
+                 REB = 5 REB = 21 REB = 63 REB = 5 REB = 21 REB = 63
+Sample            14.363   14.578   15.070  13.329   13.522   14.124
+Ledoit-Wolf       13.405   13.626   14.130  13.438   13.638   14.270
+NL-LW             12.870   13.100   13.597  13.530   13.721   14.325
+MP-clip           13.278   13.481   13.997  13.468   13.674   14.374
+RIE               13.108   13.299   13.840  13.858   14.016   14.574
+VS-NL-LW          11.963   12.487   13.666  12.304   12.933   14.256
+VS-RIE            12.122   12.634   13.567  12.761   13.298   14.191
+EW-NL-LW          12.386   12.719   13.477  12.770   13.124   14.117
+EW-RIE (q_eff)    14.028   14.301   14.890  14.515   14.760   15.336
+EW-WeSpeR         12.237   12.568   13.382  12.709   13.054   14.090
+EW-RIE*           12.202   12.557   13.331  12.690   13.066   14.042
+VS-EW-RIE*        11.822   12.430   13.558  12.310   12.958   14.279
+**Bảng 20.** Sharpe sau phí (năm hóa) theo phí một chiều COST, REB = 21, 12 phương pháp; in đậm: **cao nhất** mỗi cột.
+                  Bán khống                                Chỉ mua                          
+               COST = 0,15% COST = 0,25% COST = 0,40% COST = 0,15% COST = 0,25% COST = 0,40%
+Sample               -0.049       -0.195       -0.412        0.068        0.032       -0.022
+Ledoit-Wolf           0.029       -0.076       -0.233        0.123        0.089        0.039
+NL-LW                 0.023       -0.051       -0.161        0.107        0.077        0.033
+MP-clip               0.028       -0.049       -0.163        0.192        0.156        0.102
+RIE                   0.278        0.228        0.154        0.272        0.243        0.198
+VS-NL-LW              0.051       -0.083       -0.283        0.225        0.156        0.053
+VS-RIE                0.188        0.095       -0.046        0.265        0.203        0.112
+EW-NL-LW             -0.039       -0.133       -0.274        0.025       -0.019       -0.085
+EW-RIE (q_eff)        0.269        0.227        0.163        0.289        0.256        0.206
+EW-WeSpeR             0.006       -0.081       -0.212        0.042       -0.001       -0.066
+EW-RIE*              -0.054       -0.143       -0.277        0.035       -0.008       -0.074
+VS-EW-RIE*           -0.121       -0.248       -0.437        0.080        0.014       -0.085
+**Hình 10.** Heatmap của v3: Vol (%/năm, gộp) và Sharpe sau phí theo REB × COST, chế độ chỉ mua, NL-LW / EW-NL-LW / EW-RIE\*.
+**Hình 11.** ΔVol (pp/năm) của 12 cặp theo REB; \* = p Holm < 0,05 trong từng cột (mô tả). Số liệu: `T2a_pairs_reb.csv`.
+**Kết quả.** Bộ có Vol thấp nhất theo REB — Bán khống: REB = 5: VS-EW-RIE\*, REB = 21: VS-EW-RIE\*, REB = 63: EW-RIE\*; Chỉ mua: REB = 5: VS-NL-LW, REB = 21: VS-NL-LW, REB = 63: EW-RIE\*. Sharpe sau phí cao nhất (REB = 21) — Bán khống: COST = 0,15%: RIE, COST = 0,25%: RIE, COST = 0,40%: EW-RIE (q_eff); Chỉ mua: COST = 0,15%: EW-RIE (q_eff), COST = 0,25%: EW-RIE (q_eff), COST = 0,40%: EW-RIE (q_eff).
+
+**Kết luận.** EW-RIE\* thấp hơn EW-NL-LW có ý nghĩa ở 6/6 ô (cao hơn có ý nghĩa 0); cặp thầy hỏi (EW-RIE\* − VS-NL-LW) không có ý nghĩa ở ô nào trong 6 ô (mô tả).
+[37s]
+
+===== cell 89 =====
+**Bảng 21.** Vol (%/năm, gộp) theo mức lọc đứng giá, trên 1 446 phiên chung (2021-01-20 → 2026-11-10) của các mức có ≥ 60 kỳ; khối trên: bán khống, khối dưới: chỉ mua; in đậm: thấp nhất trong từng cột của mỗi khối. Số kỳ và phiên ngoài mẫu của từng mức — không lọc: 129 kỳ, 2706 phiên; 5%: 0 kỳ, 0 phiên; 10%: 69 kỳ, 1446 phiên; 15%: 111 kỳ, 2328 phiên; 20% (chuẩn): 118 kỳ, 2475 phiên; 30%: 129 kỳ, 2706 phiên.
+                          không lọc     10%     15%  20% (chuẩn)     30%
+Chế độ    Phương pháp                                                   
+Bán khống Sample             14.399  17.080  16.309       16.048  14.455
+          Ledoit-Wolf        13.381  15.809  15.024       14.821  13.425
+          NL-LW              12.965  15.055  14.385       14.162  12.993
+          MP-clip            13.372  16.029  15.101       15.029  13.410
+          RIE                13.318  15.858  14.988       14.790  13.371
+          VS-NL-LW           12.554  15.248  14.168       13.905  12.609
+          VS-RIE             12.597  15.556  14.361       14.068  12.663
+          EW-NL-LW           12.739  14.965  14.232       14.097  12.779
+          EW-RIE (q_eff)     14.757  17.553  16.513       16.215  14.808
+          EW-WeSpeR          12.666  14.790  14.172       13.993  12.703
+          EW-RIE*            12.625  14.774  14.104       13.953  12.666
+          VS-EW-RIE*         12.597  15.045  14.120       13.896  12.644
+Chỉ mua   Sample             13.006  15.741  14.748       14.715  13.067
+          Ledoit-Wolf        12.992  15.684  14.743       14.645  13.049
+          NL-LW              13.261  15.762  14.927       14.770  13.304
+          MP-clip            13.094  15.989  15.003       15.011  13.154
+          RIE                13.970  16.675  15.711       15.543  14.030
+          VS-NL-LW           12.750  15.586  14.604       14.243  12.816
+          VS-RIE             13.163  16.266  15.086       14.789  13.238
+          EW-NL-LW           12.906  15.520  14.585       14.431  12.965
+          EW-RIE (q_eff)     15.226  17.983  16.974       16.700  15.279
+          EW-WeSpeR          12.848  15.431  14.538       14.375  12.907
+          EW-RIE*            12.849  15.458  14.526       14.380  12.910
+          VS-EW-RIE*         12.884  15.454  14.657       14.338  12.947
+*Mức 5%:* 0 kỳ (< 60) — không có kỳ nào đủ N = 100 mã, không tính được.
+**Hình 12.** Hình của v3: Vol (%/năm) của NL-LW, EW-NL-LW, EW-RIE\* theo mức lọc đứng giá, trên ngày chung (trục không từ 0).
+**Hình 13.** ΔVol (pp/năm) của 12 cặp theo mức lọc đứng giá, trên ngày chung; \* = p Holm < 0,05 trong từng cột (mô tả). Số liệu: `T2b_pairs_zero.csv`.
+**Kết quả.** Bộ có Vol thấp nhất theo mức lọc — Bán khống: không lọc: VS-NL-LW, 10%: EW-RIE\*, 15%: EW-RIE\*, 20% (chuẩn): VS-EW-RIE\*, 30%: VS-NL-LW; Chỉ mua: không lọc: VS-NL-LW, 10%: EW-WeSpeR, 15%: EW-RIE\*, 20% (chuẩn): VS-NL-LW, 30%: VS-NL-LW.
+
+**Kết luận.** EW-RIE\* thấp hơn EW-NL-LW có ý nghĩa ở 2/10 ô (cao hơn có ý nghĩa 0); cặp thầy hỏi (EW-RIE\* − VS-NL-LW) không có ý nghĩa ở ô nào trong 10 ô (mô tả).
+[87s]
+
+===== cell 91 =====
+**Bảng 22.** Sharpe (năm hóa) theo quy ước phí, REB = 21, 12 phương pháp; in đậm: cao nhất mỗi cột. Với Σw = 1, giá trị mua = giá trị bán = turnover/2 nên phí (mua 0,15%, bán 0,25%) ≡ COST đối xứng 0,20% (unit test 200 trường hợp, và r_net tính lại khớp backtest chạy lại thật).
+               Bán khống                                          Chỉ mua                                         
+                     Gộp COST 0,25% (chuẩn) Mua 0,15% / bán 0,25%     Gộp COST 0,25% (chuẩn) Mua 0,15% / bán 0,25%
+Sample             0.173             -0.195                -0.122   0.122              0.032                 0.050
+Ledoit-Wolf        0.187             -0.076                -0.023   0.173              0.089                 0.106
+NL-LW              0.134             -0.051                -0.014   0.152              0.077                 0.092
+MP-clip            0.142             -0.049                -0.010   0.246              0.156                 0.174
+RIE                0.353              0.228                 0.253   0.317              0.243                 0.258
+VS-NL-LW           0.252             -0.083                -0.016   0.328              0.156                 0.191
+VS-RIE             0.329              0.095                 0.142   0.356              0.203                 0.234
+EW-NL-LW           0.102             -0.133                -0.086   0.091             -0.019                 0.003
+EW-RIE (q_eff)     0.332              0.227                 0.248   0.338              0.256                 0.272
+EW-WeSpeR          0.138             -0.081                -0.038   0.107             -0.001                 0.020
+EW-RIE*            0.080             -0.143                -0.099   0.101             -0.008                 0.014
+VS-EW-RIE*         0.070             -0.248                -0.184   0.179              0.014                 0.047
+**Kết quả.** Sharpe theo phí thực tế (mua 0,15% / bán 0,25%) — Bán khống: cao nhất RIE (0,253), EW-RIE\* -0,099, VS-NL-LW -0,016; Chỉ mua: cao nhất EW-RIE (q_eff) (0,272), EW-RIE\* 0,014, VS-NL-LW 0,191.
+
+**Kết luận.** Giả định COST = 0,25% hơi bảo thủ so với phí thực tế (tương đương 0,20%) nhưng không đổi thứ tự giữa các bộ.
+[1s]
+
+===== cell 93 =====
+[0s]
+
+===== cell 94 =====
+**Bảng 23.** Lượt mã trong universe bị hủy niêm yết trong kỳ nắm giữ, theo năm và lý do (cấu hình chuẩn: 118 kỳ × N = 100 = 11 800 vị thế). Trong 84 mã hủy có giá, 32 mã từng vào universe (danh mục) ít nhất một kỳ.
+reason  bắt buộc  Tổng
+year                  
+2017           1     1
+2020           1     1
+2022           2     2
+2024           1     1
+2025           1     1
+Tổng           6     6
+**Bảng 24.** Vol (%/năm, gộp) theo kịch bản lợi suất ngày hủy niêm yết (S0 = 0%, S1 = −30%, S2 = −100% cho hủy bắt buộc và chưa rõ; S1 mọi lý do), 12 phương pháp; in đậm: thấp nhất mỗi cột.
+               Bán khống                              Chỉ mua                             
+                      S0      S1      S2 S1 mọi lý do      S0      S1      S2 S1 mọi lý do
+Sample            14.578  14.581  14.631       14.581  13.522  13.521  13.520       13.521
+Ledoit-Wolf       13.626  13.629  13.688       13.629  13.638  13.637  13.635       13.637
+NL-LW             13.100  13.104  13.193       13.104  13.721  13.721  13.720       13.721
+MP-clip           13.481  13.486  13.539       13.486  13.674  13.673  13.672       13.673
+RIE               13.299  13.298  13.319       13.298  14.016  14.014  14.024       14.014
+VS-NL-LW          12.487  12.493  12.530       12.493  12.933  12.933  12.932       12.933
+VS-RIE            12.634  12.635  12.659       12.635  13.298  13.298  13.312       13.298
+EW-NL-LW          12.719  12.723  12.755       12.723  13.124  13.123  13.122       13.123
+EW-RIE (q_eff)    14.301  14.299  14.303       14.299  14.760  14.757  14.759       14.757
+EW-WeSpeR         12.568  12.572  12.608       12.572  13.054  13.053  13.052       13.053
+EW-RIE*           12.557  12.561  12.592       12.561  13.066  13.066  13.064       13.066
+VS-EW-RIE*        12.430  12.436  12.464       12.436  12.958  12.958  12.957       12.958
+**Kết quả.** 6 lượt mã bị hủy trong kỳ nắm giữ (bắt buộc: 6); Vol đổi tối đa 0,093 pp giữa các kịch bản; Bán khống: thứ hạng 12 bộ không đổi; Chỉ mua: thứ hạng 12 bộ không đổi.
+
+**Kết luận.** Cách xử lý lợi suất ngày hủy niêm yết không ảnh hưởng thứ hạng; hạn chế còn lại là 19 mã hủy thiếu giá không bao giờ vào universe.
+[18s]
+
+===== cell 96 =====
+[0s]
+
+===== cell 99 =====
+**Bảng 25.** Cấu hình chuẩn, 15 bộ (118 kỳ, 2 475 phiên). Chi phí GD %/năm = turnover × COST × 252/REB. Số mã hiệu dụng = 1/Σw²; tỷ trọng max trung bình theo kỳ. ms/lần lấy từ Bảng 12.
+                           Vol %  Sharpe  Sharpe sau phí  Turnover/kỳ  Chi phí GD %/năm  Số mã hiệu dụng  Tỷ trọng max %  ms/lần (N = 100)
+Chế độ    Phương pháp                                                                                                                     
+Bán khống Sample          14.578   0.173          -0.195        1.805             5.415            4.602          24.223             0.129
+          Ledoit-Wolf     13.626   0.187          -0.076        1.204             3.613            8.411          17.873             2.757
+          NL-LW           13.100   0.134          -0.051        0.812             2.437           11.519          13.980             1.364
+          MP-clip         13.481   0.142          -0.049        0.864             2.591            7.461          22.863             1.232
+          RIE             13.299   0.353           0.228        0.554             1.663           12.884          17.249             1.337
+          VS-NL-LW        12.487   0.252          -0.083        1.408             4.223            7.652          25.730             2.500
+          VS-RIE          12.634   0.329           0.095        0.992             2.976           11.216          21.342             2.373
+          EW-NL-LW        12.719   0.102          -0.133        1.005             3.014            8.036          22.769             1.521
+          EW-RIE (q_eff)  14.301   0.332           0.227        0.507             1.522           20.248          14.138             1.311
+          EW-WeSpeR       12.568   0.138          -0.081        0.924             2.771            8.669          21.824          1293.412
+          EW-RIE*         12.557   0.080          -0.143        0.943             2.828            8.529          22.155           157.677
+          VS-EW-RIE*      12.430   0.070          -0.248        1.327             3.980            7.965          25.713           150.058
+          1/N             22.733   0.424           0.416        0.054             0.161          100.000           1.000             0.004
+          PCA-auto        13.844   0.285           0.113        0.797             2.391           10.014          16.843             4.838
+          DCC-GARCH(1,1)  15.269   0.354          -0.212        2.915             8.745            4.174          27.672          1757.347
+Chỉ mua   Sample          13.522   0.122           0.032        0.408             1.224            9.242          25.078             0.129
+          Ledoit-Wolf     13.638   0.173           0.089        0.383             1.148           12.632          20.058             2.757
+          NL-LW           13.721   0.152           0.077        0.343             1.029           14.396          16.804             1.364
+          MP-clip         13.674   0.246           0.156        0.412             1.236            9.089          25.930             1.232
+          RIE             14.016   0.317           0.243        0.350             1.051           15.317          17.524             1.337
+          VS-NL-LW        12.933   0.328           0.156        0.745             2.234            8.056          30.732             2.500
+          VS-RIE          13.298   0.356           0.203        0.682             2.047           12.827          21.988             2.373
+          EW-NL-LW        13.124   0.091          -0.019        0.486             1.458            9.166          26.221             1.521
+          EW-RIE (q_eff)  14.760   0.338           0.256        0.410             1.229           22.236          14.074             1.311
+          EW-WeSpeR       13.054   0.107          -0.001        0.475             1.424            9.394          25.736          1293.412
+          EW-RIE*         13.066   0.101          -0.008        0.477             1.432            9.455          25.647           157.677
+          VS-EW-RIE*      12.958   0.179           0.014        0.717             2.152            8.355          30.136           150.058
+          1/N             22.733   0.424           0.416        0.054             0.161          100.000           1.000             0.004
+          PCA-auto        13.631   0.232           0.153        0.359             1.078            9.901          22.984             4.838
+          DCC-GARCH(1,1)  14.072   0.340           0.151        0.894             2.681            8.067          30.116          1757.347
+**Kết quả.** Bán khống: Vol thấp nhất VS-EW-RIE\* (12,43), Sharpe sau phí cao nhất 1/N (0,416); chi phí GD EW-RIE\* 2,83%/năm so với VS-NL-LW 4,22%/năm; Chỉ mua: Vol thấp nhất VS-NL-LW (12,93), Sharpe sau phí cao nhất 1/N (0,416); chi phí GD EW-RIE\* 1,43%/năm so với VS-NL-LW 2,23%/năm.
+
+**Kết luận.** Hạng Vol (trong 15) của 1/N, PCA-auto, DCC-GARCH: Bán khống 15, 11, 14; Chỉ mua 15, 8, 13; năm bộ đầu (chỉ mua): VS-NL-LW, VS-EW-RIE\*, EW-WeSpeR, EW-RIE\*, EW-NL-LW.
+[0s]
+
+===== cell 101 =====
+**Bảng 26.** Bán khống: 12 cặp định trước, cấu hình chuẩn (2 475 phiên). ΔVol = Vol(bộ trước) − Vol(bộ sau), pp/năm (< 0: bộ trước rủi ro thấp hơn); CI 95% bootstrap khối b = 21; p Holm trên 12 cặp; ΔTurnover/kỳ kèm CI.
+                                          ΔVol (pp)  CI lo  CI hi  p LW-HAC  p LW-boot  p Holm  p JKM  ΔTurnover  Turn CI lo  Turn CI hi
+Cụm             Cặp                                                                                                                     
+A. Làm sạch     EW-RIE* − EW-NL-LW           -0.162 -0.237 -0.094     0.000      0.000   0.006  0.549     -0.062      -0.073      -0.051
+                EW-RIE* − EW-RIE (q_eff)     -1.744 -2.305 -1.121     0.000      0.000   0.006  0.231      0.435       0.382       0.492
+                EW-RIE* − EW-WeSpeR          -0.012 -0.090  0.073     0.813      0.836   1.000  0.180      0.019       0.007       0.030
+B. Trọng số mũ  EW-NL-LW − NL-LW             -0.382 -0.854  0.122     0.088      0.123   0.864  0.816      0.192       0.135       0.253
+                EW-RIE* − RIE                -0.743 -1.196 -0.208     0.002      0.006   0.065  0.097      0.388       0.337       0.447
+C. Trước/sau VS VS-NL-LW − NL-LW             -0.614 -1.277  0.061     0.052      0.065   0.520  0.542      0.596       0.509       0.694
+                VS-RIE − RIE                 -0.666 -1.262 -0.162     0.009      0.017   0.157  0.855      0.438       0.390       0.489
+                VS-EW-RIE* − EW-RIE*         -0.126 -0.572  0.271     0.537      0.561   1.000  0.937      0.384       0.336       0.439
+D. Trong họ VS  VS-EW-RIE* − VS-NL-LW        -0.056 -0.237  0.131     0.497      0.528   1.000  0.004     -0.081      -0.113      -0.050
+                VS-EW-RIE* − VS-RIE          -0.203 -0.615  0.275     0.331      0.374   1.000  0.047      0.335       0.273       0.404
+                VS-RIE − VS-NL-LW             0.147 -0.204  0.450     0.359      0.373   1.000  0.489     -0.416      -0.474      -0.366
+E. EW hay VS    EW-RIE* − VS-NL-LW            0.070 -0.309  0.530     0.740      0.755   1.000  0.265     -0.465      -0.525      -0.410
+**Bảng 27.** Chỉ mua: 12 cặp định trước, cấu hình chuẩn (2 475 phiên). ΔVol = Vol(bộ trước) − Vol(bộ sau), pp/năm (< 0: bộ trước rủi ro thấp hơn); CI 95% bootstrap khối b = 21; p Holm trên 12 cặp; ΔTurnover/kỳ kèm CI.
+                                          ΔVol (pp)  CI lo  CI hi  p LW-HAC  p LW-boot  p Holm  p JKM  ΔTurnover  Turn CI lo  Turn CI hi
+Cụm             Cặp                                                                                                                     
+A. Làm sạch     EW-RIE* − EW-NL-LW           -0.057 -0.091 -0.025     0.000      0.001   0.010  0.503     -0.009      -0.013      -0.004
+                EW-RIE* − EW-RIE (q_eff)     -1.693 -2.162 -1.220     0.000      0.000   0.006  0.088      0.068       0.046       0.090
+                EW-RIE* − EW-WeSpeR           0.013 -0.021  0.050     0.469      0.498   1.000  0.595      0.002      -0.001       0.006
+B. Trọng số mũ  EW-NL-LW − NL-LW             -0.597 -0.975 -0.223     0.000      0.002   0.018  0.576      0.143       0.112       0.176
+                EW-RIE* − RIE                -0.949 -1.311 -0.564     0.000      0.000   0.006  0.060      0.127       0.102       0.154
+C. Trước/sau VS VS-NL-LW − NL-LW             -0.788 -1.481 -0.119     0.014      0.024   0.168  0.284      0.402       0.358       0.450
+                VS-RIE − RIE                 -0.718 -1.320 -0.209     0.004      0.012   0.096  0.732      0.332       0.299       0.368
+                VS-EW-RIE* − EW-RIE*         -0.108 -0.625  0.372     0.629      0.666   1.000  0.450      0.240       0.213       0.268
+D. Trong họ VS  VS-EW-RIE* − VS-NL-LW         0.025 -0.145  0.216     0.769      0.793   1.000  0.001     -0.027      -0.040      -0.016
+                VS-EW-RIE* − VS-RIE          -0.339 -0.731  0.123     0.083      0.113   0.567  0.067      0.035       0.016       0.055
+                VS-RIE − VS-NL-LW             0.364  0.006  0.676     0.022      0.031   0.189  0.742     -0.062      -0.081      -0.044
+E. EW hay VS    EW-RIE* − VS-NL-LW            0.133 -0.317  0.632     0.549      0.573   1.000  0.052     -0.267      -0.296      -0.238
+**Bảng 28.** Phụ (không vào họ Holm): EW-RIE\* so với 1/N, PCA-auto, DCC-GARCH(1,1), cấu hình chuẩn.
+                                    ΔVol (pp)   CI lo  CI hi  p LW-HAC  p LW-boot  p JKM  ΔTurnover  Turn CI lo  Turn CI hi
+Chế độ    Cặp                                                                                                              
+Bán khống EW-RIE* − 1/N               -10.174 -11.729 -8.628       0.0      0.000  0.303      0.889       0.816       0.967
+          EW-RIE* − PCA-auto           -1.287  -1.735 -0.814       0.0      0.000  0.197      0.146       0.069       0.218
+          EW-RIE* − DCC-GARCH(1,1)     -2.712  -3.363 -1.967       0.0      0.000  0.224     -1.972      -2.104      -1.842
+Chỉ mua   EW-RIE* − 1/N                -9.665 -11.190 -8.213       0.0      0.000  0.202      0.424       0.376       0.476
+          EW-RIE* − PCA-auto           -0.565  -0.897 -0.267       0.0      0.002  0.151      0.118       0.092       0.146
+          EW-RIE* − DCC-GARCH(1,1)     -1.005  -1.524 -0.443       0.0      0.000  0.114     -0.417      -0.473      -0.359
+**Bảng 29.** Cặp E (EW-RIE\* − VS-NL-LW) với độ dài khối bootstrap 10/21/42 phiên (p HAC không phụ thuộc b).
+                         ΔVol (pp)  CI lo  CI hi  p LW-HAC  p LW-boot
+Chế độ    Độ dài khối b                                              
+Bán khống 10                 0.070 -0.325  0.516     0.740      0.748
+          21                 0.070 -0.309  0.530     0.740      0.755
+          42                 0.070 -0.322  0.520     0.740      0.737
+Chỉ mua   10                 0.133 -0.293  0.588     0.549      0.577
+          21                 0.133 -0.317  0.632     0.549      0.573
+          42                 0.133 -0.323  0.620     0.549      0.558
+**Hình 14.** ΔVol và CI 95% (bootstrap khối, b = 21) của 12 cặp, cấu hình chuẩn, xếp theo cụm A–E; chấm đặc: p Holm < 0,05; đường dọc tại 0.
+**Kết quả.** Cặp E (EW-RIE\* − VS-NL-LW): Bán khống ΔVol +0,07 pp [−0,31; +0,53], p LW-boot 0,755, p Holm 1,000, ΔTurnover −0,47/kỳ [−0,52; −0,41], chi phí GD 2,83 so với 4,22%/năm, số mã hiệu dụng 8,5 so với 7,7, tỷ trọng max 22,2% so với 25,7%; Chỉ mua ΔVol +0,13 pp [−0,32; +0,63], p LW-boot 0,573, p Holm 1,000, ΔTurnover −0,27/kỳ [−0,30; −0,24], chi phí GD 1,43 so với 2,23%/năm, số mã hiệu dụng 9,5 so với 8,1, tỷ trọng max 25,6% so với 30,7%. Các cặp có p Holm < 0,05 — Bán khống: EW-RIE\* − EW-NL-LW (−0,16), EW-RIE\* − EW-RIE (q_eff) (−1,74); Chỉ mua: EW-RIE\* − EW-NL-LW (−0,06), EW-RIE\* − EW-RIE (q_eff) (−1,69), EW-NL-LW − NL-LW (−0,60), EW-RIE\* − RIE (−0,95).
+
+**Kết luận.** EW-RIE\* và VS-NL-LW ngang nhau về rủi ro; EW-RIE\* giao dịch ít hơn có ý nghĩa (CI ΔTurnover không chứa 0).
+[18s]
+
+===== cell 103 =====
+[0s]
+
+===== cell 105 =====
+**Bảng 30.** Cụm C (trước và sau VS): ΔVol (pp/năm) [CI 95% bootstrap khối] theo giai đoạn thị trường; < 0: VS giảm rủi ro. Mô tả, không Holm.
+Giai đoạn                                   Toàn mẫu       2016-17 Ổn định    2018-19 Điều chỉnh          2020Q1 COVID       2020-21 Bùng nổ         2022 Sụt giảm      2023-24 Phục hồi               2025-26
+Chế độ    Cặp                                                                                                                                                                                                 
+Bán khống VS-NL-LW − NL-LW      −0,61 [−1,28; +0,06]  −1,05 [−1,94; −0,33]  −0,76 [−1,18; −0,19]  −5,81 [−7,49; −2,90]  −2,16 [−4,06; −0,59]  +0,55 [−1,61; +2,92]  −0,75 [−1,13; +0,01]  +0,89 [+0,01; +2,00]
+          VS-RIE − RIE          −0,67 [−1,26; −0,16]  −0,89 [−1,29; −0,45]  −0,39 [−0,82; +0,14]  −2,58 [−3,30; −1,18]  −2,25 [−4,47; −0,52]  +0,28 [−0,83; +1,72]  −0,72 [−1,04; −0,20]  −0,04 [−0,72; +0,56]
+          VS-EW-RIE* − EW-RIE*  −0,13 [−0,57; +0,27]  −0,38 [−0,62; −0,16]  −0,19 [−0,61; +0,26]  −1,54 [−2,21; −0,20]  −1,21 [−2,90; +0,14]  +0,98 [−0,26; +2,07]  −0,20 [−0,48; +0,25]  +0,21 [−0,45; +0,95]
+Chỉ mua   VS-NL-LW − NL-LW      −0,79 [−1,48; −0,12]  −0,86 [−1,44; −0,26]  −0,82 [−1,36; −0,13]  −6,54 [−7,89; −4,92]  −2,32 [−4,50; −0,41]  +0,67 [−1,10; +2,88]  −0,71 [−1,24; +0,05]  +0,27 [−0,89; +1,50]
+          VS-RIE − RIE          −0,72 [−1,32; −0,21]  −0,80 [−1,11; −0,36]  −0,45 [−0,90; +0,01]  −2,92 [−3,74; −1,88]  −2,46 [−4,73; −0,65]  +0,36 [−0,85; +1,86]  −0,64 [−1,03; −0,11]  −0,19 [−0,80; +0,37]
+          VS-EW-RIE* − EW-RIE*  −0,11 [−0,63; +0,37]  −0,29 [−0,43; −0,06]  −0,14 [−0,68; +0,38]  −1,50 [−2,15; −0,48]  −1,24 [−3,06; +0,19]  +1,28 [−0,30; +2,92]  −0,35 [−0,69; +0,08]  +0,21 [−0,72; +1,09]
+**Hình 15.** Hình của v3: ΔVol do VS theo giai đoạn thị trường, ba cặp của cụm C.
+**Kết quả.** Giai đoạn cả ba cặp đều âm (VS giảm rủi ro) — Bán khống: 2016-17 Ổn định, 2018-19 Điều chỉnh, 2020Q1 COVID, 2020-21 Bùng nổ, 2023-24 Phục hồi; Chỉ mua: 2016-17 Ổn định, 2018-19 Điều chỉnh, 2020Q1 COVID, 2020-21 Bùng nổ, 2023-24 Phục hồi. 2020Q1 COVID: VS-NL-LW − NL-LW −6,54, VS-RIE − RIE −2,92, VS-EW-RIE\* − EW-RIE\* −1,50 (chỉ mua).
+
+**Kết luận.** VS giảm rủi ro nhiều nhất ở giai đoạn 2020Q1 COVID (ΔVol trung bình −3,48 pp); chỉ 20/42 ô (giai đoạn × cặp × chế độ) có CI nằm hẳn dưới 0.
+[4s]
+
+===== cell 107 =====
+**Bảng 31.** RMSE dự báo vol 21 phiên (%/năm) theo giai đoạn: EWMA (half-life 10/20/40, đúng hàm `ewma_standardize` mà VS dùng) và cửa sổ phẳng 63/250 phiên; dòng cuối: QLIKE toàn mẫu (thấp hơn = tốt hơn).
+model               EWMA hl=10  EWMA hl=20  EWMA hl=40  Phẳng 63 phiên  Phẳng 250 phiên
+period                                                                                 
+2016-17 Ổn định         12.677      12.208      12.287          12.741           13.584
+2018-19 Điều chỉnh      12.622      12.063      12.226          12.572           14.204
+2020Q1 COVID            17.505      18.613      20.962          20.553           25.752
+2020-21 Bùng nổ         14.849      14.359      14.075          15.366           14.114
+2022 Sụt giảm           16.406      16.243      15.764          18.426           15.672
+2023-24 Phục hồi        11.261      11.701      12.697          13.027           14.866
+2025-26                 13.360      12.912      12.732          13.809           13.145
+Toàn mẫu                13.511      13.274      13.436          14.356           14.639
+QLIKE (toàn mẫu)        -6.413      -6.464      -6.476          -6.416           -6.437
+**Hình 16.** Hình của v3: RMSE dự báo vol 21 phiên theo giai đoạn, EWMA so với cửa sổ phẳng.
+**Kết quả.** RMSE toàn mẫu (%/năm): EWMA hl=10 13,51, EWMA hl=20 13,27, EWMA hl=40 13,44, Phẳng 63 phiên 14,36, Phẳng 250 phiên 14,64; 2020Q1 COVID: EWMA hl=10 17,50, EWMA hl=20 18,61, EWMA hl=40 20,96, Phẳng 63 phiên 20,55, Phẳng 250 phiên 25,75.
+
+**Kết luận.** EWMA dự báo biến động 21 phiên tốt hơn cửa sổ phẳng trên toàn mẫu (tốt nhất: EWMA hl=20), nhất là ở 2020Q1 — một lý do VS giúp trên HOSE.
+[1s]
+
+===== cell 109 =====
+**Bảng 32.** Cụm D (trong họ VS) và cụm E (EW-RIE\* − VS-NL-LW): ΔVol (pp/năm) [CI 95% bootstrap khối] theo giai đoạn. Mô tả, không Holm.
+Giai đoạn                                    Toàn mẫu       2016-17 Ổn định    2018-19 Điều chỉnh          2020Q1 COVID       2020-21 Bùng nổ         2022 Sụt giảm      2023-24 Phục hồi               2025-26
+Chế độ    Cặp                                                                                                                                                                                                  
+Bán khống VS-EW-RIE* − VS-NL-LW  −0,06 [−0,24; +0,13]  −0,12 [−0,34; +0,12]  −0,16 [−0,42; +0,08]  +0,25 [−0,46; +1,37]  −0,38 [−0,68; −0,08]  +0,60 [−0,14; +1,24]  −0,21 [−0,43; −0,00]  −0,07 [−0,48; +0,39]
+          VS-EW-RIE* − VS-RIE    −0,20 [−0,62; +0,27]  +0,06 [−0,13; +0,25]  −0,26 [−0,74; +0,25]  −0,30 [−1,16; +0,96]  −0,63 [−1,28; −0,12]  −0,08 [−2,30; +2,00]  −0,70 [−1,38; −0,05]  +0,38 [−0,32; +1,34]
+          VS-RIE − VS-NL-LW      +0,15 [−0,20; +0,45]  −0,18 [−0,29; −0,04]  +0,09 [−0,23; +0,39]  +0,54 [+0,29; +0,71]  +0,25 [−0,19; +0,75]  +0,68 [−0,78; +2,22]  +0,49 [−0,05; +1,03]  −0,45 [−1,44; +0,21]
+          EW-RIE* − VS-NL-LW     +0,07 [−0,31; +0,53]  +0,26 [−0,00; +0,58]  +0,03 [−0,62; +0,61]  +1,79 [+0,54; +2,28]  +0,83 [−0,61; +2,64]  −0,38 [−1,38; +0,80]  −0,01 [−0,56; +0,38]  −0,28 [−1,13; +0,53]
+Chỉ mua   VS-EW-RIE* − VS-NL-LW  +0,03 [−0,15; +0,22]  −0,14 [−0,30; +0,02]  −0,08 [−0,28; +0,16]  +0,48 [−0,28; +1,84]  −0,28 [−0,46; +0,02]  +0,26 [−0,51; +0,98]  −0,04 [−0,19; +0,14]  +0,15 [−0,18; +0,52]
+          VS-EW-RIE* − VS-RIE    −0,34 [−0,73; +0,12]  +0,03 [−0,14; +0,15]  +0,03 [−0,38; +0,51]  −0,51 [−1,55; +0,97]  −0,77 [−1,39; −0,14]  −0,63 [−2,52; +1,44]  −0,59 [−1,10; +0,00]  −0,05 [−0,89; +1,10]
+          VS-RIE − VS-NL-LW      +0,36 [+0,01; +0,68]  −0,17 [−0,30; −0,02]  −0,11 [−0,56; +0,25]  +0,99 [+0,58; +1,27]  +0,49 [−0,11; +1,16]  +0,89 [−0,50; +2,12]  +0,55 [−0,08; +1,11]  +0,19 [−0,90; +1,05]
+          EW-RIE* − VS-NL-LW     +0,13 [−0,32; +0,63]  +0,15 [−0,13; +0,35]  +0,05 [−0,57; +0,71]  +1,97 [+0,86; +3,16]  +0,96 [−0,51; +2,99]  −1,02 [−2,20; −0,01]  +0,31 [−0,22; +0,77]  −0,07 [−1,05; +0,96]
+**Hình 17.** ΔVol trượt 1 năm (252 phiên) của EW-RIE\* − VS-NL-LW theo thời gian; nền: các giai đoạn trong `PERIODS`; > 0: EW-RIE\* rủi ro cao hơn. Mô tả.
+**Kết quả.** Cặp E có CI 95% không chứa 0 ở: 2020Q1 COVID (bán khống, +1,79 pp); 2020Q1 COVID (chỉ mua, +1,97 pp); 2022 Sụt giảm (chỉ mua, −1,02 pp). Tỷ lệ ngày ΔVol trượt > 0: Bán khống 51%, Chỉ mua 58%.
+
+**Kết luận.** Theo giai đoạn, VS-NL-LW thấp hơn rõ ở 2020Q1 COVID, EW-RIE\* thấp hơn rõ ở 2022 Sụt giảm; trên toàn mẫu CI chứa 0.
+[4s]
+
+===== cell 111 =====
+**Bảng 33.** VS nhờ phần chung hay phần riêng: Vol (%/năm) toàn mẫu và theo giai đoạn; ΔVol so với NL-LW [CI 95% bootstrap khối], p kiểm định phương sai (Holm trên 3 cặp, riêng từng chế độ). Cùng bộ làm sạch NL-LW.
+                                Vol toàn mẫu  2016-17 Ổn định  2018-19 Điều chỉnh  2020Q1 COVID  2020-21 Bùng nổ  2022 Sụt giảm  2023-24 Phục hồi  2025-26    ΔVol vs NL-LW [CI]  p LW-boot  p Holm (3 cặp)
+Chế độ    Bộ                                                                                                                                                                                               
+Bán khống NL-LW                       13.100            9.381              10.871        20.481           12.807         16.946            10.663   15.202                   NaN        NaN             NaN
+          VS chỉ phần chung           13.097            9.037              11.031        19.539           13.161         16.873            10.279   15.479  −0,00 [−0,28; +0,29]      0.977           1.000
+          VS chỉ phần riêng           12.961            8.540              10.228        13.538           11.172         18.991            10.293   16.565  −0,14 [−1,04; +0,73]      0.738           1.000
+          VS đầy đủ (VS-NL-LW)        12.487            8.333              10.113        14.666           10.649         17.493             9.913   16.089  −0,61 [−1,28; +0,06]      0.065           0.195
+Chỉ mua   NL-LW                       13.721            9.519              12.097        20.675           13.080         18.109            11.421   15.500                   NaN        NaN             NaN
+          VS chỉ phần chung           13.772            9.171              12.158        19.281           13.824         18.074            11.186   15.744  +0,05 [−0,21; +0,33]      0.680           0.680
+          VS chỉ phần riêng           13.218            8.696              11.287        12.991           11.198         19.547            11.007   16.252  −0,50 [−1,44; +0,34]      0.210           0.420
+          VS đầy đủ (VS-NL-LW)        12.933            8.656              11.275        14.131           10.763         18.778            10.711   15.771  −0,79 [−1,48; −0,12]      0.024           0.072
+**Kết quả.** Mức giảm Vol so với NL-LW (toàn mẫu, pp): Bán khống: phần chung 0,00, phần riêng 0,14, đầy đủ 0,61; Chỉ mua: phần chung -0,05, phần riêng 0,50, đầy đủ 0,79. Ở 2020Q1 COVID: Bán khống: phần chung 0,94, phần riêng 6,94, đầy đủ 5,81; Chỉ mua: phần chung 1,39, phần riêng 7,68, đầy đủ 6,54.
+
+**Kết luận.** Đóng góp chính đến từ **phần riêng** (chỉ mua) và **phần riêng** (bán khống); đây là cách nhóm hiểu gợi ý (a), cần thầy xác nhận.
+[3s]
+
+===== cell 113 =====
+**Bảng 34.** Tổng kết 12 cặp trên mọi ô (cấu hình × chế độ) của Hình 8, 9, 11, 13 (32 cột; cụm A, B không có ở các cột HL\_VOL). Có ý nghĩa = p Holm < 0,05 trong từng cột; p-value mang tính mô tả, không hiệu chỉnh xuyên cấu hình.
+                                          Số ô  ΔVol < 0  Âm có ý nghĩa  Dương có ý nghĩa  ΔVol trung vị (pp)
+Cụm             Cặp                                                                                          
+A. Làm sạch     EW-RIE* − EW-NL-LW          28        27             14                 0              -0.089
+                EW-RIE* − EW-RIE (q_eff)    28        27             26                 0              -2.202
+                EW-RIE* − EW-WeSpeR         28        16              1                 0              -0.014
+B. Trọng số mũ  EW-NL-LW − NL-LW            28        27              7                 0              -0.348
+                EW-RIE* − RIE               32        32             19                 0              -0.895
+C. Trước/sau VS VS-NL-LW − NL-LW            32        29              5                 0              -0.499
+                VS-RIE − RIE                32        30              6                 0              -0.666
+                VS-EW-RIE* − EW-RIE*        32        19              0                 0              -0.021
+D. Trong họ VS  VS-EW-RIE* − VS-NL-LW       32        18              0                 0              -0.007
+                VS-EW-RIE* − VS-RIE         32        29              6                 0              -0.295
+                VS-RIE − VS-NL-LW           32         4              1                 6               0.364
+E. EW hay VS    EW-RIE* − VS-NL-LW          32        13              0                 0               0.071
+**Kết quả.**
+
+- **A.** EW-RIE\* − EW-NL-LW: âm 27/28 ô (14 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,09; EW-RIE\* − EW-RIE (q_eff): âm 27/28 ô (26 có ý nghĩa, 0 dương có ý nghĩa), trung vị −2,20; EW-RIE\* − EW-WeSpeR: âm 16/28 ô (1 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,01.
+- **B.** EW-NL-LW − NL-LW: âm 27/28 ô (7 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,35; EW-RIE\* − RIE: âm 32/32 ô (19 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,89.
+- **C.** VS-NL-LW − NL-LW: âm 29/32 ô (5 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,50; VS-RIE − RIE: âm 30/32 ô (6 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,67; VS-EW-RIE\* − EW-RIE\*: âm 19/32 ô (0 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,02.
+- **D.** VS-EW-RIE\* − VS-NL-LW: âm 18/32 ô (0 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,01; VS-EW-RIE\* − VS-RIE: âm 29/32 ô (6 có ý nghĩa, 0 dương có ý nghĩa), trung vị −0,30; VS-RIE − VS-NL-LW: âm 4/32 ô (1 có ý nghĩa, 6 dương có ý nghĩa), trung vị +0,36.
+- **E.** EW-RIE\* − VS-NL-LW: âm 13/32 ô (0 có ý nghĩa, 0 dương có ý nghĩa), trung vị +0,07.
+**Kết luận.** Cụm A: EW-RIE\* thấp hơn EW-NL-LW ở 27/28 ô; cụm E (EW-RIE\* − VS-NL-LW) có ý nghĩa ở 0/32 ô.
+[0s]
+
+===== cell 114 =====
+✔ Hồi quy Bước 0: Vol 12 phương pháp khớp đến 0,01 (cache run_full)
+✘ Hồi quy Bước 0: §4 của thầy (tính lại) khớp đến 0,01 cho 11 bộ
+✔ Mẫu ngoài mẫu: 118 kỳ, 2 475 phiên
+✔ Bước 1: EW-RIE* − VS-NL-LW ≈ +0,07 / +0,13; EW-RIE* − EW-NL-LW ≈ −0,16 / −0,06
+✔ Bước 2: bộ không phải VS ở mọi T trùng hệt lần chạy thường; cùng ngày ngoài mẫu (assert ở §5.4)
+✔ Bước 2: không kỳ nào thiếu phiên trước cửa sổ cho bộ VS "đủ T"
+✔ T5d: VS đầy đủ trùng VS-NL-LW cấu hình chuẩn (assert)
+✔ Số bảng = 34, số hình = 17
+✔ Mọi heatmap cặp đủ 12 cặp và có CSV
+✔ Mọi Bảng A đủ 12 hàng
+Đếm lỗi số — Newton thất bại (EW-RIE*, §4 và các ô tính lại): 0/197482 | EW-WeSpeR dùng dự phòng: 0/0
+[0s]
