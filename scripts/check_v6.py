@@ -6,7 +6,8 @@ norm = lambda s: "\n".join(l.rstrip() for l in s.strip().split("\n"))
 src6 = [norm(c.source) for c in v6.cells if c.cell_type == "code"]; tc = [c for c in th.cells if c.cell_type == "code"]
 R["teacher_code_cells"] = f"{sum(norm(c.source) in src6 for c in tc)}/{len(tc)}"
 R["teacher_code_cells_diff"] = [norm(c.source).splitlines()[0][:70] for c in tc if norm(c.source) not in src6]
-a0, b0 = v6.cells[0].source, th.cells[0].source; i0, j0 = b0.index("**Kết quả hiện có"), b0.index("\n\n**Tài liệu chính")
+mathfix = lambda t: re.sub(r"\$[^$\n]+\$", lambda m: m.group(0).replace("\\_", "_"), t)
+a0, b0 = v6.cells[0].source, mathfix(th.cells[0].source); i0, j0 = b0.index("**Kết quả hiện có"), b0.index("\n\n**Tài liệu chính")
 R["intro0_only_result_block_differs"] = a0.startswith(b0[:i0]) and a0.endswith(b0[j0:]); R["intro1_verbatim"] = v6.cells[1].source == th.cells[1].source
 R["cell_errors"] = [(i, o.get("ename"), o.get("evalue", "")[:120]) for i, c in enumerate(v6.cells) if c.cell_type == "code" for o in c.get("outputs", []) if o.get("output_type") == "error"]
 md_out = "\n".join(o.get("data", {}).get("text/markdown", "") for c in v6.cells if c.cell_type == "code" for o in c.get("outputs", []) if "data" in o)

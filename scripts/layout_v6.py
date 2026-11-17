@@ -7,7 +7,7 @@ PAIRS_NEW = '''PAIRS = [("EW-RIE*", "EW-RIE (q_eff)"), ("EW-RIE*", "EW-NL-LW"), 
          ("NL-LW", "Ledoit-Wolf"), ("VS-NL-LW", "NL-LW"),
          ("EW-RIE*", "VS-NL-LW"), ("EW-RIE*", "EW-WeSpeR")]      # nhóm: thêm hai cặp (EW-RIE* vs VS-NL-LW, EW-RIE* vs EW-WeSpeR)'''
 LAYOUT = [
-    ("m", "m6_intro0.md"), ("t", 1),
+    ("m", "m6_intro0.md"), ("t", 1), ("m", "m6_toc.md"),
     # ---------------- 0 ----------------
     ("n", 3), ("n", 4, D), ("n", 5, D), ("f", "c00_helpers6.py", D),
     # ---------------- 1 ----------------

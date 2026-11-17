@@ -87,3 +87,6 @@ Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc
 - Chạy sạch nbconvert (1 luồng BLAS) không lỗi; ô mở đầu sinh bằng `scripts/make_intro6.py --patch` (số từ T3c/T3b); xuất `EW_RIE_HOSE_v6.html` (đủ code) và `EW_RIE_HOSE_v6_gon.html` (`--no-input`).
 - `scripts/check_v6.py`: ô thầy 15/18 + đúng 3 ngoại lệ; ô mở đầu chỉ khác đoạn Kết quả/Hạn chế; 34 bảng, 17 hình (17 ảnh trong notebook); mọi tự kiểm ✔ (gồm hồi quy §4 của thầy tính lại); Newton thất bại 0, EW-WeSpeR dự phòng 0/118.
 - `BAO_CAO_V6.md` sinh bởi `scripts/make_report_v6.py`.
+
+## 02:15 UTC 17/11 — sửa ô đầu theo yêu cầu
+- Bỏ `\_` trong công thức của ô đầu (di chứng khôi phục từ HTML) để chỉ số dưới hiển thị đúng; thêm ô Mục lục (sau Phân công nhóm). Đã kiểm hiển thị bằng MathJax 2.7.7 cục bộ. Không chạy lại code.

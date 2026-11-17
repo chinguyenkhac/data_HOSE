@@ -22,8 +22,15 @@ sent = (f"EW-RIE\\* có rủi ro thấp hơn EW-NL-LW có ý nghĩa (ΔVol {s(ew
         f"Turnover mỗi kỳ của EW-RIE\\* thấp hơn VS-NL-LW ({s(vs['short_ok']['ΔTurnover'])} / {s(vs['long_only']['ΔTurnover'])}; CI 95% {'không chứa 0' if (vs['short_ok']['Turn CI hi'] < 0 and vs['long_only']['Turn CI hi'] < 0) else 'chứa 0 ở ít nhất một chế độ'}).")
 lim = ("Hạn chế: 19 mã hủy niêm yết thiếu giá; chưa có VN30/HNX; EW-RIE\\* kém ổn định khi N > T\\_eff; EW-WeSpeR khớp mã gốc về rủi ro GMV nhưng trị riêng sau co lệch ~10% ở h = 15–30 (repo gốc chưa xác minh).")
 new = "**Kết quả hiện có (HOSE 12/2016–11/2026, N=100, T=250, h=60):**\n\n" + tab + "\n\n" + sent + "\n" + lim
+import re
+mathfix = lambda t: re.sub(r"\$[^$\n]+\$", lambda m: m.group(0).replace("\\_", "_"), t)      # bỏ \_ trong công thức (di chứng khôi phục từ HTML) để chỉ số dưới hiển thị đúng
+new = mathfix(new); c0 = mathfix(c0)
 i, j = c0.index("**Kết quả hiện có"), c0.index("\n\n**Tài liệu chính"); out0 = c0[:i] + new + c0[j:]
 assert out0[:i] == c0[:i] and out0.endswith(c0[j:])
 open(f"{H}/cells/m6_intro0.md", "w", encoding="utf-8").write(out0); print(new)
 if "--patch" in sys.argv:
-    p = f"{NB}/EW_RIE_HOSE_v6.ipynb"; nb = nbformat.read(p, 4); assert nb.cells[0].cell_type == "markdown" and nb.cells[0].source.startswith("# EW-RIE"); nb.cells[0].source = out0; nbformat.write(nb, p); print("đã thay ô 0")
+    p = f"{NB}/EW_RIE_HOSE_v6.ipynb"; nb = nbformat.read(p, 4); assert nb.cells[0].cell_type == "markdown" and nb.cells[0].source.startswith("# EW-RIE"); nb.cells[0].source = out0
+    toc = open(f"{H}/cells/m6_toc.md", encoding="utf-8").read().rstrip("\n")
+    if nb.cells[2].source.startswith("## Mục lục"): nb.cells[2].source = toc
+    else: nb.cells.insert(2, nbformat.v4.new_markdown_cell(toc))
+    nbformat.validator.normalize(nb); nbformat.write(nb, p); print("đã thay ô 0, chèn mục lục")
