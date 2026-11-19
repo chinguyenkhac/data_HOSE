@@ -68,3 +68,21 @@ md(f"**Kết quả.** Kendall τ của thứ hạng Vol so với A: " + ", ".joi
    f"(τ nhỏ nhất {f2(min(tau.values()))}; dấu ΔVol EW-RIE\\* − VS-NL-LW {'không đổi' if same else 'đổi'} qua 5 cấu hình). Sức chứa: quỹ 100 tỷ "
    f"{'vừa sức' if liq['100 tỷ']['EW-RIE*'] >= 95 else 'không vừa sức'} với EW-RIE\\*, quỹ 1 000 tỷ {'vừa sức' if liq['1 000 tỷ']['EW-RIE*'] >= 95 else 'không vừa sức'} "
    f"(ngưỡng 95% NAV trong 5 phiên).")
+
+# ---- Đào sâu (mô tả, KHÔNG đăng ký trước): độ lệch của values.csv, nghiêng về mã kém thanh khoản, và trần có thật sự tăng CAGR? ----
+REC = {k: v.loc["2024-01-01":, "% NAV bán được trong 5 phiên"].mean() for k, v in CAPS.items()}
+LIQR = {nm: np.mean([(TG[nm][s][1][0] * np.arange(1, N7 + 1)).sum() for s in S_REG]) for nm in M7}     # hạng thanh khoản TB theo tỷ trọng (1 = lỏng nhất)
+DIF = {c: nw_mean_test(SIM4[("EW-RIE*", c)][0].values - SIM4[("EW-RIE*", "A chuẩn")][0].values) for c in CFG4 if c != "A chuẩn"}
+DIFH = dict(zip(DIF, holm([p for _, p in DIF.values()])))
+md(f"**Đào sâu (mô tả, không đăng ký trước).** (1) *Độ lệch dữ liệu*: `values.csv` = giá điều chỉnh × khối lượng khớp lệnh nên giá trị giao dịch những năm đầu bị đánh giá thấp "
+   f"(ví dụ HPG 2017: giá điều chỉnh ~5 500 đồng so với giá thực vài chục nghìn) và bỏ giao dịch thỏa thuận. Chỉ tính các kỳ từ 2024 (độ lệch nhỏ hơn), % NAV bán được trong 5 phiên của EW-RIE\\* "
+   f"là {f2(REC[('EW-RIE*', 'A chuẩn', '100 tỷ')], 1)}% (quỹ 100 tỷ) và {f2(REC[('EW-RIE*', 'A chuẩn', '1 000 tỷ')], 1)}% (1 000 tỷ); trần 10%: {f2(REC[('EW-RIE*', 'C trần 10%', '100 tỷ')], 1)}% / "
+   f"{f2(REC[('EW-RIE*', 'C trần 10%', '1 000 tỷ')], 1)}%; 1/N: {f2(REC[('1/N', 'A chuẩn', '100 tỷ')], 1)}% / {f2(REC[('1/N', 'A chuẩn', '1 000 tỷ')], 1)}%. "
+   f"(2) *Nghiêng về mã kém thanh khoản*: hạng thanh khoản trung bình theo tỷ trọng trong top-100 (1 = lỏng nhất, 1/N = 50,5): "
+   + ", ".join(f"{nm} {f2(v, 1)}" for nm, v in LIQR.items() if nm != "1/N")
+   + (" ⇒ GMV nghiêng rõ về nửa kém thanh khoản. " if LIQR["EW-RIE*"] > 60 else " ⇒ GMV chỉ hơi nghiêng về phía kém thanh khoản; sức chứa kém chủ yếu do **độ tập trung** (vài vị thế rất lớn, xem Hình 20), không phải do chọn mã kém thanh khoản. ")
+   + f"(3) *Trần có tăng CAGR thật không?* Chênh lợi suất TB ngày (quy %/năm) của EW-RIE\\* so với A: "
+   + ", ".join(f"{c[0]} {dv(m * 252 * 100)} (p NW {pv(p)}, Holm {pv(DIFH[c])})" for c, (m, p) in DIF.items())
+   + " ⇒ " + (f"giới hạn turnover ({', '.join(c[0] for c in DIF if DIFH[c] < .05)}) cho lợi suất cao hơn **có ý nghĩa sau Holm** — cùng chiều với Hướng 2 (REB dài ⇒ CAGR cao hơn): "
+              "điều chỉnh CHẬM về danh mục đích có lợi cho lợi suất. Đây là phát hiện khám phá (không đăng ký trước), cần kiểm lại ngoài mẫu."
+              if min(DIFH.values()) < .05 else "chênh lệch lợi suất **chưa có ý nghĩa sau Holm** (10 năm dữ liệu khó tách chênh lệch cỡ vài điểm %)."))

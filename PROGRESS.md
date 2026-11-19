@@ -3,7 +3,13 @@
 > Phần v4–v6 ở dưới giữ nguyên. Không merge vào main.
 
 ## BƯỚC TIẾP THEO
-- Hướng 4: chạy `python scripts/v7ns.py c7_core.py c7_h1_tab.py c7_h4.py` (ô đã viết; tỷ trọng trần 20%/10% đã có trong cache tgt_*.pkl).
+- Dựng notebook v7: `scripts/build_v7.py` (v6 đã chạy + §7 chèn trước "Ghi chú"), chạy riêng các ô §7 bằng `scripts/exec_v7.py` (nạp ô định nghĩa v6 trong cùng kernel), `scripts/check_v7.py`, xuất HTML, viết `KET_QUA_v7.md`, PR nháp, gửi file.
+
+## Hướng 4 + tổng kết — xong (19/11 ~19:45 UTC)
+- Bảng 41, 42; Hình 27, 28 (`c7_h4.py`); tổng kết + phân tích chéo (`c7_sum.py`).
+- Thứ hạng **giữ** (τ ≥ 0,87; dấu ΔVol E − V luôn +, không ý nghĩa). Trần 10%: Vol EW-RIE\* 12,97 → 13,67%, CAGR 1,56 → 4,15%; trần turnover 10%: CAGR 5,79%.
+- Sức chứa **không đạt**: % NAV bán được trong 5 phiên (TB) EW-RIE\* 70% (100 tỷ), 26% (1 000 tỷ); 1/N 96% / 75%. Tự phản biện: `values.csv` = giá điều chỉnh × KL khớp lệnh ⇒ đánh giá thấp những năm đầu (HPG 2017 giá điều chỉnh ~5 500); chỉ từ 2024: 91,6% / 37,9% (trần 10%: 99,3% / 53,4%). GMV chỉ hơi nghiêng về mã kém thanh khoản (hạng TB 55,8/100) ⇒ nguyên nhân chính là độ tập trung.
+- Khám phá: trần turnover cho lợi suất TB cao hơn +4,2 pp/năm (p NW 0,011, Holm 0,043) — cùng chiều Hướng 2. Lệnh về đích của EW-RIE\* có lợi suất âm nhẹ nhưng KHÔNG ý nghĩa (h = 21/63/126: p 0,62/0,19/0,30) ⇒ cơ chế chưa chứng minh.
 
 ## Hướng 3 — xong (19/11 ~19:20 UTC)
 - Bảng 39, 40; Hình 24–26 (`c7_h3.py`). Sự kiện (Thị trường EW): COVID 02/01/20→31/03/20; 2022: 29/03/22→15/11/22; thuế quan 17/03/25→09/04/25.
