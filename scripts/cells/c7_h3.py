@@ -55,7 +55,7 @@ dEVf, _, pEVf = lw7(SIM3["EW-RIE*"][0], SIM3["VS-NL-LW"][0])
 cap("Bảng", f"Cầu chì định trước: σ EWMA (hl = 10) của Thị trường EW vượt 1,5 × trung vị 250 phiên trước ⇒ tái cân bằng thêm ở phiên kế tiếp "
     f"(bỏ nếu cách kỳ đều ≤ 5 phiên): {len(FUSE)} lần kích hoạt trong mẫu (bỏ {FUSE_SKIP} lần gần kỳ đều). Chỉ mua, NAV ròng; ΔVol = Vol(có) − Vol(không), "
     "p Ledoit–Wolf (2011) bootstrap khối, Holm trên 8 phương pháp.")
-show(T40)
+display(T40.style.format(precision=2, decimal=",", thousands=" ", na_rep="–").format(pv, subset=[c for c in T40.columns if str(c).startswith("p ")]))
 
 C3 = {"EW-RIE*": COL["EW-RIE*"], "VS-NL-LW": COL["VS-NL-LW"], "NL-LW": COL["NL-LW"], "Thị trường EW": COL["Thị trường EW"]}
 fig, axs = plt.subplots(2, 3, figsize=(14, 7.2))

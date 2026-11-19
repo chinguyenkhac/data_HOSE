@@ -57,6 +57,6 @@ CI36 = {em: fko_ci(R1["VS-NL-LW"].values, rE, 5, em) for em in (False, True)}
 cap("Bảng", "Giá trị kinh tế của việc chuyển từ phương pháp ở hàng sang EW-RIE\\* (chỉ mua, NAV ròng như Bảng 35): ΔVol = Vol(EW-RIE\\*) − Vol(hàng), "
     "pp/năm (< 0: EW-RIE\\* rủi ro thấp hơn), p kiểm định Ledoit–Wolf (2011) bootstrap khối, Holm trên 7 hàng; phí Fleming–Kirby–Ostdiek (bps/năm) "
     "mà nhà đầu tư hệ số ngại rủi ro γ sẵn lòng trả để chuyển (> 0: EW-RIE\\* tốt hơn). \"Cùng TB\": coi lợi suất kỳ vọng như nhau, chỉ còn khác biệt rủi ro.")
-show(T36)
+display(T36.style.format(precision=2, decimal=",", thousands=" ", na_rep="–").format(pv, subset=[c for c in T36.columns if str(c).startswith("p ")]))
 md(f"CI 95% bootstrap khối (b = 21, B = 2 000) của phí chuyển VS-NL-LW → EW-RIE\\*, γ = 5: lợi suất thực [{f2(CI36[False][0], 1)}; {f2(CI36[False][1], 1)}] bps/năm; "
    f"cùng TB [{f2(CI36[True][0], 1)}; {f2(CI36[True][1], 1)}] bps/năm.")

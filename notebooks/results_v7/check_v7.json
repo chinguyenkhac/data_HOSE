@@ -1,0 +1,44 @@
+{
+ "so_o_v6": 118,
+ "so_o_v7": 133,
+ "so_o_moi": 15,
+ "v6_giu_nguyen": "118/118",
+ "loi": [],
+ "bang": [
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41,
+  42
+ ],
+ "hinh": [
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28
+ ],
+ "anh": 11,
+ "bang_ok": true,
+ "hinh_ok": true,
+ "anh_ok": true,
+ "hoi_quy_v6": true,
+ "EW_RIE_HOSE_v7.html": {
+  "anh": 29,
+  "loi": 0
+ },
+ "EW_RIE_HOSE_v7_gon.html": {
+  "anh": 29,
+  "loi": 0
+ },
+ "dat": true
+}

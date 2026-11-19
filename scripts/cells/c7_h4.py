@@ -35,17 +35,18 @@ def capacity(nm, kind, F):
 CAPS = {(nm, c, f): capacity(nm, k, F) for nm in M7 for c, k in (("A chuẩn", "lo"), ("C trần 10%", "c10")) for f, F in FUNDS.items()}
 T42 = pd.DataFrame({k: {**v.mean().to_dict(), "% NAV bán được trong 5 phiên (kỳ xấu nhất)": v["% NAV bán được trong 5 phiên"].min()} for k, v in CAPS.items()}).T
 T42.index.names = ["Phương pháp", "Cấu hình", "Quỹ"]; T42 = T42.reorder_levels(["Quỹ", "Cấu hình", "Phương pháp"]).sort_index(level=[0, 1], sort_remaining=False)
-save7(T42, "H4_suc_chua")
+save7(T42, "H4_suc_chua"); M42 = ["EW-RIE*", "VS-NL-LW", "NL-LW", "1/N"]
 cap("Bảng", "Sức chứa vốn (tỷ trọng đích chỉ mua, 118 kỳ): vị thế = quỹ × tỷ trọng; ADV20 = giá trị giao dịch bình quân 20 phiên trước kỳ (`values.csv` = giá điều chỉnh × khối lượng, "
-    "đánh giá thấp những năm đầu ⇒ thận trọng); số ngày thanh lý = vị thế / (10% × ADV20). Trung bình qua các kỳ; cột cuối: kỳ xấu nhất.")
-show(T42, 1)
+    "đánh giá thấp những năm đầu ⇒ thận trọng); số ngày thanh lý = vị thế / (10% × ADV20). Trung bình qua các kỳ; cột cuối: kỳ xấu nhất. "
+    "EW-NL-LW, EW-WeSpeR gần trùng EW-RIE\\* nên chỉ có trong `results_v7/H4_suc_chua.csv`.")
+show(T42[T42.index.get_level_values("Phương pháp").isin(M42)], 1)
 
 fig, ax = plt.subplots(figsize=(11, 4.2)); xs = np.arange(len(CFG4))
-for nm in M7:
+for nm in [m for m in M7 if m != "1/N"]:                   # 1/N không đổi (22,6%): bỏ để giữ thang
     ax.plot(xs, VOL4.loc[nm].values, marker="o", ms=6, color=col_of(nm), lw=1.8 if nm in ("EW-RIE*", "VS-NL-LW") else 1.1, label=nm)
 ax.set_xticks(xs); ax.set_xticklabels(list(CFG4), fontsize=9); ax.set_ylabel("Vol ngoài mẫu, %/năm"); ax.grid(alpha=.3); ax.legend(fontsize=8, frameon=False, ncol=3)
 plt.tight_layout(); savefig7(fig, "fig_27_vol_cau_hinh")
-cap("Hình", "Vol (%/năm, chỉ mua, NAV ròng) của 6 phương pháp theo năm cấu hình thực thi (số và hạng ở Bảng 41).")
+cap("Hình", "Vol (%/năm, chỉ mua, NAV ròng) của 5 phương pháp GMV theo năm cấu hình thực thi (số và hạng ở Bảng 41; 1/N không đổi 22,6%, không vẽ).")
 
 fig, axs = plt.subplots(1, 2, figsize=(13, 4), sharey=True)
 for a, f in zip(axs, FUNDS):

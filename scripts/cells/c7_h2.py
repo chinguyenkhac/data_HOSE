@@ -18,7 +18,7 @@ rows = []
 for K in REBS:
     for b in BANDS:
         rE, lE = SIM2[("EW-RIE*", K, b)]; rV, lV = SIM2[("VS-NL-LW", K, b)]; dv_, p_hac, p_bt = lw7(rE, rV)
-        row = {"REB": K, "Vùng %": b * 100, "ΔVol (pp)": dv_, "p LW-boot": p_bt, "ΔCAGR (pp)": P2[("EW-RIE*", K, b)]["CAGR %"] - P2[("VS-NL-LW", K, b)]["CAGR %"],
+        row = {"REB": K, "Vùng %": int(round(b * 100)), "ΔVol (pp)": dv_, "p LW-boot": p_bt, "ΔCAGR (pp)": P2[("EW-RIE*", K, b)]["CAGR %"] - P2[("VS-NL-LW", K, b)]["CAGR %"],
                "Turnover/năm E %": P2[("EW-RIE*", K, b)]["Turnover/năm %"], "Turnover/năm V %": P2[("VS-NL-LW", K, b)]["Turnover/năm %"],
                "Chi phí E %/năm": P2[("EW-RIE*", K, b)]["Chi phí %/năm"], "Chi phí V %/năm": P2[("VS-NL-LW", K, b)]["Chi phí %/năm"],
                "ΔVol vs HL 10": (rE.std() - SIM2[("VS-NL-LW (HL 10)", K, b)][0].std()) * np.sqrt(252) * 100,
@@ -31,22 +31,25 @@ T38 = pd.DataFrame(rows); T38.insert(4, "p Holm", holm(T38["p LW-boot"].values))
 cap("Bảng", "EW-RIE\\* (E) so với VS-NL-LW (V, HL_VOL = 20) theo REB × vùng không giao dịch (theo từng mã): ΔVol = Vol(E) − Vol(V), pp/năm; "
     "p Ledoit–Wolf (2011) bootstrap khối, Holm trên 12 ô; ΔCAGR ròng; turnover một chiều và chi phí (%/năm) của từng bộ; ΔVol so với VS-NL-LW HL_VOL 10, 40 (mô tả); "
     "ở vùng 0: ΔVol trung bình và khoảng qua mọi pha của lịch (REB = 63: 3 pha, 126: 6, 252: 12).")
-show(T38)
+display(T38.style.format(precision=2, decimal=",", thousands=" ", na_rep="–").format(pv, subset=[c for c in T38.columns if str(c).startswith("p ")]))
 
 fig, axs = plt.subplots(1, 2, figsize=(12, 4.2))
+XR = np.arange(len(REBS))                                  # trục REB dạng hạng mục (21, 63, 126, 252)
 for nm in M7:
     for a, c in zip(axs, ("Vol %", "CAGR %")):
-        a.plot(REBS, [P2[(nm, K, 0.0)][c] for K in REBS], marker="o", ms=5, color=col_of(nm), lw=1.8 if nm in ("EW-RIE*", "VS-NL-LW") else 1.1, label=nm)
+        if c == "Vol %" and nm == "1/N": continue               # 1/N ~22%: bỏ khỏi khung Vol để giữ thang (số ở Bảng 37)
+        a.plot(XR, [P2[(nm, K, 0.0)][c] for K in REBS], marker="o", ms=5, color=col_of(nm), lw=1.8 if nm in ("EW-RIE*", "VS-NL-LW") else 1.1, label=nm)
 for a, c in zip(axs, ("Vol ngoài mẫu, %/năm", "CAGR ròng, %/năm")):
-    a.set_xscale("log"); a.set_xticks(REBS); a.set_xticklabels(REBS); a.set_xlabel("REB (phiên)"); a.set_ylabel(c); a.grid(alpha=.3)
-axs[0].legend(fontsize=8, frameon=False, ncol=2); plt.tight_layout(); savefig7(fig, "fig_21_reb_vol_cagr")
-cap("Hình", "Vol (trái) và CAGR ròng (phải) theo chu kỳ tái cân bằng, 6 phương pháp, chỉ mua, vùng không giao dịch 0 (số ở Bảng 37).")
+    a.set_xticks(XR); a.set_xticklabels(REBS); a.set_xlabel("REB (phiên)"); a.set_ylabel(c); a.grid(alpha=.3)
+axs[1].legend(fontsize=8, frameon=False, ncol=2); plt.tight_layout(); savefig7(fig, "fig_21_reb_vol_cagr")
+cap("Hình", "Vol (trái) và CAGR ròng (phải) theo chu kỳ tái cân bằng, 6 phương pháp, chỉ mua, vùng không giao dịch 0 (số ở Bảng 37; khung Vol không vẽ 1/N ≈ 22%).")
 
 D = T38["ΔVol (pp)"].unstack("Vùng %"); Pm = T38["p Holm"].unstack("Vùng %"); vm = max(.3, np.abs(D.values).max())
 fig, ax = plt.subplots(figsize=(5.6, 3.8)); im = ax.imshow(D.values, cmap="RdBu_r", vmin=-vm, vmax=vm, aspect="auto")
 for i in range(D.shape[0]):
     for j in range(D.shape[1]):
-        ax.text(j, i, dv(D.values[i, j]) + ("*" if Pm.values[i, j] < .05 else ""), ha="center", va="center", fontsize=9, color="#202124")
+        ax.text(j, i, dv(D.values[i, j]) + ("*" if Pm.values[i, j] < .05 else ""), ha="center", va="center", fontsize=9,
+                color="white" if abs(D.values[i, j]) > .55 * vm else "#202124")
 ax.set_xticks(range(D.shape[1])); ax.set_xticklabels([f"{f2(c, 0)}%" for c in D.columns]); ax.set_yticks(range(D.shape[0])); ax.set_yticklabels(D.index)
 ax.set_xlabel("Vùng không giao dịch"); ax.set_ylabel("REB (phiên)"); fig.colorbar(im, ax=ax, label="ΔVol EW-RIE* − VS-NL-LW, pp"); plt.tight_layout()
 savefig7(fig, "fig_22_heat_reb_vung")
@@ -55,19 +58,19 @@ cap("Hình", "ΔVol EW-RIE\\* − VS-NL-LW (pp/năm) theo REB × vùng không gi
 fig, axs = plt.subplots(1, len(BANDS), figsize=(13, 3.8), sharey=True)
 for a, b in zip(axs, BANDS):
     for nm in M7:
-        a.plot(REBS, [P2[(nm, K, b)]["Chi phí %/năm"] for K in REBS], marker="o", ms=5, color=col_of(nm), lw=1.8 if nm in ("EW-RIE*", "VS-NL-LW") else 1.1, label=nm)
-    a.set_xscale("log"); a.set_xticks(REBS); a.set_xticklabels(REBS); a.set_title(f"Vùng không giao dịch {f2(100 * b, 0)}%", fontsize=10)
+        a.plot(XR, [P2[(nm, K, b)]["Chi phí %/năm"] for K in REBS], marker="o", ms=5, color=col_of(nm), lw=1.8 if nm in ("EW-RIE*", "VS-NL-LW") else 1.1, label=nm)
+    a.set_xticks(XR); a.set_xticklabels(REBS); a.set_title(f"Vùng không giao dịch {f2(100 * b, 0)}%", fontsize=10)
     a.set_xlabel("REB (phiên)"); a.grid(alpha=.3)
 axs[0].set_ylabel("Chi phí giao dịch, %/năm"); axs[0].legend(fontsize=8, frameon=False); plt.tight_layout(); savefig7(fig, "fig_23_chi_phi")
 cap("Hình", "Chi phí giao dịch thực tế (%/năm NAV, phí mua 0,15% / bán 0,25%) theo REB, ba mức vùng không giao dịch, chỉ mua.")
 
-d0 = T38.xs(0.0, level="Vùng %")["ΔVol (pp)"]; ph = T38.xs(0.0, level="Vùng %")["ΔVol TB pha"]
+d0 = T38.xs(0, level="Vùng %")["ΔVol (pp)"]; ph = T38.xs(0, level="Vùng %")["ΔVol TB pha"]
 mono = bool(np.all(np.diff(d0.values) < 0)); drop = d0.loc[252] - d0.loc[21]; mono_ph = bool(ph.loc[252] - ph.loc[21] < 0)        # (iii) trung bình theo pha cùng chiều giảm
 strong = bool(((T38.reset_index()["REB"] >= 126) & (T38.reset_index()["ΔVol (pp)"] < 0) & (T38.reset_index()["p Holm"] < .05)).any())
 H2V = ("bác bỏ" if drop >= 0 else ("ủng hộ mạnh" if (mono and drop <= -.10 and mono_ph and strong) else ("ủng hộ" if (mono and drop <= -.10 and mono_ph) else "không kết luận")))
 cheap = {nm: P2[(nm, 252, 0.0)]["Chi phí %/năm"] for nm in M7}
 md(f"**Kết quả.** Ở vùng 0, ΔVol EW-RIE\\* − VS-NL-LW theo REB 21/63/126/252: {' / '.join(dv(x) for x in d0.values)} pp "
-   f"(trung bình theo pha: {' / '.join(dv(x) for x in ph.values)} pp; khoảng pha ở REB 252: [{dv(T38.loc[(252, 0.0), 'pha min'])}; {dv(T38.loc[(252, 0.0), 'pha max'])}]). "
+   f"(trung bình theo pha: {' / '.join(dv(x) for x in ph.values)} pp; khoảng pha ở REB 252: [{dv(T38.loc[(252, 0), 'pha min'])}; {dv(T38.loc[(252, 0), 'pha max'])}]). "
    f"Số ô p Holm < 0,05: {int((T38['p Holm'] < .05).sum())}/12. Vol của EW-RIE\\* tăng từ {f2(P2[('EW-RIE*', 21, 0.0)]['Vol %'])}% (REB 21) lên "
    f"{f2(P2[('EW-RIE*', 252, 0.0)]['Vol %'])}% (REB 252); chi phí giảm từ {f2(P2[('EW-RIE*', 21, 0.0)]['Chi phí %/năm'])} xuống "
    f"{f2(P2[('EW-RIE*', 252, 0.0)]['Chi phí %/năm'])} %/năm. Vùng 2% ở REB 21 cắt chi phí EW-RIE\\* còn {f2(P2[('EW-RIE*', 21, 0.02)]['Chi phí %/năm'])} %/năm "
