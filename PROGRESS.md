@@ -3,7 +3,13 @@
 > Phần v4–v6 ở dưới giữ nguyên. Không merge vào main.
 
 ## BƯỚC TIẾP THEO
-- Hướng 3: chạy `python scripts/v7ns.py c7_core.py c7_h1_tab.py c7_h1_fig.py c7_h3.py` (ô đã viết; cầu chì cần tỷ trọng đích ở phiên thêm → `targets7(extra=FUSE)` tự tính và cache).
+- Hướng 4: chạy `python scripts/v7ns.py c7_core.py c7_h1_tab.py c7_h4.py` (ô đã viết; tỷ trọng trần 20%/10% đã có trong cache tgt_*.pkl).
+
+## Hướng 3 — xong (19/11 ~19:20 UTC)
+- Bảng 39, 40; Hình 24–26 (`c7_h3.py`). Sự kiện (Thị trường EW): COVID 02/01/20→31/03/20; 2022: 29/03/22→15/11/22; thuế quan 17/03/25→09/04/25.
+- Mức sụt EW-RIE\* / VS-NL-LW / Thị trường EW: −26,5/−24,1/−29,1%; −36,3/−39,5/−57,0%; −17,7/−20,3/−19,8%. **H3a đạt** (2/3, mô tả). EW-RIE\* chưa hồi phục đỉnh 29/03/2022.
+- Cầu chì: 11 lần kích hoạt (13 lần cắt ngưỡng bị bỏ vì sát kỳ đều, gồm 30/01/20, 25/04/22, 21/10/22, 03/04/25). EW-RIE\*: ΔVol −0,10 (p 0,21), MDD −41,3 → −38,1 (+3,2 pp), CAGR +0,7 pp, chi phí +0,03 %/năm ⇒ **H3b đạt** (nhờ tiêu chí MDD ≥ 2 pp). Không phương pháp nào có ΔVol ý nghĩa (Holm).
+- Tự phản biện: giả dược 30 bộ 11 ngày ngẫu nhiên: ΔMDD TB +0,1 pp, chỉ 1/30 bộ ≥ cầu chì (p hoán vị ≈ 0,06) ⇒ thời điểm có vai trò; nhưng MDD là một đợt (2022) ⇒ bằng chứng yếu.
 
 ## Hướng 2 — xong (19/11 ~19:00 UTC)
 - Bảng 37, 38; Hình 21–23 (`scripts/cells/c7_h2.py`). ΔVol EW-RIE\* − VS-NL-LW (vùng 0) REB 21/63/126/252: +0,13 / −0,37 / −0,84 / −1,19 pp; 6/12 ô p Holm < 0,05 (đều ở REB 126, 252). **H2: ủng hộ mạnh** theo ngưỡng đăng ký trước.

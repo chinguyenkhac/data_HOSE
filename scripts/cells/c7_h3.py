@@ -41,7 +41,7 @@ FUSE = []
 for d in cross[cross].index:
     s = DATES7.get_loc(d) + 1
     if S_REG[0] < s < END7 and min(abs(s - x) for x in S_REG) > 5: FUSE.append(s)
-FUSE_SKIP = int(cross[cross].index.map(lambda d: S_REG[0] < DATES7.get_loc(d) + 1 < END7).sum()) - len(FUSE)
+FUSE_SKIP = sum(S_REG[0] < DATES7.get_loc(d) + 1 < END7 for d in cross[cross].index) - len(FUSE)
 TGF = {nm: targets7(nm, extra=FUSE) for nm in M7X}
 SIM3 = {nm: simulate(TGF[nm], sorted(S_REG + FUSE), "lo") for nm in M7X}
 rows = []
@@ -98,3 +98,37 @@ md("**Kết quả.** Mức sụt EW-RIE\\* / VS-NL-LW / Thị trường EW: " + 
    f"chi phí {f2(fE['Chi phí không %/năm'])} → {f2(fE['Chi phí có %/năm'])} %/năm. Có cầu chì, ΔVol EW-RIE\\* − VS-NL-LW = {dv(dEVf)} pp (p {pv(pEVf)}).\n\n"
    f"**Kết luận (theo ngưỡng đăng ký trước).** H3a (EW-RIE\\* sụt ít hơn VS-NL-LW ở ≥ 2/3 sự kiện): **{'đạt' if n_less >= 2 else 'không đạt'}** ({n_less}/3; chỉ mô tả, 3 sự kiện). "
    f"H3b (cầu chì có lợi cho EW-RIE\\*): **{'đạt' if H3B else 'không đạt'}**.")
+
+# ---- Đào sâu (mô tả, KHÔNG đăng ký trước): phép thử giả dược — tái cân bằng thêm vào 11 ngày NGẪU NHIÊN (cùng quy tắc cách kỳ đều > 5 phiên) ----
+def lo_at(nm, days):
+    # tỷ trọng chỉ mua tại các phiên bất kỳ (cache riêng, chỉ lời giải chỉ mua)
+    f = f"{C7}/placebo_{re.sub(r'[^A-Za-z0-9]+', '_', nm)}.pkl"; D = pd.read_pickle(f) if os.path.exists(f) else {}
+    todo = [s for s in days if s not in D]
+    if todo:
+        est = est7(nm)
+        for s in todo:
+            tick, X = universe(s); D[s] = (np.array([TICK7.get_loc(t) for t in tick]), gmv_long_only(est(X))[None, :])
+        pd.to_pickle(D, f)
+    return D
+rng = np.random.default_rng(SEED); CAND = [s for s in range(S_REG[0] + 1, END7) if min(abs(s - x) for x in S_REG) > 5]
+PLA = [sorted(rng.choice(CAND, len(FUSE), replace=False).tolist()) for _ in range(30)]
+rows = []
+for nm in ("EW-RIE*", "VS-NL-LW"):
+    D = lo_at(nm, sorted({s for st in PLA for s in st})); b0 = perf7(R1[nm])
+    for i, st in enumerate(PLA):
+        tg = {**TG[nm], **{s: D[s] for s in st}}; a = perf7(simulate(tg, sorted(S_REG + st), "lo")[0])
+        rows.append({"pp": nm, "bộ": i, "ΔMDD (pp)": a["MDD %"] - b0["MDD %"], "ΔVol (pp)": a["Vol %"] - b0["Vol %"], "ΔCAGR (pp)": a["CAGR %"] - b0["CAGR %"]})
+PLT = pd.DataFrame(rows); save7(PLT, "H3_gia_duoc")
+fz = {nm: (T40.loc[nm, "MDD có %"] - T40.loc[nm, "MDD không %"], T40.loc[nm, "ΔVol (pp)"], T40.loc[nm, "CAGR có %"] - T40.loc[nm, "CAGR không %"]) for nm in ("EW-RIE*", "VS-NL-LW")}
+skip_ev = [f"{d:%d/%m/%y}" for d in cross[cross].index if (DATES7.get_loc(d) + 1) not in FUSE and any(pk - pd.Timedelta(days=30) <= d <= tr for pk, tr in EV.values())]
+def _pl(nm):
+    q = PLT[PLT.pp == nm]; m, v, c = fz[nm]
+    return (f"{nm}: cầu chì ΔMDD {dv(m)}, ΔVol {dv(v)}, ΔCAGR {dv(c)} pp; giả dược ΔMDD TB {dv(q['ΔMDD (pp)'].mean())} pp "
+            f"(≥ mức của cầu chì ở {int((q['ΔMDD (pp)'] >= m).sum())}/30 bộ), ΔVol TB {dv(q['ΔVol (pp)'].mean())}, ΔCAGR TB {dv(q['ΔCAGR (pp)'].mean())} pp")
+md(f"**Đào sâu (mô tả, không đăng ký trước).** Giả dược: 30 bộ, mỗi bộ {len(FUSE)} phiên chọn ngẫu nhiên (cách kỳ đều > 5 phiên) để tái cân bằng thêm. {_pl('EW-RIE*')}. {_pl('VS-NL-LW')}. "
+   f"Lần cắt ngưỡng bị bỏ vì sát kỳ đều nằm trong các đợt khủng hoảng: {', '.join(skip_ev) if skip_ev else 'không có'} — tức ở các cú sốc lớn, lịch 21 phiên đã tự tái cân bằng gần như cùng lúc. "
+   + (f"Giả dược hiếm khi đạt mức cải thiện MDD của cầu chì (p hoán vị ≈ {f2((int((PLT[PLT.pp == 'EW-RIE*']['ΔMDD (pp)'] >= fz['EW-RIE*'][0]).sum()) + 1) / 31, 2)} cho EW-RIE\\*) "
+      "⇒ thời điểm cầu chì chọn có vai trò, không chỉ do tái cân bằng nhiều hơn. Nhưng MDD là MỘT đợt sụt (" + f"{sum(DATES7[s].year == 2022 for s in FUSE)}/{len(FUSE)} lần kích hoạt rơi vào 2022"
+      + ") nên đây là bằng chứng yếu, cần kiểm trên thị trường/giai đoạn khác."
+      if (PLT[PLT.pp == "EW-RIE*"]["ΔMDD (pp)"] >= fz["EW-RIE*"][0]).mean() <= .1 else
+      "Giả dược cải thiện MDD tương đương cầu chì ⇒ lợi ích đến từ việc tái cân bằng nhiều hơn, không phải từ thời điểm cầu chì chọn."))
