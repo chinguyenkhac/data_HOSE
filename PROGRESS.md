@@ -1,3 +1,44 @@
+# v7 — Nhà đầu tư dài hạn (bắt đầu 19/11/2026 ~18:00 UTC, nhánh `v7`)
+> Lần chạy sau: đọc mục này trước, làm tiếp từ **BƯỚC TIẾP THEO**. Không chạy lại phần đã có cache (`notebooks/results_v7/cache`).
+> Phần v4–v6 ở dưới giữ nguyên. Không merge vào main.
+
+## BƯỚC TIẾP THEO
+- Bước 0b: viết lõi v7 (`scripts/cells/c7_core.py`), kiểm hồi quy với cache v6.
+
+## Bước 0 — xong (19/11 ~18:20 UTC)
+- Nhánh `v7` tạo từ `claude/kind-wozniak-z1fq73` @93a2efe.
+- **VN-Index: không lấy được → bỏ qua.** `vnstock` không còn trên PyPI; cài được vnstock 6.0.1 từ kho chính thức (`--extra-index-url https://vnstocks.com/api/packages`, tắt telemetry bằng `VNSTOCK_TELEMETRY=0`). Bản 6 bỏ nguồn VCI, mọi nguồn còn lại (tcbs, ssi, dnse, fhsc, …) đều đòi khóa API của công ty chứng khoán mà phiên này không có. Gọi thẳng API VCI bị trình phân loại quyền chặn → không thử nữa. Thay bằng **chỉ số thị trường tự dựng** (định nghĩa dưới), ghi rõ trong notebook.
+
+## Đăng ký trước (ghi TRƯỚC khi chạy; không chỉnh tham số sau khi thấy kết quả)
+**Chung.** Mẫu ngoài mẫu như v6: 118 kỳ, 2016-12-08 → 2026-11-10; N = 100, T = 250, h = 60, lọc đứng giá 20%, chọn universe đúng như `run_backtest` (tái dùng mã, kiểm hồi quy: lợi suất Y·w tính lại phải trùng cache v6).
+- Phương pháp: EW-RIE\*, VS-NL-LW (HL_VOL 20 = chính; thêm HL_VOL 10 và 40 mỗi khi chạy VS), NL-LW, EW-NL-LW, EW-WeSpeR, 1/N. Chỉ mua là chính; bán khống chỉ tham khảo (HOSE thực tế không cho bán khống kiểu này).
+- Phí: mua 0,15%; bán 0,15% + thuế 0,1% = 0,25%; áp cho mọi giao dịch kể cả lần mua đầu. Mốc tiết kiệm 5%/năm (**giả định**), lãi kép theo phiên.
+- NAV: tỷ trọng trôi theo giá giữa hai lần tái cân bằng; giao dịch ở giá đóng cửa phiên trước ngày nắm giữ đầu (như v6); phí trừ vào NAV ngày tái cân bằng. Mã hủy niêm yết/đình chỉ: lợi suất 0 (như v6 chuẩn), bán ở kỳ sau.
+- **Thị trường (thay VN-Index)**: danh mục đều mọi mã đủ điều kiện mỗi kỳ (cùng bộ lọc như universe nhưng không cắt top-N), tái cân bằng 21 phiên, trôi giữa kỳ, không phí. Ghi tên "Thị trường EW".
+- Kiểm định: Ledoit–Wolf (2011) như v6 (`lw_var_test`, HAC + bootstrap khối vòng b = 21, M = 2000, seed 0) trên lợi suất ngày **ròng**; Holm trong từng họ đã nêu. α = 0,05.
+
+**Hướng 1 – Tăng trưởng tài sản (REB = 21).**
+- Chỉ tiêu: CAGR ròng; Vol; MDD; thời gian hồi phục của đợt sụt lớn nhất (phiên từ đáy tới khi vượt đỉnh cũ; "chưa" nếu chưa hồi phục); thời gian dưới đỉnh dài nhất; CVaR 5% trên lợi suất **tháng** (tháng dương lịch); Calmar = CAGR/|MDD|; turnover một chiều/năm; chi phí %/năm.
+- Giá trị kinh tế: phí Fleming–Kirby–Ostdiek (2001), lợi suất gộp 1 + r ngày, k = γ/(2(1+γ)), γ ∈ {1, 5, 10}: Δ sao cho Ū(EW-RIE\* − Δ) = Ū(X); quy ra bps/năm (×252×10⁴). Bản "cùng kỳ vọng": dịch lợi suất EW-RIE\* về cùng trung bình với X. CI 95% bootstrap khối (b = 21, B = 2000) cho hàng VS-NL-LW, γ = 5.
+- **H1a**: EW-RIE\* có Vol thấp hơn VS-NL-LW (LW, α = 0,05). **H1b (giá trị kinh tế)**: "đáng kể" nếu phí ≥ 25 bps/năm VÀ CI 95% không chứa 0.
+- **H1c (giả thuyết low-vol)**: mỗi kỳ chia mọi mã đủ điều kiện thành 5 nhóm theo Vol 250 phiên quá khứ; nhóm đều, giữ 21 phiên có trôi, không phí. "Nhóm ít biến động (Q1) tăng kém thị trường" nếu TB lợi suất ngày Q1 − Thị trường EW < 0 với p HAC (Newey–West) < 0,05; ngược lại "chưa đủ bằng chứng" (nếu dương có ý nghĩa: "tăng hơn"). Phụ: cùng phép thử trong top-100.
+- Donut: EW-RIE\* và VS-NL-LW tại (a) kỳ cuối ≤ 2020-01-22 (trước COVID); (b) kỳ gần đáy Thị trường EW trong 2/2020–4/2020 nhất; (c) kỳ gần 2022-06-30 nhất.
+
+**Hướng 2 – Tái cân bằng thưa.** REB ∈ {21, 63, 126, 252} dùng mỗi REB/21 kỳ của lịch 21 (pha 0 = bắt đầu kỳ đầu; cùng mẫu ngày); kiểm pha: mọi pha, báo trung bình và khoảng (mô tả). Vùng không giao dịch (theo từng mã) ∈ {0, 1%, 2%}: mã có |w_đích − w_hiện| ≤ vùng thì giữ nguyên; các mã còn lại về đích, co giãn để tổng = 1; mã mất giá (hủy niêm yết) luôn bán.
+- Kiểm định LW EW-RIE\* vs VS-NL-LW ở 12 ô, Holm trên 12.
+- **H2 ủng hộ** nếu (i) ở vùng 0, ΔVol = Vol(EW-RIE\*) − Vol(VS-NL-LW) giảm đơn điệu theo REB VÀ (ii) ΔVol(252) − ΔVol(21) ≤ −0,10 pp VÀ (iii) trung bình theo pha cùng chiều. "Ủng hộ mạnh" nếu thêm: có ô REB ≥ 126 với ΔVol < 0 và p Holm < 0,05. **Bác bỏ** nếu ΔVol(252) ≥ ΔVol(21). Còn lại: không kết luận. Kiểm thêm với VS HL_VOL 10/40 (mô tả).
+
+**Hướng 3 – Khủng hoảng.** Ngày sự kiện lấy từ Thị trường EW: đáy = min trong cửa sổ, đỉnh = max trước đáy trong cửa sổ; cửa sổ COVID [2020-01-01, 2020-06-30], 2022 [2022-01-01, 2022-12-31], thuế quan [2025-03-15, 2025-06-30].
+- Đo (REB = 21, chỉ mua, ròng): mức sụt = min NAV trên [đỉnh, đáy + 20 phiên]/NAV(đỉnh) − 1; hồi phục = số phiên từ đáy thị trường tới khi NAV ≥ NAV(đỉnh) (kiểm duyệt cuối mẫu); vol 21 phiên lớn nhất trên [đỉnh, đáy + 20]; thay đổi tỷ trọng = ½Σ|w(kỳ đầu ≥ đáy) − w(kỳ cuối ≤ đỉnh)|.
+- **H3a** (mô tả, 3 sự kiện, không kiểm định): EW-RIE\* sụt ít hơn VS-NL-LW ở ≥ 2/3 sự kiện.
+- **Cầu chì**: σ²_t EWMA (hl = 10) của lợi suất Thị trường EW, khởi động bằng phương sai 10 phiên đầu; ngưỡng_t = 1,5 × trung vị σ của 250 phiên trước t. Kích hoạt khi σ_t vượt ngưỡng mà σ_{t−1} chưa vượt (cắt lên); tái cân bằng thêm ở phiên t + 1 (ước lượng với cửa sổ kết thúc ở t), bỏ qua nếu cách kỳ đều gần nhất ≤ 5 phiên; lịch đều giữ nguyên.
+- **H3b**: cầu chì có lợi cho EW-RIE\* nếu Vol giảm ≥ 0,10 pp với p LW < 0,05, hoặc MDD giảm ≥ 2 pp. Còn lại: không lợi rõ. Báo cho mọi phương pháp.
+
+**Hướng 4 – Thực thi được.** Cấu hình: A chuẩn; B trần 20%; C trần 10% (GMV chỉ mua với 0 ≤ w ≤ trần, FISTA + chiếu lên đơn hình có trần); D turnover một chiều ≤ 10%/kỳ (đi một phần α = 10%/TO về đích); E = C + D.
+- **Thứ hạng giữ** nếu Kendall τ (xếp theo Vol) giữa A và mỗi cấu hình ≥ 0,6 và dấu ΔVol EW-RIE\* − VS-NL-LW không đổi.
+- Sức chứa (quỹ 100 tỷ và 1 000 tỷ đồng, cố định danh nghĩa): ADV20 = TB `values.csv` 20 phiên trước kỳ; số ngày thanh lý = vị thế / (10% × ADV20). Báo: % vị thế vượt 10% ADV20, % NAV trong các vị thế đó, số ngày (trung vị theo tỷ trọng, lớn nhất), % NAV bán được trong 5 phiên. "Vừa sức" nếu TB % NAV bán được trong 5 phiên ≥ 95%. Lưu ý `values.csv` = giá điều chỉnh × khối lượng ⇒ giá trị GD những năm đầu bị đánh giá thấp (kết quả thận trọng).
+
+---
 # PROGRESS (pipeline v4)
 Cập nhật: 2026-11-15 ~17:00 UTC (00:00 VN). Người duyệt kiểm tra lúc 8:00 VN (01:00 UTC 16/11).
 
