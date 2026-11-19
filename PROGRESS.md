@@ -5,6 +5,10 @@
 ## BƯỚC TIẾP THEO
 - **v7 XONG.** Chỉ còn: chờ người dùng duyệt/merge PR nháp `v7`. Nếu phải chạy lại: `python scripts/build_v7.py && python scripts/check_v7.py` rồi xuất HTML (`jupyter nbconvert --to html [--no-input]`).
 
+## Bổ sung VN30 — xong (19/11 ~20:30 UTC)
+- PR nháp #8 của repo có `data_vn30/vn30_index.csv` (chỉ số giá VN30, VCI) → chép vào `notebooks/results_v7/vn30_index.csv`, dùng làm mốc vốn hóa THAM KHẢO (không đăng ký trước): Bảng 35, Hình 18–19; CAGR 11,93%, MDD −48,1%.
+- Cầu chì theo tín hiệu VN30 (cùng quy tắc): 6 lần kích hoạt (3 trùng); EW-RIE\* ΔMDD chỉ +0,33 pp ⇒ H3b nhạy với tín hiệu (ghi vào notebook, tổng kết, KET_QUA_v7.md).
+
 ## Dựng notebook + báo cáo — xong (19/11 ~20:10 UTC)
 - `scripts/build_v7.py`: v6 đã chạy + 15 ô §7 (thẻ `v7`) chèn trước "## Ghi chú", mục lục thêm 1 dòng; chạy riêng các ô §7 trong kernel đã nạp 19 ô định nghĩa v6 (OMP=1). `scripts/check_v7.py`: 118/118 ô v6 trùng hệt; §7 không lỗi; Bảng 35–42, Hình 18–28; 29 ảnh trong mỗi HTML; hồi quy v6 ✔.
 - Sửa trình bày sau khi xem HTML: chỉ số "Vùng %" nguyên, trục REB dạng hạng mục, chữ trắng trên ô đậm của heatmap, bỏ 1/N khỏi khung Vol (ghi trong chú thích), Bảng 42 chỉ 4 phương pháp (đủ trong CSV), p-value dạng "< 0,001".
