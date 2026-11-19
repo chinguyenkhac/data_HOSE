@@ -1,0 +1,8 @@
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+{'h': 15, 'rep': 1, 'epoch': 50, 'loss_last': 0.002619999353213592, 'loss_finite': True, 'xi_med': 0.06448650979685439, 'xi_max': 1.631483113383608, 'risk_nhom': np.float64(1.321357357783456), 'risk_oriol': np.float64(1.315177219134813), 'risk_diff': np.float64(-0.004677113736294758), 'sec_total': 1450.3683173656464}
+{'h': 15, 'rep': 1, 'epoch': 100, 'loss_last': 0.0018046748780906655, 'loss_finite': True, 'xi_med': 0.01813639562620417, 'xi_max': 2.009733979584934, 'risk_nhom': np.float64(1.321357357783456), 'risk_oriol': np.float64(1.3200371172017764), 'risk_diff': np.float64(-0.0009991548265900763), 'sec_total': 2476.644218444824}
+{'h': 15, 'rep': 1, 'epoch': 200, 'loss_last': 0.00158989551218795, 'loss_finite': True, 'xi_med': 0.05184546629902825, 'xi_max': 2.4515060982745975, 'risk_nhom': np.float64(1.321357357783456), 'risk_oriol': np.float64(1.3334126901069197), 'risk_diff': np.float64(0.009123445866064728), 'sec_total': 3464.9909460544586}

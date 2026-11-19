@@ -1,0 +1,4 @@
+### 5.4 Cửa sổ ước lượng T (mới, v5)
+
+**Câu hỏi:** đổi độ dài cửa sổ ước lượng T thì EW-RIE\* so với VS-NL-LW và các bộ đầu bảng có đổi không?
+**Làm gì:** T ∈ {120, 250, 500}, N = 100, h = 60, các tham số khác chuẩn, hai chế độ, đủ `FULL`. Mỗi T có tập kỳ OOS riêng (T lớn thì bắt đầu OOS muộn hơn) nên **không so Vol tuyệt đối giữa các T**; chỉ so trong cùng T (thứ hạng, ΔVol, kiểm định). Mỗi T: Vol mọi phương pháp, xếp hạng, `compare_to` (EW-RIE\* vs mọi bộ, Holm trên `CORE5`) và `pairwise_top` (15 cặp, Holm trên 15 cặp). Cột q = N/T và q$_{\text{eff}}$ = N·Σw² cho biết độ "thiếu mẫu" thật sự của cửa sổ mũ. Với h = 60, trọng số mũ gần như hết sau ~250 phiên nên các bộ EW ít bị T chi phối; các bộ cửa sổ phẳng (NL-LW, RIE, VS-NL-LW, VS-RIE) phụ thuộc T nhiều hơn — đây là điều cần kiểm, không phải kết luận viết sẵn.

@@ -1,0 +1,1 @@
+EW-WeSpeR đã đối chiếu với mã gốc nlcvbo/wesper (repo chính thức chưa xác minh được): sai lệch ξ trung vị 3,2–12,2% (giả lập, theo h), tiêu chí < 5% **không đạt**; mã gốc trả NaN ở 7/12 cửa sổ HOSE (§1b)

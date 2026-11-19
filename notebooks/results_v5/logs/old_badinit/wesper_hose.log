@@ -1,0 +1,17 @@
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+{'tag': 'HOSE cửa sổ 0', 'W1_tau': np.float64(0.5536835545706936), 'xi_med': np.float64(0.2810285090061764), 'xi_max': np.float64(0.5879582529750302), 'sec_nhom': 0.4736924171447754, 'sec_oriol': 69.69119381904602, 'h': 60, 'rep': 0, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 1', 'W1_tau': np.float64(0.5072646486723547), 'xi_med': np.float64(0.22938741470760354), 'xi_max': np.float64(0.8326473748900174), 'sec_nhom': 0.10431313514709473, 'sec_oriol': 37.910874366760254, 'h': 60, 'rep': 1, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 2', 'W1_tau': np.float64(0.5727413710881545), 'xi_med': np.float64(0.2004144003150944), 'xi_max': np.float64(0.7376021749038999), 'sec_nhom': 0.9712929725646973, 'sec_oriol': 102.13048839569092, 'h': 60, 'rep': 2, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 3', 'W1_tau': np.float64(0.6408502425547945), 'xi_med': np.float64(0.3048020733619091), 'xi_max': np.float64(0.7586420221235817), 'sec_nhom': 0.09575247764587402, 'sec_oriol': 90.19353652000427, 'h': 60, 'rep': 3, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 4', 'W1_tau': np.float64(0.8258179250254167), 'xi_med': np.float64(0.10741656943162525), 'xi_max': np.float64(3.595040958253745), 'sec_nhom': 0.5971448421478271, 'sec_oriol': 105.64332628250122, 'h': 60, 'rep': 4, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 5', 'W1_tau': np.float64(0.6903773579245647), 'xi_med': np.float64(0.32584158103200245), 'xi_max': np.float64(0.7836428762314613), 'sec_nhom': 0.689866304397583, 'sec_oriol': 93.81670331954956, 'h': 60, 'rep': 5, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 6', 'W1_tau': np.float64(0.448873389066882), 'xi_med': np.float64(0.2765000357271501), 'xi_max': np.float64(0.6351312575876047), 'sec_nhom': 0.6688110828399658, 'sec_oriol': 88.6222653388977, 'h': 60, 'rep': 6, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 7', 'W1_tau': np.float64(0.7457773882489172), 'xi_med': np.float64(0.3608938546150629), 'xi_max': np.float64(64.11400332431148), 'sec_nhom': 1.3712191581726074, 'sec_oriol': 109.60227942466736, 'h': 60, 'rep': 7, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 8', 'W1_tau': np.float64(0.9061965552290157), 'xi_med': np.float64(0.09129903738330147), 'xi_max': np.float64(1.7920948699307955), 'sec_nhom': 0.5808835029602051, 'sec_oriol': 104.87432932853699, 'h': 60, 'rep': 8, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 9', 'W1_tau': np.float64(0.7760325020057273), 'xi_med': np.float64(0.1923954358315657), 'xi_max': np.float64(0.6432603472277194), 'sec_nhom': 0.5743396282196045, 'sec_oriol': 90.24529075622559, 'h': 60, 'rep': 9, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 10', 'W1_tau': np.float64(0.781306499677896), 'xi_med': np.float64(0.09229083975784824), 'xi_max': np.float64(1.1970356746097144), 'sec_nhom': 0.6125118732452393, 'sec_oriol': 93.70081615447998, 'h': 60, 'rep': 10, 'src': 'hose'}
+{'tag': 'HOSE cửa sổ 11', 'W1_tau': np.float64(0.7184185103656583), 'xi_med': np.float64(0.4260996741420085), 'xi_max': np.float64(3.364955278320396), 'sec_nhom': 0.6418449878692627, 'sec_oriol': 82.30665707588196, 'h': 60, 'rep': 11, 'src': 'hose'}

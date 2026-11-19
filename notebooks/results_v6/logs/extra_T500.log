@@ -1,0 +1,7 @@
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+T=500 long_only: 111 kỳ, 159s, thiếu phiên trước cửa sổ: 0 lần, khởi động trên đầu cửa sổ: 630 (kỳ × mã) / 333 lần gọi, Vol: {'VS-NL-LW (đủ T)': np.float64(14.04), 'VS-RIE (đủ T)': np.float64(14.48), 'VS-EW-RIE* (đủ T)': np.float64(13.61)}
+T=500 short_ok: 111 kỳ, 81s, thiếu phiên trước cửa sổ: 0 lần, khởi động trên đầu cửa sổ: 630 (kỳ × mã) / 333 lần gọi, Vol: {'VS-NL-LW (đủ T)': np.float64(13.46), 'VS-RIE (đủ T)': np.float64(13.87), 'VS-EW-RIE* (đủ T)': np.float64(12.82)}
