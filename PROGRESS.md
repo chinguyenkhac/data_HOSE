@@ -3,7 +3,14 @@
 > Phần v4–v6 ở dưới giữ nguyên. Không merge vào main.
 
 ## BƯỚC TIẾP THEO
-- Bước 0b: viết lõi v7 (`scripts/cells/c7_core.py`), kiểm hồi quy với cache v6.
+- Hướng 2: chạy `python scripts/v7ns.py c7_core.py c7_h1_tab.py c7_h2.py` (ô đã viết), đọc kết quả, viết kết luận theo ngưỡng.
+
+## Bước 0b + Hướng 1 — xong (19/11 ~18:45 UTC)
+- Lõi `scripts/cells/c7_core.py`: `universe(s)` chép đúng bộ lọc/chọn mã của `run_backtest`; `targets7` (cache `results_v7/cache/tgt_*.pkl`: tỷ trọng chỉ mua, bán khống, trần 20%, trần 10% từ CÙNG ma trận Σ); `simulate` (NAV có trôi, phí mua 0,15%/bán 0,25%, vùng không giao dịch, trần turnover); `perf7`, `fko_fee`, `lw7`, `nw_mean_test`. Chạy: `scripts/v7ns.py` (nạp 19 ô định nghĩa của v6, ~10 s) + `scripts/targets7_job.py` (chạy nền theo phương pháp).
+- **Kiểm hồi quy: lợi suất Y·w tính lại từ tỷ trọng mới trùng cache v6 tuyệt đối (lệch 0,0) cho cả 8 bộ** (gồm EW-WeSpeR và VS HL 10/40).
+- Hướng 1 (Bảng 35, 36; Hình 18–20): CAGR ròng EW-RIE\* 1,56%/năm, VS-NL-LW 3,39%, NL-LW 2,36%, 1/N 8,30%, Thị trường EW 9,43%, tiết kiệm 5%; MDD GMV ≈ −41%, chưa hồi phục đỉnh 2022 (dưới đỉnh ~55 tháng). H1a không đạt (ΔVol +0,13 pp, p 0,59); H1b không đạt (phí γ=5 cùng TB −8,3 bps, CI [−41,7; 21,0]); H1c: Q1 ít biến động KHÔNG tăng kém (chênh +1,8 pp/năm, p 0,64; CAGR Q1 12,5% vs 9,4%).
+- **Phát hiện (đào sâu, mô tả):** GMV chỉ mua rất tập trung: 12 mã chiếm ~59% (VPI TB 15,5%; ở đáy 3/2020 EW-RIE\* 58% VPI + 17% NVL, N hiệu dụng 2,6); NVL kéo lùi −1,8 %/năm. Q1 top-100 (20 mã đều) CAGR 13,1%, Vol 16,7% ⇒ GMV giảm ~3,7 pp Vol nhưng mất ~11,5 pp CAGR/năm.
+- Lưu: `results_v7/H1_*.csv`, `H1_returns.pkl`, `figs_v7/fig_18–20`.
 
 ## Bước 0 — xong (19/11 ~18:20 UTC)
 - Nhánh `v7` tạo từ `claude/kind-wozniak-z1fq73` @93a2efe.
