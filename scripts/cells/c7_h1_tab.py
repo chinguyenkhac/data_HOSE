@@ -19,13 +19,16 @@ GT, NEL = group_targets()
 RG = {k: simulate(v, S_REG, None, cost=False)[0] for k, v in GT.items()}           # chỉ số/nhóm: không phí
 RG["1/N gộp"] = simulate(TG["1/N"], S_REG, "lo", cost=False)[0]
 R_SAV = pd.Series((1 + RF_SAV) ** (1 / 252) - 1, index=R1["EW-RIE*"].index)
-pd.DataFrame({**R1, **{f"{k} (bán khống)": v for k, v in R1_SO.items()}, **RG, "Tiết kiệm 5%": R_SAV}).to_pickle(f"{R7}/H1_returns.pkl")
+# VN30 (bổ sung sau, KHÔNG đăng ký trước): chỉ số GIÁ VN30 (VCI, không gồm cổ tức) chép từ dữ liệu repo (PR #8, nhánh claude/intelligent-einstein-1umupx)
+VN30 = pd.read_csv(f"{R7}/vn30_index.csv", index_col=0, parse_dates=True)["close"].reindex(DATES7).ffill()
+R_VN30 = VN30.pct_change().loc[R_SAV.index]
+pd.DataFrame({**R1, **{f"{k} (bán khống)": v for k, v in R1_SO.items()}, **RG, "VN30 (chỉ số giá)": R_VN30, "Tiết kiệm 5%": R_SAV}).to_pickle(f"{R7}/H1_returns.pkl")
 
 LAB = {"mk": "Thị trường EW", "q1": "Q1 ít biến động", "q5": "Q5 biến động cao"}
 rows = {nm: {**perf7(R1[nm], SIM1[nm][1]), "Vol bán khống % (tham khảo)": R1_SO[nm].std() * np.sqrt(252) * 100 if nm in R1_SO else np.nan}
         for nm in M7X}
 LAB["q1t"] = "Q1 ít biến động (top-100)"
-rows.update({LAB[k]: perf7(RG[k]) for k in ("mk", "q1", "q5", "q1t")}); rows["Tiết kiệm 5%"] = perf7(R_SAV)
+rows.update({LAB[k]: perf7(RG[k]) for k in ("mk", "q1", "q5", "q1t")}); rows["VN30 (chỉ số giá, tham khảo)"] = perf7(R_VN30); rows["Tiết kiệm 5%"] = perf7(R_SAV)
 T35 = pd.DataFrame(rows).T
 for c in ("Hồi phục (phiên)", "Dưới đỉnh dài nhất (phiên)"): T35[c.replace("phiên", "tháng")] = T35.pop(c) / 21
 T35 = T35[["CAGR %", "Vol %", "MDD %", "Hồi phục (tháng)", "Dưới đỉnh dài nhất (tháng)", "CVaR 5% tháng %", "Calmar",
@@ -35,7 +38,7 @@ yrs = len(R_SAV) / 252
 cap("Bảng", f"Tăng trưởng tài sản 1 đồng, {R_SAV.index[0]:%m/%Y}–{R_SAV.index[-1]:%m/%Y} ({f2(yrs, 1)} năm, {len(R_SAV)} phiên), chỉ mua, "
     "REB = 21, tỷ trọng trôi giữa kỳ, phí mua 0,15% / bán 0,25% (gồm thuế 0,1%). CAGR, MDD, CVaR (TB 5% tháng xấu nhất) tính trên NAV ròng; "
     "Hồi phục = từ đáy đợt sụt lớn nhất tới khi vượt đỉnh cũ (– = chưa hồi phục). Thị trường EW (thay VN-Index), Q1/Q5 (1/5 mã Vol quá khứ thấp/cao nhất, "
-    "mọi mã đủ điều kiện; bản phụ: trong top-100): không phí. Tiết kiệm 5%/năm là giả định. Cột cuối: bán khống, chỉ tham khảo.")
+    "mọi mã đủ điều kiện; bản phụ: trong top-100): không phí. VN30: chỉ số giá (không gồm cổ tức, thấp hơn tổng lợi suất), bổ sung tham khảo. Tiết kiệm 5%/năm là giả định. Cột cuối: bán khống, chỉ tham khảo.")
 show(T35)
 
 # ---- giá trị kinh tế của việc chuyển sang EW-RIE* (Fleming–Kirby–Ostdiek 2001) ----

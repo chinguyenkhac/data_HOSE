@@ -132,3 +132,21 @@ md(f"**Đào sâu (mô tả, không đăng ký trước).** Giả dược: 30 b�
       + ") nên đây là bằng chứng yếu, cần kiểm trên thị trường/giai đoạn khác."
       if (PLT[PLT.pp == "EW-RIE*"]["ΔMDD (pp)"] >= fz["EW-RIE*"][0]).mean() <= .1 else
       "Giả dược cải thiện MDD tương đương cầu chì ⇒ lợi ích đến từ việc tái cân bằng nhiều hơn, không phải từ thời điểm cầu chì chọn."))
+
+# ---- Bổ sung (KHÔNG đăng ký trước): cầu chì dùng tín hiệu VN30 (chỉ số vốn hóa) thay Thị trường EW, cùng quy tắc ----
+def fuse_days(ret):
+    rv = ret.values; q = np.empty(len(rv)); q[0] = rv[:10].var()
+    for t in range(1, len(rv)): q[t] = lam * q[t - 1] + (1 - lam) * rv[t] ** 2
+    sg = pd.Series(np.sqrt(q * 252) * 100, index=ret.index); th = 1.5 * sg.shift(1).rolling(250).median()
+    ab = sg > th; cr = ab & ~ab.shift(1, fill_value=False) & th.notna()
+    return [DATES7.get_loc(d) + 1 for d in cr[cr].index if S_REG[0] < DATES7.get_loc(d) + 1 < END7 and min(abs(DATES7.get_loc(d) + 1 - x) for x in S_REG) > 5]
+FUSEV = fuse_days(VN30.pct_change().dropna())
+FV = {}
+for nm in ("EW-RIE*", "VS-NL-LW"):
+    rf = simulate(targets7(nm, extra=FUSEV), sorted(S_REG + FUSEV), "lo")[0]; a = perf7(rf); dv_, _, pb = lw7(rf, R1[nm])
+    FV[nm] = (dv_, pb, a["MDD %"] - perf7(R1[nm])["MDD %"], a["CAGR %"] - perf7(R1[nm])["CAGR %"])
+md(f"**Bổ sung (không đăng ký trước): cầu chì theo VN30.** Cùng quy tắc nhưng tín hiệu từ VN30: {len(FUSEV)} lần kích hoạt "
+   f"({len(set(FUSEV) & set(FUSE))} trùng với tín hiệu Thị trường EW). " + "; ".join(
+       f"{nm}: ΔVol {dv(v[0])} pp (p {pv(v[1])}), ΔMDD {dv(v[2])} pp, ΔCAGR {dv(v[3])} pp" for nm, v in FV.items())
+   + " — " + ("lặp lại mức cải thiện MDD ≥ 2 pp như cầu chì theo Thị trường EW." if FV["EW-RIE*"][2] >= 2 else
+              "cải thiện MDD **không lặp lại** (dưới ngưỡng 2 pp) ⇒ kết quả H3b nhạy với chỉ số dùng làm tín hiệu, thêm một lý do để xem H3b là bằng chứng yếu."))

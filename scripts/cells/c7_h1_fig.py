@@ -1,7 +1,7 @@
 from matplotlib.colors import to_rgb
 # ---- 7.1 Hướng 1: Hình 18 (tài sản, thang log), Hình 19 (sụt giảm), Hình 20 (donut tỷ trọng), Kết quả & Kết luận ----
-LINE = {"Thị trường EW": dict(color=COL["Thị trường EW"], ls="--", lw=1.4), "Tiết kiệm 5%": dict(color=COL["Tiết kiệm 5%"], ls=":", lw=1.6)}
-SER1 = {**{nm: R1[nm] for nm in M7}, "Thị trường EW": RG["mk"], "Tiết kiệm 5%": R_SAV}
+LINE = {"Thị trường EW": dict(color=COL["Thị trường EW"], ls="--", lw=1.4), "VN30 (chỉ số giá)": dict(color="#80868b", ls="-.", lw=1.3), "Tiết kiệm 5%": dict(color=COL["Tiết kiệm 5%"], ls=":", lw=1.6)}
+SER1 = {**{nm: R1[nm] for nm in M7}, "Thị trường EW": RG["mk"], "VN30 (chỉ số giá)": R_VN30, "Tiết kiệm 5%": R_SAV}
 fig, ax = plt.subplots(figsize=(12, 5.2)); ends = []
 for nm, r in SER1.items():
     nav = (1 + r).cumprod(); st = LINE.get(nm, dict(color=col_of(nm), lw=1.8 if nm in ("EW-RIE*", "VS-NL-LW") else 1.2))
@@ -14,18 +14,19 @@ for v, nm, c in sorted(ends):                                    # nhãn trực 
                 arrowprops=dict(arrowstyle="-", color=c, lw=.6), annotation_clip=False)
 ax.legend(loc="upper left", fontsize=8, ncol=2, frameon=False); ax.set_xlim(right=SER1["EW-RIE*"].index[-1] + pd.Timedelta(days=700))
 plt.tight_layout(); savefig7(fig, "fig_18_tai_san_log")
-cap("Hình", "Giá trị 1 đồng đầu tư, thang log: 6 phương pháp (chỉ mua, REB = 21, NAV ròng sau phí và thuế), Thị trường EW (thay VN-Index, không phí) "
-    "và tiết kiệm 5%/năm (giả định). Nhãn cuối đường: giá trị cuối kỳ.")
+cap("Hình", "Giá trị 1 đồng đầu tư, thang log: 6 phương pháp (chỉ mua, REB = 21, NAV ròng sau phí và thuế), Thị trường EW (thay VN-Index, không phí), "
+    "VN30 (chỉ số giá, không gồm cổ tức; tham khảo) và tiết kiệm 5%/năm (giả định). Nhãn cuối đường: giá trị cuối kỳ.")
 
 fig, ax = plt.subplots(figsize=(12, 4.2))
 mk = (1 + RG["mk"]).cumprod(); ddm = mk / mk.cummax() - 1
 ax.fill_between(ddm.index, ddm.values * 100, 0, color="#dadce0", label="Thị trường EW", lw=0)
+v30 = (1 + R_VN30).cumprod(); ax.plot(v30.index, (v30 / v30.cummax() - 1).values * 100, color="#80868b", ls="-.", lw=1.1, label="VN30 (chỉ số giá)")
 for nm in M7:
     nav = (1 + R1[nm]).cumprod(); dd = nav / nav.cummax() - 1
     ax.plot(dd.index, dd.values * 100, color=col_of(nm), lw=1.6 if nm in ("EW-RIE*", "VS-NL-LW") else 1.0, label=nm)
 ax.set_ylabel("Sụt so với đỉnh trước, %"); ax.grid(alpha=.3); ax.legend(fontsize=8, ncol=4, frameon=False, loc="lower left")
 plt.tight_layout(); savefig7(fig, "fig_19_sut_giam")
-cap("Hình", "Mức sụt so với đỉnh trước (drawdown, %) của NAV ròng, chỉ mua; nền xám: Thị trường EW.")
+cap("Hình", "Mức sụt so với đỉnh trước (drawdown, %) của NAV ròng, chỉ mua; nền xám: Thị trường EW; gạch chấm: VN30 (chỉ số giá, tham khảo).")
 
 # donut: ngày định trước (đăng ký trước): kỳ cuối ≤ 22/01/2020; kỳ gần đáy Thị trường EW (2–4/2020) nhất; kỳ gần 30/06/2022 nhất
 reb = pd.DatetimeIndex(REB_DATES); m20 = mk.loc["2020-02-01":"2020-04-30"]; T_TROUGH20 = m20.idxmin()
@@ -60,7 +61,8 @@ def _h1c(lab):
     return v, f"chênh TB {dv(d_)} pp/năm, p HAC {pv(p_)}, chênh CAGR {dv(dc)} pp"
 beat = [nm for nm in M7 if T35.loc[nm, "CAGR %"] > mrow["CAGR %"]]
 md(f"**Kết quả.** Sau phí và thuế, EW-RIE\\* tăng {f2(e['CAGR %'])}%/năm (MDD {f2(e['MDD %'])}%, Calmar {f2(e['Calmar'])}), VS-NL-LW {f2(v_['CAGR %'])}%/năm "
-   f"(MDD {f2(v_['MDD %'])}%, Calmar {f2(v_['Calmar'])}); Thị trường EW {f2(mrow['CAGR %'])}%/năm (MDD {f2(mrow['MDD %'])}%); tiết kiệm {f2(s_['CAGR %'])}%/năm. "
+   f"(MDD {f2(v_['MDD %'])}%, Calmar {f2(v_['Calmar'])}); Thị trường EW {f2(mrow['CAGR %'])}%/năm (MDD {f2(mrow['MDD %'])}%); "
+   f"VN30 (chỉ số giá, chưa gồm cổ tức) {f2(T35.loc['VN30 (chỉ số giá, tham khảo)', 'CAGR %'])}%/năm (MDD {f2(T35.loc['VN30 (chỉ số giá, tham khảo)', 'MDD %'])}%); tiết kiệm {f2(s_['CAGR %'])}%/năm. "
    f"Phương pháp có CAGR cao hơn Thị trường EW: {', '.join(beat) if beat else 'không có'}. "
    f"ΔVol EW-RIE\\* − VS-NL-LW = {dv(T36.loc['VS-NL-LW', 'ΔVol (pp)'])} pp (p {pv(p1)}); phí chuyển sang EW-RIE\\* ở γ = 5: {f2(fee5, 1)} bps/năm "
    f"(cùng TB {f2(fee5e, 1)} bps/năm, CI [{f2(CI36[True][0], 1)}; {f2(CI36[True][1], 1)}]). Donut: tỷ trọng 8 mã lớn nhất của EW-RIE\\* "
