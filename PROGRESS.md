@@ -3,7 +3,12 @@
 > Phần v4–v6 ở dưới giữ nguyên. Không merge vào main.
 
 ## BƯỚC TIẾP THEO
-- Hướng 2: chạy `python scripts/v7ns.py c7_core.py c7_h1_tab.py c7_h2.py` (ô đã viết), đọc kết quả, viết kết luận theo ngưỡng.
+- Hướng 3: chạy `python scripts/v7ns.py c7_core.py c7_h1_tab.py c7_h1_fig.py c7_h3.py` (ô đã viết; cầu chì cần tỷ trọng đích ở phiên thêm → `targets7(extra=FUSE)` tự tính và cache).
+
+## Hướng 2 — xong (19/11 ~19:00 UTC)
+- Bảng 37, 38; Hình 21–23 (`scripts/cells/c7_h2.py`). ΔVol EW-RIE\* − VS-NL-LW (vùng 0) REB 21/63/126/252: +0,13 / −0,37 / −0,84 / −1,19 pp; 6/12 ô p Holm < 0,05 (đều ở REB 126, 252). **H2: ủng hộ mạnh** theo ngưỡng đăng ký trước.
+- Tự phản biện (đào sâu, mô tả): (1) pha lịch: ΔVol TB pha ở 252 = −0,64 (khoảng [−1,70; +0,09]); 6/12 pha có ý nghĩa; CAGR EW-RIE\* REB 252 pha 0 = 11,65% là pha may (TB pha 7,11%, khoảng [2,29; 11,65]); (2) so với VS HL_VOL 40 lợi thế còn −0,17 (p 0,065) / −0,59 (p < 0,001); (3) NL-LW, EW-NL-LW, EW-WeSpeR ở REB 252 ≈ EW-RIE\* ⇒ VS yếu đi khi nắm giữ dài, không phải EW-RIE\* mạnh lên.
+- Phát hiện phụ: REB dài ⇒ CAGR cao hơn rõ (TB pha 1,6 → 3,0 → 5,4 → 7,1 %/năm) — chưa giải thích (giả thuyết: tái cân bằng tháng dồn vào mã phòng thủ sau cú sụt, bỏ lỡ hồi phục); chi phí chỉ giải thích ~0,9 pp.
 
 ## Bước 0b + Hướng 1 — xong (19/11 ~18:45 UTC)
 - Lõi `scripts/cells/c7_core.py`: `universe(s)` chép đúng bộ lọc/chọn mã của `run_backtest`; `targets7` (cache `results_v7/cache/tgt_*.pkl`: tỷ trọng chỉ mua, bán khống, trần 20%, trần 10% từ CÙNG ma trận Σ); `simulate` (NAV có trôi, phí mua 0,15%/bán 0,25%, vùng không giao dịch, trần turnover); `perf7`, `fko_fee`, `lw7`, `nw_mean_test`. Chạy: `scripts/v7ns.py` (nạp 19 ô định nghĩa của v6, ~10 s) + `scripts/targets7_job.py` (chạy nền theo phương pháp).

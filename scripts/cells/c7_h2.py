@@ -75,3 +75,22 @@ md(f"**Kết quả.** Ở vùng 0, ΔVol EW-RIE\\* − VS-NL-LW theo REB 21/63/1
    f"**Kết luận (theo ngưỡng đăng ký trước).** Giả thuyết \"REB càng dài EW-RIE\\* càng có lợi so với VS-NL-LW\": **{H2V}** "
    f"(giảm đơn điệu: {'có' if mono else 'không'}; ΔVol(252) − ΔVol(21) = {dv(drop)} pp; theo pha cùng chiều: {'có' if mono_ph else 'không'}; "
    f"ô REB ≥ 126 có ý nghĩa: {'có' if strong else 'không'}).")
+
+# ---- Đào sâu (mô tả, KHÔNG đăng ký trước): pha của lịch, VS half-life dài hơn, và vai trò của chính EW-RIE* ----
+PHT = []
+for K in (63, 126, 252):
+    for p in range(K // 21):
+        rE, rV = PH2[("EW-RIE*", K, p)], PH2[("VS-NL-LW", K, p)]; d_, _, pb = lw7(rE, rV)
+        PHT.append({"REB": K, "pha": p, "ΔVol (pp)": d_, "p LW-boot": pb, "CAGR E %": perf7(rE)["CAGR %"], "CAGR V %": perf7(rV)["CAGR %"]})
+PHT = pd.DataFrame(PHT); save7(PHT, "H2_pha")
+g = PHT.groupby("REB"); sig = g.apply(lambda d: f"{int(((d['ΔVol (pp)'] < 0) & (d['p LW-boot'] < .05)).sum())}/{len(d)}")
+cg = g[["CAGR E %", "CAGR V %"]].agg(["mean", "min", "max"])
+H40 = {K: lw7(SIM2[("EW-RIE*", K, 0.0)][0], SIM2[("VS-NL-LW (HL 40)", K, 0.0)][0]) for K in (126, 252)}
+md(f"**Đào sâu (mô tả, không đăng ký trước).** (1) *Pha của lịch*: số pha có ΔVol < 0 với p < 0,05 (chưa Holm) ở REB 63/126/252: {' / '.join(sig.values)}. "
+   f"CAGR trung bình theo pha của EW-RIE\\*: {f2(P2[('EW-RIE*', 21, 0.0)]['CAGR %'])} (REB 21) / " + " / ".join(f2(cg.loc[K, ('CAGR E %', 'mean')]) for K in (63, 126, 252))
+   + f" %/năm; ở REB 252 dao động [{f2(cg.loc[252, ('CAGR E %', 'min')])}; {f2(cg.loc[252, ('CAGR E %', 'max')])}] ⇒ pha 0 ({f2(P2[('EW-RIE*', 252, 0.0)]['CAGR %'])}%) là pha may; "
+   f"chiều \"REB dài ⇒ CAGR cao hơn\" vẫn đúng ở trung bình theo pha nhưng độ lớn phụ thuộc mạnh vào ngày tái cân bằng. "
+   f"(2) *VS với half-life dài hơn*: so với VS-NL-LW HL_VOL 40, ΔVol của EW-RIE\\* ở REB 126/252 chỉ còn {dv(H40[126][0])} (p {pv(H40[126][2])}) / {dv(H40[252][0])} (p {pv(H40[252][2])}) pp "
+   f"— một phần lợi thế đến từ việc HL_VOL = 20 quá ngắn cho kỳ nắm giữ dài. (3) *Không riêng EW-RIE\\**: ở REB 252, NL-LW (cửa sổ phẳng) Vol {f2(P2[('NL-LW', 252, 0.0)]['Vol %'])}%, "
+   f"EW-NL-LW {f2(P2[('EW-NL-LW', 252, 0.0)]['Vol %'])}%, EW-WeSpeR {f2(P2[('EW-WeSpeR', 252, 0.0)]['Vol %'])}% ≈ EW-RIE\\* {f2(P2[('EW-RIE*', 252, 0.0)]['Vol %'])}% "
+   f"⇒ điều quan sát được là **VS (chuẩn hóa theo biến động ngắn hạn) yếu đi khi nắm giữ dài**, không phải EW-RIE\\* mạnh lên.")
