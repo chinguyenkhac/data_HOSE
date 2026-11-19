@@ -3,7 +3,12 @@
 > Phần v4–v6 ở dưới giữ nguyên. Không merge vào main.
 
 ## BƯỚC TIẾP THEO
-- Dựng notebook v7: `scripts/build_v7.py` (v6 đã chạy + §7 chèn trước "Ghi chú"), chạy riêng các ô §7 bằng `scripts/exec_v7.py` (nạp ô định nghĩa v6 trong cùng kernel), `scripts/check_v7.py`, xuất HTML, viết `KET_QUA_v7.md`, PR nháp, gửi file.
+- **v7 XONG.** Chỉ còn: chờ người dùng duyệt/merge PR nháp `v7`. Nếu phải chạy lại: `python scripts/build_v7.py && python scripts/check_v7.py` rồi xuất HTML (`jupyter nbconvert --to html [--no-input]`).
+
+## Dựng notebook + báo cáo — xong (19/11 ~20:10 UTC)
+- `scripts/build_v7.py`: v6 đã chạy + 15 ô §7 (thẻ `v7`) chèn trước "## Ghi chú", mục lục thêm 1 dòng; chạy riêng các ô §7 trong kernel đã nạp 19 ô định nghĩa v6 (OMP=1). `scripts/check_v7.py`: 118/118 ô v6 trùng hệt; §7 không lỗi; Bảng 35–42, Hình 18–28; 29 ảnh trong mỗi HTML; hồi quy v6 ✔.
+- Sửa trình bày sau khi xem HTML: chỉ số "Vùng %" nguyên, trục REB dạng hạng mục, chữ trắng trên ô đậm của heatmap, bỏ 1/N khỏi khung Vol (ghi trong chú thích), Bảng 42 chỉ 4 phương pháp (đủ trong CSV), p-value dạng "< 0,001".
+- `KET_QUA_v7.md`: kết quả 4 hướng, tự phản biện, "điều gì chưa chứng minh được", quyết định tự chọn, đề xuất.
 
 ## Hướng 4 + tổng kết — xong (19/11 ~19:45 UTC)
 - Bảng 41, 42; Hình 27, 28 (`c7_h4.py`); tổng kết + phân tích chéo (`c7_sum.py`).
