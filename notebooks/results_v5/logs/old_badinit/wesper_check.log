@@ -1,0 +1,6 @@
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+{'tag': 'mô phỏng h=15', 'W1_tau': np.float64(0.7047336899221898), 'xi_med': np.float64(0.4590370058959979), 'xi_max': np.float64(0.7064404219234899), 'sec_nhom': 44.96497583389282, 'sec_oriol': 164.05183291435242, 'risk_nhom': np.float64(1.3823842564569553), 'risk_oriol': np.float64(1.526214005125312), 'risk_diff': np.float64(0.10404469524051985), 'h': 15, 'rep': 0, 'src': 'sim'}

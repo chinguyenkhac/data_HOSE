@@ -1,0 +1,12 @@
+,short_ok,long_only
+Sample,14.58,13.52
+Ledoit-Wolf,13.63,13.64
+NL-LW,13.1,13.72
+MP-clip,13.48,13.67
+RIE,13.3,14.02
+VS-NL-LW,12.49,12.93
+VS-RIE,12.63,13.3
+EW-NL-LW,12.72,13.12
+EW-RIE (q_eff),14.3,14.76
+EW-WeSpeR,12.57,13.05
+EW-RIE*,12.56,13.07

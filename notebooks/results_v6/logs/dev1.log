@@ -1,0 +1,318 @@
+
+===== cell 3 =====
+Colab: False | numpy 2.5.3 | pandas 3.0.5
+[3s]
+
+===== cell 4 =====
+[0s]
+
+===== cell 5 =====
+[0s]
+
+===== cell 8 =====
+[0s]
+
+===== cell 9 =====
+[0s]
+
+===== cell 10 =====
+[0s]
+
+===== cell 11 =====
+[0s]
+
+===== cell 13 =====
+[0s]
+
+===== cell 14 =====
+[0s]
+
+===== cell 17 =====
+[Test 1] trọng số đều: sai lệch tương đối max = 2.9e-15
+[0s]
+
+===== cell 19 =====
+[Test 2] rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), mô hình nhân tố:
+hl                 30     60
+method                      
+EW-NL-LW        1.636  1.269
+EW-RIE (q_eff)  1.782  1.629
+EW-RIE*         1.290  1.210
+EW-Sample       2.929  2.048
+Oracle          1.278  1.201
+[5s]
+
+===== cell 21 =====
+**Bảng 1.** Test 2b: rủi ro GMV / rủi ro tối ưu (1 = hoàn hảo), trung bình 20 lần lặp, mô hình nhân tố N = 100, T = 250; cột = half-life h (T\_eff = 43, 86, 155).
+hl                  15     30     60
+method                              
+EW-NL-LW         1.447  1.657  1.225
+EW-NL-LW (v2)   11.681  1.913  1.225
+EW-RIE (q_eff)   1.690  1.756  1.636
+EW-RIE*          1.825  1.270  1.181
+EW-Sample        5.365  2.986  1.932
+EW-WeSpeR        1.390  1.266  1.180
+Oracle           1.374  1.252  1.175
+**Kết quả.** h = 15 (N > T\_eff): EW-NL-LW bản thầy 11,681 → bản sửa **1,447** (oracle 1,374); EW-WeSpeR 1,390; EW-RIE\* 1,825. h = 60 (N < T\_eff): hai bản EW-NL-LW trùng nhau (1,225); EW-RIE\* 1,181, EW-WeSpeR 1,180.
+
+**Kết luận.** Bản sửa EW-NL-LW đúng; EW-WeSpeR sát oracle ở mọi h; EW-RIE\* kém hơn EW-WeSpeR khi N > T\_eff (h = 15).
+[929s]
+
+===== cell 23 =====
+**Bảng 2.** Đối chiếu EW-WeSpeR của nhóm với mã gốc (nlcvbo/wesper). ξ lệch = sai lệch tương đối trung vị của trị riêng sau co (cùng chuẩn hóa vết), %; mẫu mã gốc trả NaN bị loại khỏi thống kê. Cột 100/200 epoch: 3 mẫu đầu, chạy tiếp từ τ của giai đoạn trước. Rủi ro GMV chia cho tối ưu của ma trận thật (chỉ có ở giả lập). Thời gian đo khi nhiều tiến trình chạy song song.
+               số mẫu  mã gốc không hội tụ (NaN)  ξ lệch, trung vị (50 epoch)  ξ lệch, 3 mẫu (50 epoch)  ξ lệch, 3 mẫu (100 epoch)  ξ lệch, 3 mẫu (200 epoch)  chênh rủi ro GMV (gốc/nhóm − 1), TB %  chênh rủi ro GMV, |lớn nhất| %  giây/lần, mã gốc (50 epoch)  giây/lần, bản nhóm
+h = 15           10.0                        1.0                       12.203                     8.462                        NaN                        NaN                                  0.034                           4.862                      793.191              19.714
+h = 30           17.0                        1.0                       11.469                    14.046                      4.085                        NaN                                  0.436                           7.800                      467.839               1.770
+h = 60           20.0                        1.0                        3.192                       NaN                        NaN                        NaN                                  0.036                           1.427                      231.881               0.903
+HOSE (h = 60)    12.0                        7.0                        4.365                       NaN                        NaN                        NaN                                    NaN                             NaN                      259.571               0.956
+**Kết quả.** Rủi ro GMV của hai bản gần như trùng: chênh trung bình h = 15: 0,03%, h = 30: 0,44%, h = 60: 0,04%. ξ lệch trung vị (50 epoch): h = 15: 12,2%, h = 30: 11,5%, h = 60: 3,2%; chạy tiếp 3 mẫu đến 200 epoch: h = 15: 8,5% → nan% → nan%, h = 30: 14,0% → 4,1% → nan%. Mã gốc không hội tụ (NaN) ở 7/12 cửa sổ HOSE và 3/47 mẫu giả lập.
+**Kết luận.** Hai bản khớp về rủi ro GMV; trị riêng sau co khớp ở h = 60 (< 5%) nhưng lệch ~10% ở h = 15–30, và độ lệch không giảm khi chạy thêm epoch (không phải do chưa hội tụ). Repo `nlcvbo/wesper` chưa xác minh được là repo chính thức của tác giả.
+[0s]
+
+===== cell 26 =====
+Dùng dữ liệu có sẵn: /home/user/data_HOSE/data_hose
+[0s]
+
+===== cell 27 =====
+493 mã, 2957 phiên: 2015-01-05 → 2026-11-10
+[0s]
+
+===== cell 28 =====
+493 mã có giá, 2957 phiên: 2015-01-05 → 2026-11-10 | thiếu giá: 19 mã | quan sát ngoài khoảng niêm yết (đã loại): 101
+[1s]
+
+===== cell 29 =====
+Tỷ lệ |r| > ngưỡng: 0.0005%
+Tỷ lệ phiên giá không đổi (r = 0): 15.3%
+[0s]
+
+===== cell 30 =====
+**Hình 1.** Số mã có dữ liệu theo năm (ô kiểm tra chất lượng của thầy).
+[0s]
+
+===== cell 32 =====
+**Bảng 3.** Chất lượng dữ liệu: khoảng thời gian, số mã, hủy niêm yết, quan sát bị loại, phiên đứng giá.
+[0s]
+
+===== cell 33 =====
+                                                                                             giá trị
+Khoảng thời gian                                                2015-01-05 → 2026-11-10 (2957 phiên)
+Số mã trong security_master / có giá / thiếu giá                                      512 / 493 / 19
+Lượt hủy niêm yết (có giá / thiếu giá)                                                 105 (86 / 19)
+Quan sát ngoài khoảng niêm yết (đã loại)                                               101 (mã: SAP)
+% ô có giá trong khoảng niêm yết                                                               94.1%
+% phiên đứng giá (r = 0)                                                                       15.3%
+Phiên |r| > 15% (đặt = 0) / khối lượng = 0 mà có giá / giá ≤ 0                             5 / 0 / 0
+[0s]
+
+===== cell 36 =====
+**Hình 2.** Tổng số cổ phiếu niêm yết trên HOSE cuối mỗi năm (2026: đến 11/2026).
+**Hình 3.** Số cổ phiếu hủy niêm yết (rời HOSE) theo năm và lý do.
+**Bảng 4.** Số mã hủy niêm yết theo năm và lý do (cột cuối: tổng số mã niêm yết cuối năm).
+reason  bắt buộc  chuyển sàn  chưa rõ  hợp nhất/sáp nhập  tự nguyện  Tổng hủy  Niêm yết cuối năm
+year                                                                                            
+2015           8           0        2                  1          6        17                308
+2016           5           0        0                  1          0         6                321
+2017           5           0        0                  2          0         7                345
+2018           5           0        0                  1          1         7                374
+2019           5           1        0                  1          1         8                379
+2020           6           0        0                  0          0         6                393
+2021           4           0        0                  1          0         5                405
+2022           9           0        0                  1          0        10                403
+2023          12           0        0                  1          0        13                395
+2024          12           0        0                  0          0        12                393
+2025           7           0        0                  0          0         7                400
+2026           7           0        0                  0          0         7                408
+[1s]
+
+===== cell 39 =====
+Traceback (most recent call last):
+  File "/home/user/data_HOSE/notebooks/../scripts/dev_exec.py", line 34, in <module>
+    exec(compile(src, fn, "exec"), ns); ns["display"] = display
+         ~~~~~~~^^^^^^^^^^^^^^^^^
+  File "<cell 39>", line 1
+    cap("Bảng", f"Số kỳ tái cân bằng đủ N = {CONFIG[\"N\"]} mã và số mã đủ điều kiện mỗi kỳ theo ngưỡng lọc đứng giá (cơ sở chọn `ZERO_MAX`).")
+                                                     ^
+SyntaxError: unexpected character after line continuation character
+!!! cell 39 lỗi
+[0s]
+
+===== cell 40 =====
+             số kỳ đủ N=100 mã (/129)  số mã đủ ĐK: trung vị  nhỏ nhất
+ZERO_MAX                                                              
+không lọc                         129                    278       166
+20% (chuẩn)                       118                    249        61
+10%                                69                    114         3
+[1s]
+
+===== cell 44 =====
+[0s]
+
+===== cell 46 =====
+run_backtest (có lọc) ≡ run_backtest của thầy khi ZERO_MAX = 1.0 ✔ | d = 0 trùng hệt ✔ | cấu hình chuẩn: ZERO_MAX = 20%
+[14s]
+
+===== cell 48 =====
+[0s]
+
+===== cell 49 =====
+[0s]
+
+===== cell 50 =====
+[1s]
+
+===== cell 51 =====
+[0s]
+
+===== cell 54 =====
+**Bảng 5–10.** Ô của thầy in ba bảng cho mỗi chế độ, bán khống trước, chỉ mua sau: (1) tổng hợp (Vol %/năm, lợi suất, Sharpe, Sharpe sau phí, turnover/kỳ, số mã hiệu dụng, tỷ trọng max, % bán khống); (2) Vol theo giai đoạn thị trường; (3) CI 95% bootstrap khối của Vol(a) − Vol(b) cho các cặp trong `PAIRS` (nhóm thêm EW-RIE\* vs VS-NL-LW và EW-RIE\* vs EW-WeSpeR). 11 bộ ước lượng (10 bộ của thầy + EW-WeSpeR); 118 kỳ, 2 475 phiên ngoài mẫu, 12/2016–11/2026.
+[0s]
+
+===== cell 55 =====
+
+===== short_ok | 486s =====
+                Vol %  LN/năm %  Sharpe  Sharpe sau phí  Turnover/kỳ  Số mã hiệu dụng  Tỷ trọng max %  Short %
+Sample          14.58      2.52    0.17           -0.20         1.81             4.60           24.22   122.25
+Ledoit-Wolf     13.63      2.55    0.19           -0.08         1.20             8.41           17.87    86.54
+NL-LW           13.10      1.76    0.13           -0.05         0.81            11.52           13.98    60.78
+MP-clip         13.48      1.92    0.14           -0.05         0.86             7.46           22.86    64.80
+RIE             13.30      4.69    0.35            0.23         0.55            12.88           17.25    30.58
+VS-NL-LW        12.49      3.15    0.25           -0.08         1.41             7.65           25.73    54.28
+VS-RIE          12.63      4.15    0.33            0.09         0.99            11.22           21.34    29.08
+EW-NL-LW        12.72      1.30    0.10           -0.13         1.00             8.04           22.77    58.70
+EW-RIE (q_eff)  14.30      4.75    0.33            0.23         0.51            20.25           14.14    12.53
+EW-WeSpeR       13.33      1.64    0.12           -0.13         1.14             8.55           22.11    58.74
+EW-RIE*         12.56      1.01    0.08           -0.14         0.94             8.53           22.16    54.96
+                2016-17 Ổn định  2018-19 Điều chỉnh  2020Q1 COVID  2020-21 Bùng nổ  2022 Sụt giảm  2023-24 Phục hồi  2025-26
+Sample                    11.11               11.85         16.85            15.15          18.09             12.39    17.27
+Ledoit-Wolf                9.54               11.24         20.32            13.77          17.15             11.50    15.73
+NL-LW                      9.38               10.87         20.48            12.81          16.95             10.66    15.20
+MP-clip                    9.31               11.02         16.80            13.16          17.57             10.88    16.68
+RIE                        9.04               10.60         17.79            13.15          17.89             11.13    15.69
+VS-NL-LW                   8.33               10.11         14.67            10.65          17.49              9.91    16.09
+VS-RIE                     8.15               10.21         15.21            10.90          18.17             10.41    15.64
+EW-NL-LW                   8.78               10.42         16.65            11.60          17.25              9.97    16.03
+EW-RIE (q_eff)             8.49               10.79         18.46            13.55          20.68             12.25    17.12
+EW-WeSpeR                  8.50               14.17         16.41            11.53          17.13             10.02    15.81
+EW-RIE*                    8.59               10.14         16.45            11.48          17.12              9.90    15.81
+                           CI 2.5%  CI 97.5%  Có ý nghĩa
+EW-RIE* vs EW-RIE (q_eff)   -2.305    -1.121        True
+EW-RIE* vs EW-NL-LW         -0.237    -0.094        True
+EW-RIE* vs NL-LW            -0.990    -0.058        True
+EW-RIE* vs RIE              -1.196    -0.208        True
+NL-LW vs Ledoit-Wolf        -0.741    -0.319        True
+VS-NL-LW vs NL-LW           -1.277     0.061       False
+EW-RIE* vs VS-NL-LW         -0.309     0.530       False
+EW-RIE* vs EW-WeSpeR        -2.189     0.029       False
+
+===== long_only | 148s =====
+                Vol %  LN/năm %  Sharpe  Sharpe sau phí  Turnover/kỳ  Số mã hiệu dụng  Tỷ trọng max %  Short %
+Sample          13.52      1.65    0.12            0.03         0.41             9.24           25.08      0.0
+Ledoit-Wolf     13.64      2.36    0.17            0.09         0.38            12.63           20.06      0.0
+NL-LW           13.72      2.08    0.15            0.08         0.34            14.40           16.80      0.0
+MP-clip         13.67      3.36    0.25            0.16         0.41             9.09           25.93      0.0
+RIE             14.02      4.44    0.32            0.24         0.35            15.32           17.52      0.0
+VS-NL-LW        12.93      4.24    0.33            0.16         0.74             8.06           30.73      0.0
+VS-RIE          13.30      4.73    0.36            0.20         0.68            12.83           21.99      0.0
+EW-NL-LW        13.12      1.20    0.09           -0.02         0.49             9.17           26.22      0.0
+EW-RIE (q_eff)  14.76      4.99    0.34            0.26         0.41            22.24           14.07      0.0
+EW-WeSpeR       13.04      1.35    0.10           -0.01         0.48             9.36           25.75      0.0
+EW-RIE*         13.07      1.31    0.10           -0.01         0.48             9.46           25.65      0.0
+                2016-17 Ổn định  2018-19 Điều chỉnh  2020Q1 COVID  2020-21 Bùng nổ  2022 Sụt giảm  2023-24 Phục hồi  2025-26
+Sample                     9.61               12.06         17.02            13.21          17.58             11.41    15.53
+Ledoit-Wolf                9.49               12.09         20.58            13.13          17.67             11.36    15.43
+NL-LW                      9.52               12.10         20.67            13.08          18.11             11.42    15.50
+MP-clip                    9.58               11.87         16.69            13.26          18.16             11.45    15.99
+RIE                        9.29               11.62         18.04            13.71          19.31             11.90    16.15
+VS-NL-LW                   8.66               11.27         14.13            10.76          18.78             10.71    15.77
+VS-RIE                     8.48               11.16         15.12            11.26          19.67             11.26    15.96
+EW-NL-LW                   8.84               11.45         16.14            11.79          17.77             11.08    15.77
+EW-RIE (q_eff)             8.67               11.41         18.67            13.95          21.54             12.84    17.34
+EW-WeSpeR                  8.77               11.29         16.03            11.67          17.77             11.09    15.65
+EW-RIE*                    8.81               11.33         16.11            11.73          17.75             11.02    15.71
+                           CI 2.5%  CI 97.5%  Có ý nghĩa
+EW-RIE* vs EW-RIE (q_eff)   -2.162    -1.220        True
+EW-RIE* vs EW-NL-LW         -0.091    -0.025        True
+EW-RIE* vs NL-LW            -1.030    -0.281        True
+EW-RIE* vs RIE              -1.311    -0.564        True
+NL-LW vs Ledoit-Wolf        -0.048     0.219       False
+VS-NL-LW vs NL-LW           -1.481    -0.119        True
+EW-RIE* vs VS-NL-LW         -0.317     0.632       False
+EW-RIE* vs EW-WeSpeR        -0.011     0.061       False
+Newton thất bại: {'fail': 0, 'total': 60682}
+[635s]
+
+===== cell 57 =====
+[0s]
+
+===== cell 58 =====
+**Hình 4.** Rủi ro ngoài mẫu (Vol %/năm) từng phương pháp, cấu hình chuẩn (hình của thầy; trục không bắt đầu từ 0).
+[0s]
+
+===== cell 60 =====
+Đã lưu vào ./rmt_work
+[0s]
+
+===== cell 61 =====
+[0s]
+**Bảng 11.** Thời gian một lần ước lượng (ms, trung vị trên 12 cửa sổ HOSE thật; DCC: 3 cửa sổ), 12 phương pháp và DCC-GARCH. Máy: Intel(R) Xeon(R) Processor @ 2.10GHz, 4 lõi; BLAS: [('openblas', 1), ('openmp', 1)].
+                  N = 50   N = 100   N = 150  × NL-LW (N = 100)
+method                                                         
+Sample             0.096     0.197     0.224              0.144
+Ledoit-Wolf        0.995     2.785    10.744              2.035
+NL-LW              0.463     1.369     2.719              1.000
+MP-clip            0.399     1.261     2.567              0.921
+RIE                0.458     1.346     2.702              0.983
+VS-NL-LW           1.569     2.655     8.316              1.940
+VS-RIE             1.482     2.577     8.214              1.883
+EW-NL-LW           0.568     1.520     4.986              1.111
+EW-RIE (q_eff)     0.459     1.436     2.699              1.049
+EW-WeSpeR       1191.314  2437.950  4342.656           1781.459
+EW-RIE*          170.269   350.721   293.025            256.279
+VS-EW-RIE*       154.461   354.789   257.398            259.251
+DCC-GARCH(1,1)  2595.896  2420.776  3370.354           1768.910
+**Kết quả.** Ở N = 100: NL-LW 1,4 ms, EW-NL-LW 1,5 ms, RIE 1,3 ms, **EW-RIE\* 351 ms**, **EW-WeSpeR 2438 ms** (7,0 × EW-RIE\*), VS-EW-RIE\* 355 ms, DCC-GARCH 2,4 s.
+
+**Kết luận.** EW-RIE\* chậm hơn các bộ co cổ điển cỡ 256 lần nhưng nhanh hơn EW-WeSpeR cỡ 7 lần; cả hai đều không đáng kể so với một kỳ tái cân bằng.
+**Bảng 12.** Thời gian một lần ước lượng (ms, trung vị trên 12 cửa sổ HOSE thật; DCC: 3 cửa sổ), 12 phương pháp và DCC-GARCH. Máy: Intel(R) Xeon(R) Processor @ 2.10GHz, 4 lõi; BLAS: [('openblas', 1), ('openmp', 1)].
+                  N = 50   N = 100   N = 150   N = 200  × NL-LW (N = 100)
+method                                                                   
+Sample             0.081     0.184     0.372     0.347              0.139
+Ledoit-Wolf        1.133     2.580     8.795    12.600              1.952
+NL-LW              0.758     1.322     3.425     4.449              1.000
+MP-clip            0.444     1.146     3.074     4.317              0.867
+RIE                0.759     1.257     2.951     5.014              0.951
+VS-NL-LW           2.095     2.431     4.123     6.114              1.840
+VS-RIE             2.059     2.323     3.921     7.749              1.758
+EW-NL-LW           0.846     1.447     2.949     6.155              1.095
+EW-RIE (q_eff)     0.714     1.263     2.734     5.964              0.956
+EW-WeSpeR            NaN       NaN       NaN       NaN                NaN
+EW-RIE*           83.347   157.712   343.227   422.524            119.323
+VS-EW-RIE*       108.068   147.545   256.762   305.787            111.631
+DCC-GARCH(1,1)  1136.239  2076.215  3017.284  4308.770           1570.840
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/indexes/base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'EW-WeSpeR'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/user/data_HOSE/notebooks/../scripts/dev_exec.py", line 31, in <module>
+    exec(compile(head + "\nhl = CONFIG['HL_EW']\n" + post, fn, "exec"), ns); print(f"[cell {i}] timing nạp từ CSV"); continue
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cell 63>", line 60, in <module>
+  File "<cell 63>", line 58, in <lambda>
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/indexing.py", line 1199, in __getitem__
+    return self.obj._get_value(*key, takeable=self._takeable)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/frame.py", line 4495, in _get_value
+    row = self.index.get_loc(index)
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/indexes/base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'EW-WeSpeR'

@@ -1,0 +1,38 @@
+{
+ "teacher_code_cells": "15/18 nguyên vẹn (3 ngoại lệ cho phép: CONFIG, RUN_SENS, PAIRS)",
+ "teacher_code_cells_diff": [
+  "# ======================= CONFIG =======================",
+  "ESTIMATORS = build_estimators(CONFIG)",
+  "RUN_SENS = False   # đặt True để chạy (~10–20 phút)"
+ ],
+ "intro_cell0_only_result_differs": true,
+ "intro_cell1_verbatim": true,
+ "selfcheck_lines": [
+  "✔ §1b Test 1 chạy lại (thư viện không đổi trạng thái)",
+  "✔ run_full trùng §4 (10 bộ không phải WeSpeR)",
+  "✔ Mọi bảng so sánh dùng đúng cùng ngày (assert trong run/run_full/compare_to)",
+  "✔ compare_to EW-RIE* vs NL-LW trùng số cũ T3c (−0,54 / −0,65 pp)",
+  "✔ EW-RIE* − VS-NL-LW ≈ +0,13 (chỉ mua) / +0,07 (bán khống) pp",
+  "✔ T2d: d = 0 trùng hệt bản chuẩn (assert ở §3.2 và T2d)",
+  "✔ EW-WeSpeR không còn 0,001 s (§4.3)",
+  "✔ 1/N có turnover thấp nhất",
+  "✔ COST tăng ⇒ Sharpe sau phí không tăng",
+  "✔ Hồi quy Bước 0: Vol chuẩn khớp v4 (EW-RIE* 12,56/13,07; VS-NL-LW 12,49/12,93; NL-LW 13,10/13,72; EW-NL-LW 12,72/13,12; EW-WeSpeR 12,57/13,05)",
+  "✔ pairwise_top (EW-RIE* vs VS-NL-LW) cho cùng ΔVol với compare_to",
+  "✔ Cửa sổ T = 250 trùng cấu hình chuẩn (cùng ΔVol vs VS-NL-LW)",
+  "✔ Cửa sổ T: mọi bảng cùng ngày trong từng T",
+  "✔ Không NaN/inf trong CSV số (trừ cột p Holm ngoài họ lõi)"
+ ],
+ "selfcheck_fail": [],
+ "selfcheck_counts": [
+  "Newton thất bại (EW-RIE*, §4): 0/263458 | EW-WeSpeR dự phòng sang EW-RIE*: 0/118 (§4) | Newton thất bại, lưới N × h: 0"
+ ],
+ "cell_errors": [],
+ "has_test1_ok": true,
+ "images_html": 27,
+ "images_nb": 26,
+ "savefig_calls": 22,
+ "teacher_fig_cells": 2,
+ "images_ok": true,
+ "figure_text_without_image": 0
+}

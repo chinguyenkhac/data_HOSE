@@ -1,0 +1,1 @@
+*Ghi chú v5 (ngoài ô của thầy):* bảng trên chỉ có CI bootstrap khối của ΔVol. Kiểm định đầy đủ cho EW-RIE\* vs đối chứng (kiểm định phương sai Ledoit–Wolf 2011, Holm, Jobson–Korkie–Memmel, ΔTurnover) nằm ở **§4.4** (mọi cặp trong nhóm dẫn đầu) và **T3c** (§6, EW-RIE\* vs mọi đối chứng).

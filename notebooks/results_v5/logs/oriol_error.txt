@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/user/data_HOSE/notebooks/../scripts/wesper_check.py", line 62, in <module>
+    r = compare(C, w, Ct, tag=f"mô phỏng h={hl}"); r.update(h=hl, rep=rep, src="sim"); rows.append(r)
+        ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/data_HOSE/notebooks/../scripts/wesper_check.py", line 42, in compare
+    xi_o, tau_o, U, sec_o = oriol(C, w)
+                            ~~~~~^^^^^^
+  File "/home/user/data_HOSE/notebooks/../scripts/wesper_check.py", line 33, in oriol
+    est = WeSpeR_MD(bias=True, assume_centered=True).fit_from_F(lam, U, W, c=c, d=d, wd=wd, weights="Ndiracs",
+                                                              w_args=[1, 30], n_epochs=n_epochs, lr=lr, mu=mu, omega=min(400, N), method="root", verbose=False)
+  File "/home/user/nlcvbo/wesper/code/WeSpeR_MD.py", line 81, in fit_from_F
+    model, tau_fit, loss, all_tau = WeSpeR_MD_minimization(torch.tensor(lambda_), tau_init, wt = wt, d = d, wd = wd, c = self.c, mu = mu, weights = weights, w_args = w_args, omega = omega, lr = lr, n_epochs = n_epochs, loss_type = loss_type, method = method, verbose = verbose)
+                                    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/nlcvbo/wesper/code/WeSpeR_MD_utils.py", line 631, in WeSpeR_MD_minimization
+    loss_fn = loss_LW(regu1=0.1, regu2=1.)
+  File "/home/user/data_HOSE/notebooks/../scripts/wesper_check.py", line 17, in <lambda>
+    def _fl(f): return lambda *a, **k: float(f(*a, **k))      # scipy mới: hàm mục tiêu phải trả float, không phải tensor torch
+                                       ~~~~~^^^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'function'

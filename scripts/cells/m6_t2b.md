@@ -1,0 +1,1 @@
+**T2b. Lọc mã đứng giá** — không lọc, 5%, 10%, 15%, 20% (chuẩn), 30%: loại khỏi universe mã có tỷ lệ phiên r = 0 trong cửa sổ quá khứ vượt ngưỡng. Bảng A và heatmap tính trên **ngày chung** của các mức có ít nhất 60 kỳ; mức nào ít hơn 60 kỳ báo riêng dưới bảng.

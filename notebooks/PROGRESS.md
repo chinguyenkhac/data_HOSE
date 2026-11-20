@@ -1,0 +1,1 @@
+- 21:25 UTC: nbconvert xong không lỗi; tạo EW_RIE_HOSE_v4.ipynb/.html, BAO_CAO_V4.md (bản đầy đủ). Còn: Bước 3 (chờ người duyệt chạy wesper_check.py), push chờ duyệt.
