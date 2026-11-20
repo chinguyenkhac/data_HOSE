@@ -64,9 +64,9 @@ md("*Nhận xét.* " + grid_note(GT8, LONG, "vùng dài T ≥ 500, REB ≥ 63") 
 rows = []
 for W in (120, 250, 500, 750):
     for reb in (5, 21, 63, 252):
-        rows.append({"T": W, "REB": reb, **{f"{nm} ({MODES8[m]})": returns8(nm, C(W=W), reb)[m][0].std() * np.sqrt(252) * 100
+        rows.append({"T": W, "REB": reb, **{f"{nm} ({MODES8[m]})": returns8(nm, C(W=W, full=True), reb)[m][0].std() * np.sqrt(252) * 100
                                             for m in ("lo", "so") for nm in ("EW-RIE*", "VS-EW-RIE*", "VS-NL-LW")},
-                     "Bắt đầu": returns8("EW-RIE*", C(W=W), reb)["lo"][0].index[0].strftime("%m/%Y")})
+                     "Bắt đầu": returns8("EW-RIE*", C(W=W, full=True), reb)["lo"][0].index[0].strftime("%m/%Y")})
 TB8T = pd.DataFrame(rows).set_index(["T", "REB"]); save8(TB8T, "vol_T_REB")
 cap("Bảng", "Lưới dài hạn T × REB: Vol (%/năm) của ba bộ chính, chỉ mua và bán khống; cột cuối: tháng bắt đầu mẫu ngoài mẫu.")
 show(TB8T)

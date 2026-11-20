@@ -63,7 +63,8 @@ def sweep_block(sw, title):
        + "; chỉ mua: " + ", ".join(f"{lab}: {b}" for lab, b in best['lo'].items())
        + f". Trong ba bộ chính, hạng trung bình (1 = thấp nhất) — bán khống: " + ", ".join(f"{k} {f2(v, 1)}" for k, v in rk['so'].items())
        + "; chỉ mua: " + ", ".join(f"{k} {f2(v, 1)}" for k, v in rk['lo'].items()) + f". Khoảng cách giữa ba bộ chính trung bình {f2(np.mean([(V[m].loc[E3].max() - V[m].loc[E3].min()).mean() for m in V]))} pp, "
-       f"so với biên độ Vol của EW-RIE\\* theo siêu tham số này {f2(np.mean([V[m].loc['EW-RIE*'].max() - V[m].loc['EW-RIE*'].min() for m in V]))} pp.")
+       (f"so với biên độ Vol của EW-RIE\\* theo siêu tham số này {f2(rgE)} pp." if (rgE := np.mean([V[m].loc['EW-RIE*'].max() - V[m].loc['EW-RIE*'].min() for m in V])) > 1e-9
+          else "(EW-RIE\\* không phụ thuộc tham số này nên chỉ các bộ VS thay đổi)."))
     fig = heat8(sw); savefig8(fig, f"heat_{sw}")
     cap("Hình", f"{title}: ΔVol = Vol(bộ trước) − Vol(bộ sau) (pp/năm) của 11 cặp (A1 … E1); xanh: bộ trước rủi ro thấp hơn; * = p Holm < 0,05 (LW 2011 bootstrap khối, Holm trên 11 cặp trong cột).")
     d = T8[(T8.tier == "T1") & (T8.sweep == sw)]

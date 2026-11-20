@@ -8,10 +8,10 @@ H = os.path.dirname(os.path.abspath(__file__)); NB = os.path.abspath(os.path.joi
 sys.path.insert(0, H); from v7ns import BOOT
 
 SW = [("HL_VOL", "Quét HL_VOL (half-life chuẩn hóa biến động của bộ VS)"), ("h", "Quét h (half-life trọng số mũ của bộ EW)"),
-      ("T", "Quét cửa sổ T"), ("REB", "Quét chu kỳ tái cân bằng REB"), ("N", "Quét số mã N"), ("Lọc", "Quét ngưỡng lọc mã đứng giá")]
+      ("T", "Quét cửa sổ T (bộ VS dùng bản \"đủ T\" của §5.4 vì bản gốc mất HL_VOL phiên khi T nhỏ)"), ("REB", "Quét chu kỳ tái cân bằng REB"), ("N", "Quét số mã N"), ("Lọc", "Quét ngưỡng lọc mã đứng giá")]
 LAYOUT8 = [("m", "m8_intro.md"), ("m", "### 8.0 Lõi và kiểm hồi quy"), ("c", "c8_core.py"), ("c", "c8_tables.py"), ("c", "c8_check.py"),
            ("m", "### 8.1 Quét từng siêu tham số\nMỗi lần quét đổi MỘT tham số, giữ các tham số khác ở cấu hình chuẩn. Bảng: Vol của 8 bộ; hình: ΔVol 11 cặp; nhận xét ngay dưới.")]
-for sw, t in SW: LAYOUT8 += [("m", f"#### {t}"), ("c", f'sweep_block("{sw}", "{t}")')]
+for sw, t in SW: LAYOUT8 += [("m", f"#### {t}"), ("c", f"sweep_block({sw!r}, {t!r})")]
 LAYOUT8 += [("m", "### 8.2 \"Gấp và nhanh\": h × HL_VOL ở REB 5 và 21 — và 8.3 Dài hạn: T × REB"), ("c", "c8_grids.py"),
             ("m", "### 8.4 Kiểm định chung và kết luận"), ("c", "c8_sum.py")]
 TOC_ROW = ("| **8. Lưới siêu tham số** (v8) | 8.1 Quét từng tham số (HL_VOL, h, T, REB, N, lọc) với 11 cặp A1–E1 · 8.2 \"Gấp và nhanh\" h × HL_VOL ở REB 5, 21 · "

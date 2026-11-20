@@ -2,7 +2,10 @@
 > Lần chạy sau: đọc mục này trước, làm tiếp từ **BƯỚC TIẾP THEO**. Cache trọng số ở `notebooks/results_v8/cache` (không đưa lên git vì lớn).
 
 ## BƯỚC TIẾP THEO
-- Viết lõi §8 (`scripts/cells/c8_core.py`), kiểm hồi quy với cache v6, chạy nền `scripts/run8.py`.
+- Chờ `scripts/run8.py` (lần 2, log `results_v8/logs/run8b.log`), chạy thử các ô §8, `python scripts/build_v8.py`, check, HTML, báo cáo, PR, gửi file.
+
+## Lần chạy 1 — xong (20/11 ~03:25 UTC, 26 phút, 206 bộ tỷ trọng, 1 154 kiểm định); hồi quy v6 ✔ (8 bộ × 2 chế độ)
+- **Sửa lỗi đã biết (quyết định, không phải chỉnh theo kết quả):** ở T = 120, bộ VS bản gốc (`make_vs`) bỏ HL_VOL phiên đầu ⇒ VS-EW-RIE\* bán khống Vol vọt (D1 +60,5 pp, C3 +65,3 pp) và VS-NL-LW kém (E1 −4,8 pp) — đúng lỗi v5/v6 đã ghi ở §5.4. Các ô có thay đổi T (quét T, lưới T × REB) dùng bản VS "đủ T" của §5.4 (cache key `full`); các quét khác giữ bản gốc ở T = 250 (chênh −0,02 pp). Đánh giá H8a theo bản đã sửa, ghi rõ trong notebook.
 
 ## Đăng ký trước (ghi TRƯỚC khi chạy)
 - Bộ: EW-RIE\*, VS-EW-RIE\*, VS-NL-LW (bắt buộc ở mọi ô) + NL-LW, EW-NL-LW, EW-RIE (q_eff), RIE, VS-RIE. Cặp: A1 EW-RIE\*−EW-NL-LW, A2 EW-RIE\*−EW-RIE(q_eff), B1 EW-NL-LW−NL-LW, B2 EW-RIE\*−RIE, C1 VS-NL-LW−NL-LW, C2 VS-RIE−RIE, C3 VS-EW-RIE\*−EW-RIE\*, D1 VS-EW-RIE\*−VS-NL-LW, D2 VS-EW-RIE\*−VS-RIE, D3 VS-RIE−VS-NL-LW, E1 EW-RIE\*−VS-NL-LW (A3 = EW-WeSpeR chỉ ở cấu hình chuẩn). Hai chế độ.

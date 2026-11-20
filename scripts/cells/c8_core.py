@@ -16,8 +16,11 @@ PLAB8 = {k: f"{k} {a} − {b}" for k, a, b in PAIRS8}
 MODES8 = {"lo": "Chỉ mua", "so": "Bán khống"}
 
 def canon8(nm, c):
-    return dict(c, h=c["h"] if nm in USES_H8 else 60, hv=c["hv"] if nm in USES_HV8 else 20)
+    c = dict(c, h=c["h"] if nm in USES_H8 else 60, hv=c["hv"] if nm in USES_HV8 else 20)
+    if not c.get("full") or nm not in USES_HV8: c.pop("full", None)          # "đủ T" chỉ áp cho bộ VS
+    return c
 def est8(nm, c):
+    if c.get("full"): return build_full(dict(CONFIG, HL_EW=c["h"], HL_VOL=c["hv"]))[f"{nm} (đủ T)"]   # bản "đủ T" của §5.4 (v6)
     if nm == "VS-EW-RIE*": return make_vs_ew_rie(c["hv"], c["h"])
     return build_estimators(dict(CONFIG, HL_EW=c["h"], HL_VOL=c["hv"]))[nm]
 def _key8(*a): return hashlib.md5(repr(a).encode()).hexdigest()[:12]
@@ -45,7 +48,11 @@ def weights8(nm, c, step):
     if os.path.exists(f): return pd.read_pickle(f)
     est = est8(nm, c); D = {}
     for s, ix in sched8(c, step):
-        X = np.nan_to_num(R_BT.values[s - c["W"]:s][:, ix]); S = est(X)
+        X = np.nan_to_num(R_BT.values[s - c["W"]:s][:, ix]); pre = getattr(est, "pre", 0)
+        if pre:   # như _xpre của v6: thêm `pre` phiên ngay trước cửa sổ (giữ NaN); thiếu đầu dữ liệu thì đệm NaN
+            a = s - c["W"] - pre; E = R_BT.values[max(0, a):s - c["W"]][:, ix]
+            X = np.vstack([np.full((max(0, -a), len(ix)), np.nan), E, X])
+        S = est(X)
         D[s] = (ix, np.vstack([gmv_long_only(S), gmv_unconstrained(S)]))
     pd.to_pickle(D, f); return D
 
@@ -76,10 +83,10 @@ def test8(a, b, c, reb, m):
 def C(**kw): return dict(STD8, **kw)
 SWEEP8 = {"HL_VOL": [(f"HL_VOL = {v}", C(hv=v), 21) for v in (5, 10, 20, 30, 40, 60)],
           "h": [(f"h = {v}", C(h=v), 21) for v in (15, 30, 45, 60, 90, 120, 250)],
-          "T": [(f"T = {v}", C(W=v), 21) for v in (120, 180, 250, 375, 500, 750)],
+          "T": [(f"T = {v}", C(W=v, full=True), 21) for v in (120, 180, 250, 375, 500, 750)],     # bộ VS dùng bản "đủ T" (§5.4)
           "REB": [(f"REB = {v}", C(), v) for v in (5, 10, 21, 42, 63, 126, 252)],
           "N": [(f"N = {v}", C(N=v), 21) for v in (50, 75, 100, 150)],
           "Lọc": [(lab, C(z=z), 21) for lab, z in (("không lọc", 1.0), ("10%", .10), ("15%", .15), ("20% (chuẩn)", .20), ("30%", .30))]}
 GRID8_FAST = {reb: [((h, hv), C(h=h, hv=hv), reb) for h in (15, 30, 60, 120) for hv in (5, 10, 20, 30, 40, 60)] for reb in (5, 21)}
-GRID8_TR = [((W, reb), C(W=W), reb) for W in (120, 250, 500, 750) for reb in (5, 21, 63, 252)]
+GRID8_TR = [((W, reb), C(W=W, full=True), reb) for W in (120, 250, 500, 750) for reb in (5, 21, 63, 252)]
 FOCUS8 = ["E1", "D1", "C3"]
