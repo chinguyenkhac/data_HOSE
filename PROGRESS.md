@@ -1,3 +1,18 @@
+# v8 — Lưới siêu tham số (bắt đầu 20/11/2026, nhánh `v8` từ `v7`)
+> Lần chạy sau: đọc mục này trước, làm tiếp từ **BƯỚC TIẾP THEO**. Cache trọng số ở `notebooks/results_v8/cache` (không đưa lên git vì lớn).
+
+## BƯỚC TIẾP THEO
+- Viết lõi §8 (`scripts/cells/c8_core.py`), kiểm hồi quy với cache v6, chạy nền `scripts/run8.py`.
+
+## Đăng ký trước (ghi TRƯỚC khi chạy)
+- Bộ: EW-RIE\*, VS-EW-RIE\*, VS-NL-LW (bắt buộc ở mọi ô) + NL-LW, EW-NL-LW, EW-RIE (q_eff), RIE, VS-RIE. Cặp: A1 EW-RIE\*−EW-NL-LW, A2 EW-RIE\*−EW-RIE(q_eff), B1 EW-NL-LW−NL-LW, B2 EW-RIE\*−RIE, C1 VS-NL-LW−NL-LW, C2 VS-RIE−RIE, C3 VS-EW-RIE\*−EW-RIE\*, D1 VS-EW-RIE\*−VS-NL-LW, D2 VS-EW-RIE\*−VS-RIE, D3 VS-RIE−VS-NL-LW, E1 EW-RIE\*−VS-NL-LW (A3 = EW-WeSpeR chỉ ở cấu hình chuẩn). Hai chế độ.
+- Lợi suất theo quy ước kiểm định v6 (tỷ trọng cố định trong kỳ, chưa phí); REB 10 lấy mỗi 2 kỳ của lịch 5; REB 42/63/126/252 lấy mỗi k kỳ của lịch 21.
+- Tầng 1 (một tham số một lần, còn lại chuẩn N100 T250 h60 HL20 lọc 20% REB21): HL_VOL {5,10,20,30,40,60}; h {15,30,45,60,90,120,250}; T {120,180,250,375,500,750}; REB {5,10,21,42,63,126,252}; N {50,75,100,150}; lọc {không,10,15,20,30%}. 11 cặp, Holm trên 11 cặp trong mỗi cột (như v6).
+- Tầng 2 "gấp và nhanh": h {15,30,60,120} × HL_VOL {5,10,20,30,40,60} ở REB 5 và 21. Tầng 3: T {120,250,500,750} × REB {5,21,63,252}. Cặp E1, D1, C3; Holm trên các ô của mỗi lưới × cặp.
+- Kiểm định chung mỗi lần quét: TB ΔVol qua các cột và max|t| (bootstrap khối vòng b = 21, M = 2000, cùng chỉ số ngày trên phần ngày chung).
+- **H8a** (vùng ngon của EW-RIE\*): E1 âm hơn khi T dài và REB dài: Spearman(ΔVol E1, T) < 0 và Spearman(ΔVol E1, REB) < 0 ở chỉ mua. **H8b**: D1 ≈ 0 trên lưới h × HL_VOL (không ô nào p Holm < 0,05). **H8c** (gấp và nhanh): ở REB 5, h ≤ 30, HL_VOL ≤ 10, E1 > 0 (VS tốt hơn) ở đa số ô. Mô tả kèm, không chỉnh lưới sau khi thấy kết quả.
+
+---
 # v7 — Nhà đầu tư dài hạn (bắt đầu 19/11/2026 ~18:00 UTC, nhánh `v7`)
 > Lần chạy sau: đọc mục này trước, làm tiếp từ **BƯỚC TIẾP THEO**. Không chạy lại phần đã có cache (`notebooks/results_v7/cache`).
 > Phần v4–v6 ở dưới giữ nguyên. Không merge vào main.
