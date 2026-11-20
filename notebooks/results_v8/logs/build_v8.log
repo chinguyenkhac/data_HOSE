@@ -1,0 +1,13 @@
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+ô 133: 0s
+ô 134: 0s
+ô 135: 0s
+ô 138: 5s
+ô 140: 5s
+ô 142: 4s
+ô 144: 5s
+ô 146: 4s
+ô 148: 3s
+ô 150: 4s
+ô 152: 0s
+đã ghi notebooks/EW_RIE_HOSE_v8.ipynb

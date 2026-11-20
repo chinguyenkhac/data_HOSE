@@ -21,3 +21,13 @@ md(f"**Kết luận theo ngưỡng đăng ký trước.**\n\n"
    f"({int((d1['p Holm'] < .05).sum())}/{len(d1)} ô có ý nghĩa; ΔVol từ {dv(d1.dvol.min())} đến {dv(d1.dvol.max())} pp).\n"
    f"- **H8c** (gấp và nhanh — REB 5, h ≤ 30, HL_VOL ≤ 10 — VS-NL-LW tốt hơn EW-RIE\\*, E1 > 0 ở đa số ô): chỉ mua {f2(100 * H8C['lo'], 0)}% ô, bán khống {f2(100 * H8C['so'], 0)}% ô ⇒ "
    f"**{'đạt' if min(H8C.values()) > .5 else 'không đạt'}**.")
+
+# ---- khi nào EW-RIE* hơn / kém VS-NL-LW (E1, mọi tầng, p Holm < 0,05) ----
+e1 = T8[(T8.pair == "E1") & (T8["p Holm"] < .05)].copy()
+fmt = lambda r: f"{r.sweep}: {r.label}" if r.tier == "T1" else f"{r.sweep} {r.label}"
+win_, lose_ = e1[e1.dvol < 0], e1[e1.dvol > 0]
+md("**Khi nào EW-RIE\\* hơn hay kém VS-NL-LW (E1, p Holm < 0,05, mọi tầng).**\n\n"
+   f"- EW-RIE\\* rủi ro **thấp hơn** ({len(win_)} ô): " + ("; ".join(f"{fmt(r)} ({MODES8[r.mode].lower()}, {dv(r.dvol)})" for r in win_.itertuples()) or "không có") + ".\n"
+   f"- EW-RIE\\* rủi ro **cao hơn** ({len(lose_)} ô): " + ("; ".join(f"{fmt(r)} ({MODES8[r.mode].lower()}, {dv(r.dvol)})" for r in lose_.itertuples()) or "không có") + ".\n"
+   f"- Các ô còn lại ({int((T8.pair == 'E1').sum()) - len(e1)}/{int((T8.pair == 'E1').sum())}): không phân biệt được.\n\n"
+   "Đọc cùng tầng 2 (D1, C3): khi cả hai đã chuẩn hóa biến động, đổi NL-LW sang RIE\\* (D1) chỉ có ý nghĩa ở vài ô; còn thêm VS vào EW-RIE\\* (C3) giúp ở cấu hình phản ứng nhanh nhưng hại khi REB dài.")
